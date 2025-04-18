@@ -1,0 +1,101 @@
+{
+  "url": "https://www.surdiseno.cl",
+  "title": "Sur Diseño: Tienda de Muebles y Decoración de Interiores",
+  "meta_description": "Sur Diseño, tienda de muebles con diseño contemporáneo para tus espacios. Encuentra muebles y objetos únicos en nuestra tienda online. ¡Decora con estilo!",
+  "h1": "Página de inicio",
+  "h2": [
+    "Descubre Sur.Diseño",
+    "Home Office",
+    "Carrusel simple respaldo",
+    "Buffets y muebles de TV",
+    "Carrusel simple respaldo 2",
+    "Destacados Kare",
+    "Carrusel con imagen respaldo3",
+    "Tempur",
+    "sldier-tempur",
+    "Nuestras Tiendas.",
+    ""
+  ],
+  "images": [
+    {
+      "src": "https://www.surdiseno.cl/pub/media/whatsapp.svg",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/wysiwyg/mail.png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/wysiwyg/Número_de_telefono_2.png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/wysiwyg/icono-tienda.png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/wysiwyg/refresh.png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/wysiwyg/FB@2x(1).png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/wysiwyg/IG@2x(1).png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/wysiwyg/PINTEREST@2x.png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media/logo/stores/1/logo_sur.png",
+      "alt": "Sur.Diseño"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media//wishlist-icon.png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "https://www.surdiseno.cl/pub/media//account-icon.png",
+      "alt": "Sin texto alternativo"
+    },
+    {
+      "src": "/pub/media/catalog/category/estar.png",
+      "alt": "Living y Sala de Estar Sur.Diseño"
+    },
+    {
+      "src": "/pub/media/catalog/category/comer.png",
+      "alt": "Comer"
+    },
+    {
+      "src": "/pub/media/catalog/category/HOme_office.png",
+      "alt": "Trabajar"
+    },
+    {
+      "src": "/pub/media/catalog/category/Dormir.png",
+      "alt": "Dormir"
+    },
+    {
+      "src": "/pub/media/catalog/category/Deco-Iluminacion.jpg",
+      "alt": "Deco"
+    },
+    {
+      "src": "/pub/media/catalog/category/terraza.png",
+      "alt": "Terraza"
+    },
+    {
+      "src": "/pub/media/catalog/category/sofas_1.jpg",
+      "alt": "Sofás"
+    },
+    {
+      "src": "/pub/media/catalog/category/sofacamas.jpg",
+      "alt": "Sofás cama"
+    },
+    {
+      "src": "/pub/media/catalog/category/sofas_2.jpg",
+      "alt": "Sofás de exterior"
+    }
+  ]
+}

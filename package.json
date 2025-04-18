@@ -1,0 +1,19 @@
+{
+  "name": "seo20",
+  "version": "1.0.0",
+  "description": "Herramienta de análisis SEO rápida por zona visual + IA",
+  "main": "seo20.js",
+  "bin": {
+    "seo20": "./seo20.js"
+  },
+  "author": "Oscar Fuentes",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "cheerio": "^1.0.0",
+    "markdown-it": "^14.1.0",
+    "markdown-pdf": "^11.0.0",
+    "prompt-sync": "^4.2.0",
+    "puppeteer": "^21.11.0"
+  }
+}
