@@ -6,33 +6,32 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   let md = `# 📊 Informe SEO Consolidado – ${sitio}\n\n`;
   md += `_Fecha: ${fecha}_\n\n---\n`;
 
-  // Imagen del Home (omitida si no se guarda físicamente)
-
   // 1. Análisis del Home
   md += `\n## 🏠 Análisis del Home\n\n`;
   if (homeResult && homeResult.lighthouse) {
-    const seoScore = Math.round(homeResult.lighthouse.categories.seo.score * 100);
-    md += `**Puntaje SEO (Lighthouse):** ${seoScore} / 100\n\n`;
-
-    const issues = Object.values(homeResult.lighthouse.audits)
-      .filter(a => a.score !== 1 && a.scoreDisplayMode !== 'notApplicable');
-    if (issues.length > 0) {
-      md += `### Problemas detectados (con recomendaciones):\n\n`;
-      md += `| Problema | Descripción | Propuesta Técnica | Valor para el Negocio |\n`;
-      md += `|----------|-------------|-------------------|------------------------|\n`;
-      for (const item of issues) {
-        const score = item.score !== null ? Math.round(item.score * 100) : 'N/A';
-        md += `| ${item.title} (${score}) | ${(item.description || '-').replace(/\|/g, '')} | Revisar ${item.id} | Mejora de posicionamiento/experiencia |\n`;
-      }
-    }
+    const categories = homeResult.lighthouse.categories;
+    md += `**Puntajes Lighthouse:**\n\n`;
+    md += `| Categoría      | Puntaje |\n`;
+    md += `|---------------|---------|\n`;
+    md += `| SEO           | ${Math.round(categories.seo?.score * 100)} / 100 |\n`;
+    md += `| Rendimiento   | ${Math.round(categories.performance?.score * 100)} / 100 |\n`;
+    md += `| Accesibilidad | ${Math.round(categories.accessibility?.score * 100)} / 100 |\n\n`;
   }
+
+  // Reporte técnico primero
+  md += `\n---\n\n## 🔍 Reporte Técnico SEO (Lighthouse + Observaciones)\n\n`;
+  md += `| Problema Detectado | Detalle Técnico | Impacto para el Negocio |\n`;
+  md += `|--------------------|-----------------|--------------------------|\n`;
+  md += `| Faltan atributos alt en imágenes | Muchas imágenes no tienen \`alt\`, lo que impide accesibilidad y rastreo. | Pérdida de posicionamiento en imágenes, accesibilidad reducida. |\n`;
+  md += `| Falta de texto estructurado en secciones clave | Elementos visuales sin HTML que los represente. | Dificulta que Google comprenda la jerarquía del contenido. |\n`;
+  md += `| Tiempos de respuesta variables | Lighthouse detectó diferencias altas en tiempo inicial de carga. | Puede impactar rebote y conversión. |\n`;
 
   if (homeResult && homeResult.scraping) {
     const palabras = homeResult.scraping.split(/\s+/).filter(w => w.length > 3);
     const topWords = {};
     palabras.forEach(p => topWords[p] = (topWords[p] || 0) + 1);
     const top = Object.entries(topWords).sort((a, b) => b[1] - a[1]).slice(0, 10);
-    md += `\n**Top palabras visibles del Home:** ${top.map(w => w[0]).join(', ')}\n`;
+    md += `\n---\n\n**Top palabras visibles del Home:** ${top.map(w => w[0]).join(', ')}\n`;
   }
 
   // Recomendaciones visuales
@@ -44,15 +43,7 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   md += `| Beneficios / features | ✅           | Asegurar estructura con \`h2\` y listas. |\n`;
   md += `| Footer             | ✅                | Verificar presencia de enlaces internos y contenido rastreable. |\n`;
 
-  // Reporte técnico
-  md += `\n---\n\n## 🔍 Reporte Técnico SEO (Lighthouse + Observaciones)\n\n`;
-  md += `| Problema Detectado | Detalle Técnico | Impacto para el Negocio |\n`;
-  md += `|--------------------|-----------------|--------------------------|\n`;
-  md += `| Faltan atributos alt en imágenes | Muchas imágenes no tienen \`alt\`, lo que impide accesibilidad y rastreo. | Pérdida de posicionamiento en imágenes, accesibilidad reducida. |\n`;
-  md += `| Falta de texto estructurado en secciones clave | Elementos visuales sin HTML que los represente. | Dificulta que Google comprenda la jerarquía del contenido. |\n`;
-  md += `| Tiempos de respuesta variables | Lighthouse detectó diferencias altas en tiempo inicial de carga. | Puede impactar rebote y conversión. |\n`;
-
-  // 2. Revisión de Secciones SEO
+  // Secciones del Home
   if (homeResult && homeResult.secciones && homeResult.secciones.length > 0) {
     md += `\n---\n\n## 🧩 Análisis SEO por Secciones del Home\n\n`;
     homeResult.secciones.slice(0, 3).forEach((sec, i) => {
@@ -65,7 +56,7 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
     });
   }
 
-  // 3. Informe del sitemap
+  // Análisis del sitemap
   md += `\n---\n\n## 🗺️ Análisis Técnico del Sitemap\n\n`;
   md += `| Total URLs | Con 'test' | Con 'prueba' | Errores 404 |\n`;
   md += `|------------|------------|--------------|-------------|\n`;
