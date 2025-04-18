@@ -23,18 +23,27 @@ const puppeteer = require('puppeteer');
   const folderName = `resultados/${new Date().toISOString().slice(0, 10)}-${cleanDomain}`;
   fs.mkdirSync(folderName, { recursive: true });
 
-  // 1. Captura del Home
+  // 1. Captura del Home (mejor tolerancia y logging)
   console.log(`\n📸 Capturando imagen del Home: ${url}`);
   try {
-    const browser = await puppeteer.launch({ headless: 'new', defaultViewport: { width: 1440, height: 900 } });
+    const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox'], defaultViewport: { width: 1440, height: 900 } });
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 0 });
+    try {
+      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/89.0.4389.82 Safari/537.36');
+
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+
+  } catch (err) {
+    console.error('❌ Error al cargar la página:', err.message);
+    await browser.close();
+    return;
+  }
     await new Promise(resolve => setTimeout(resolve, 3000));
     // Screenshot omitido del guardado físico
     await page.screenshot({ path: '/dev/null', fullPage: true });
     await browser.close();
   } catch (err) {
-    console.warn('⚠️ Error al capturar la imagen del home');
+    console.error('⚠️ Error al capturar la imagen del home. Revisa que la URL cargue correctamente o que Puppeteer esté bien instalado.')
   }
 
   // 2. Análisis Lighthouse del Home
