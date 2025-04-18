@@ -61,6 +61,12 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   md += `| Total URLs | Con 'test' | Con 'prueba' | Errores 404 |\n`;
   md += `|------------|------------|--------------|-------------|\n`;
   md += `| {TOTAL} | {TEST} | {PRUEBA} | {ERROR404} |\n\n`;
+  
+if (homeResult && homeResult.sitemapLastmod) {
+  md += `\nSitemap simple con ${homeResult.sitemapTotal || 'N'} URLs detectadas.\n`;
+  md += `🕒 Última fecha de modificación encontrada: ${homeResult.sitemapLastmod}\n\n`;
+}
+
   md += sitemapMd || '❌ No disponible';
 
   // Sección final: Metadatos
@@ -83,6 +89,54 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   md += `### Datos Estructurados (Schema.org)\n`;
   md += `- Incorporar marcado estructurado como Product, Breadcrumb, Organization, FAQ.\n`;
   md += `- Validar usando Rich Results Test: https://search.google.com/test/rich-results\n`;
+
+  
+  md += `\n---\n\n## 🧪 Metadatos SEO Enriquecidos (Análisis de Librerías)\n\n`;
+  md += `| Campo                          | Cumple | Fuente         | Gravedad | Detalle                  |\n`;
+  md += `|-------------------------------|--------|----------------|----------|--------------------------|\n`;
+
+  if (homeResult && homeResult.enriched && Array.isArray(homeResult.enriched)) {
+    homeResult.enriched.forEach(item => {
+      const cumpleIcono = item.cumple ? '✔️' : '❌';
+      md += `| ${item.campo} | ${cumpleIcono} | ${item.fuente} | ${item.gravedad} | ${item.detalle.replace(/\|/g, '')} |\n`;
+    });
+  }
+
+  md += `\n---\n\n## 🛠️ Recomendaciones Basadas en Metadatos Enriquecidos\n\n`;
+
+  if (homeResult && homeResult.enriched && Array.isArray(homeResult.enriched)) {
+    const sugerencias = [];
+
+  homeResult.enriched.forEach(item => {
+    if (!item.cumple) {
+      if (item.campo.includes('Canonical')) {
+        sugerencias.push('- Agregar etiqueta `rel="canonical"` para evitar contenido duplicado.');
+      } else if (item.campo.includes('Título')) {
+        sugerencias.push('- Verifica que el `<title>` sea descriptivo, único y contenga palabras clave.');
+      } else if (item.campo.includes('Descripción')) {
+        sugerencias.push('- Incluir una meta descripción clara y persuasiva con entre 50 y 160 caracteres.');
+      } else if (item.campo.includes('og:image')) {
+        sugerencias.push('- Agregar una imagen representativa usando `og:image` para mejorar la visibilidad social.');
+      } else if (item.campo.includes('Twitter')) {
+        sugerencias.push('- Completa los metadatos de Twitter Cards para una buena previsualización en redes.');
+      } else if (item.campo.includes('seo-analyzer')) {
+        sugerencias.push('- Revisar estructura HTML: títulos, imágenes sin alt, velocidad de carga, etiquetas duplicadas.');
+      }
+    }
+  });
+
+  if (sugerencias.length > 0) {
+    md += `### Recomendaciones:
+
+`;
+    sugerencias.forEach(linea => {
+      md += `${linea}\n`;
+    });
+  } else {
+    md += `No se detectaron problemas críticos en los metadatos evaluados. ✅\n`;
+  }
+}
+
 
   return md;
 };
