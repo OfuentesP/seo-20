@@ -22,7 +22,7 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   md += `\n---\n\n## 🔍 Reporte Técnico SEO (Lighthouse + Observaciones)\n\n`;
   md += `| Problema Detectado | Detalle Técnico | Impacto para el Negocio |\n`;
   md += `|--------------------|-----------------|--------------------------|\n`;
-  md += `| Faltan atributos alt en imágenes | Muchas imágenes no tienen \`alt\`, lo que impide accesibilidad y rastreo. | Pérdida de posicionamiento en imágenes, accesibilidad reducida. |\n`;
+  md += `| Faltan atributos alt en imágenes | Muchas imágenes no tienen alt, lo que impide accesibilidad y rastreo. | Pérdida de posicionamiento en imágenes, accesibilidad reducida. |\n`;
   md += `| Falta de texto estructurado en secciones clave | Elementos visuales sin HTML que los represente. | Dificulta que Google comprenda la jerarquía del contenido. |\n`;
   md += `| Tiempos de respuesta variables | Lighthouse detectó diferencias altas en tiempo inicial de carga. | Puede impactar rebote y conversión. |\n`;
 
@@ -38,9 +38,9 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   md += `\n---\n\n## 🧩 Recomendaciones por Zona Visual\n\n`;
   md += `| Zona visual        | ¿Está en el HTML? | Oportunidades SEO |\n`;
   md += `|--------------------|-------------------|--------------------|\n`;
-  md += `| Hero / Banner      | ❌                | Agregar \`<h1>\` con palabras clave y llamado a la acción. |\n`;
+  md += `| Hero / Banner      | ❌                | Agregar <h1> con palabras clave y llamado a la acción. |\n`;
   md += `| Carrusel de ofertas| ❌                | Incluir títulos HTML descriptivos y links accesibles. |\n`;
-  md += `| Beneficios / features | ✅           | Asegurar estructura con \`h2\` y listas. |\n`;
+  md += `| Beneficios / features | ✅           | Asegurar estructura con h2 y listas. |\n`;
   md += `| Footer             | ✅                | Verificar presencia de enlaces internos y contenido rastreable. |\n`;
 
   // Secciones del Home
@@ -62,6 +62,27 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   md += `|------------|------------|--------------|-------------|\n`;
   md += `| {TOTAL} | {TEST} | {PRUEBA} | {ERROR404} |\n\n`;
   md += sitemapMd || '❌ No disponible';
+
+  // Sección final: Metadatos
+  md += `\n---\n\n## 🏷️ Metadatos del Sitio Web\n\n`;
+  md += `### Meta Title\n`;
+  md += `- Debe tener entre 50–60 caracteres y contener palabras clave principales.\n`;
+  md += `- Verificar que sea único y representativo de cada página.\n\n`;
+  md += `### Meta Description\n`;
+  md += `- Idealmente entre 150–160 caracteres.\n`;
+  md += `- Debe ser persuasiva, contener keywords y reflejar el contenido real de la página.\n\n`;
+  md += `### Meta Robots\n`;
+  md += `- Asegurar valores adecuados como index, follow para las páginas importantes.\n`;
+  md += `- Evitar noindex en páginas clave del negocio.\n\n`;
+  md += `### Canonical Tags\n`;
+  md += `- Cada página debe tener una etiqueta rel="canonical" válida.\n`;
+  md += `- Útil para evitar duplicados y consolidar autoridad.\n\n`;
+  md += `### Open Graph y Twitter Cards\n`;
+  md += `- Añadir og:title, og:description, og:image para una correcta visualización en redes sociales.\n`;
+  md += `- Usar también twitter:title, twitter:description, twitter:image para Twitter Cards.\n\n`;
+  md += `### Datos Estructurados (Schema.org)\n`;
+  md += `- Incorporar marcado estructurado como Product, Breadcrumb, Organization, FAQ.\n`;
+  md += `- Validar usando Rich Results Test: https://search.google.com/test/rich-results\n`;
 
   return md;
 };
