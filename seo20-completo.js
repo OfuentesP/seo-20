@@ -75,7 +75,7 @@ const puppeteer = require('puppeteer');
   }
 
   // 5. Generar informe
-  const informeFinal = await generarInformeUnificadoCompleto({
+  let informeFinalMd = await generarInformeUnificadoCompleto({
     sitio: url,
     fecha: new Date().toISOString().slice(0, 10),
     homeResult: {
@@ -89,7 +89,12 @@ const puppeteer = require('puppeteer');
   });
 
   const mdFinalPath = path.join(folderName, 'informe-seo-final.md');
-  fs.writeFileSync(mdFinalPath, informeFinal);
+  informeFinalMd = informeFinalMd
+    .replace('{TOTAL}', sitemapResumen.total)
+    .replace('{TEST}', sitemapResumen.conTest)
+    .replace('{PRUEBA}', sitemapResumen.conPrueba)
+    .replace('{ERROR404}', sitemapResumen.conError404);
+  fs.writeFileSync(mdFinalPath, informeFinalMd);
   await generatePdfFromMd(mdFinalPath, path.join(folderName, 'informe-seo-final.pdf'));
   fs.unlinkSync(mdFinalPath);
 

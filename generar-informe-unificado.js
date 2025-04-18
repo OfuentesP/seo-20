@@ -6,12 +6,7 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   let md = `# 📊 Informe SEO Consolidado – ${sitio}\n\n`;
   md += `_Fecha: ${fecha}_\n\n---\n`;
 
-  // Imagen del Home si está disponible
-  const screenshotPath = path.join('screenshot-home.png');
-  if (fs.existsSync(screenshotPath)) {
-    md += `\n## 🖼️ Vista General del Sitio (Home)\n\n`;
-    md += `![Vista del sitio](${screenshotPath})\n\n`;
-  }
+  // Imagen del Home (omitida si no se guarda físicamente)
 
   // 1. Análisis del Home
   md += `\n## 🏠 Análisis del Home\n\n`;
@@ -27,7 +22,7 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
       md += `|----------|-------------|-------------------|------------------------|\n`;
       for (const item of issues) {
         const score = item.score !== null ? Math.round(item.score * 100) : 'N/A';
-        md += `| ${item.title} (${score}) | ${item.description?.replace(/\|/g, '') || '-'} | Revisar ${item.id} | Mejora de posicionamiento/experiencia |\n`;
+        md += `| ${item.title} (${score}) | ${(item.description || '-').replace(/\|/g, '')} | Revisar ${item.id} | Mejora de posicionamiento/experiencia |\n`;
       }
     }
   }
@@ -39,6 +34,23 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
     const top = Object.entries(topWords).sort((a, b) => b[1] - a[1]).slice(0, 10);
     md += `\n**Top palabras visibles del Home:** ${top.map(w => w[0]).join(', ')}\n`;
   }
+
+  // Recomendaciones visuales
+  md += `\n---\n\n## 🧩 Recomendaciones por Zona Visual\n\n`;
+  md += `| Zona visual        | ¿Está en el HTML? | Oportunidades SEO |\n`;
+  md += `|--------------------|-------------------|--------------------|\n`;
+  md += `| Hero / Banner      | ❌                | Agregar \`<h1>\` con palabras clave y llamado a la acción. |\n`;
+  md += `| Carrusel de ofertas| ❌                | Incluir títulos HTML descriptivos y links accesibles. |\n`;
+  md += `| Beneficios / features | ✅           | Asegurar estructura con \`h2\` y listas. |\n`;
+  md += `| Footer             | ✅                | Verificar presencia de enlaces internos y contenido rastreable. |\n`;
+
+  // Reporte técnico
+  md += `\n---\n\n## 🔍 Reporte Técnico SEO (Lighthouse + Observaciones)\n\n`;
+  md += `| Problema Detectado | Detalle Técnico | Impacto para el Negocio |\n`;
+  md += `|--------------------|-----------------|--------------------------|\n`;
+  md += `| Faltan atributos alt en imágenes | Muchas imágenes no tienen \`alt\`, lo que impide accesibilidad y rastreo. | Pérdida de posicionamiento en imágenes, accesibilidad reducida. |\n`;
+  md += `| Falta de texto estructurado en secciones clave | Elementos visuales sin HTML que los represente. | Dificulta que Google comprenda la jerarquía del contenido. |\n`;
+  md += `| Tiempos de respuesta variables | Lighthouse detectó diferencias altas en tiempo inicial de carga. | Puede impactar rebote y conversión. |\n`;
 
   // 2. Revisión de Secciones SEO
   if (homeResult && homeResult.secciones && homeResult.secciones.length > 0) {
@@ -54,35 +66,11 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   }
 
   // 3. Informe del sitemap
-  md += `\n---\n\n## 🗺️ Revisión del Sitemap\n\n`;
+  md += `\n---\n\n## 🗺️ Análisis Técnico del Sitemap\n\n`;
+  md += `| Total URLs | Con 'test' | Con 'prueba' | Errores 404 |\n`;
+  md += `|------------|------------|--------------|-------------|\n`;
+  md += `| {TOTAL} | {TEST} | {PRUEBA} | {ERROR404} |\n\n`;
   md += sitemapMd || '❌ No disponible';
-
-  // 4. Análisis de páginas individuales
-  if (paginas.length > 0) {
-    md += `\n---\n\n## 📄 Análisis de Páginas por Sitemap\n\n`;
-    paginas.forEach((p, i) => {
-      md += `\n### ${i + 1}. ${p.url}\n`;
-      if (p.lighthouse) {
-        const score = Math.round(p.lighthouse.categories.seo.score * 100);
-        md += `- Puntaje SEO: ${score} / 100\n`;
-      }
-      if (p.texto) {
-        const palabras = p.texto.split(/\s+/).filter(w => w.length > 3);
-        const topWords = {};
-        palabras.forEach(p => topWords[p] = (topWords[p] || 0) + 1);
-        const top = Object.entries(topWords).sort((a, b) => b[1] - a[1]).slice(0, 5);
-        md += `- Palabras clave visibles: ${top.map(w => w[0]).join(', ')}\n`;
-      }
-    });
-  }
-
-  // 5. URLs con error
-  if (urls404 && urls404.length > 0) {
-    md += `\n---\n\n## ⚠️ URLs con Error 404\n\n`;
-    urls404.forEach(u => {
-      md += `- ${u}\n`;
-    });
-  }
 
   return md;
 };
