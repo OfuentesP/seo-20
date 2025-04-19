@@ -8,6 +8,9 @@
   },
   "author": "Oscar Fuentes",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "axios": "^1.8.4",
@@ -26,5 +29,8 @@
     "prompt-sync": "^4.2.0",
     "puppeteer": "^21.11.0",
     "sitemapper": "^3.2.20"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
