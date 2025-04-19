@@ -1,48 +1,91 @@
+// This script scrapes SEO-related information from a given URL.
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
-const url = 'https://www.surdiseno.cl';
+// Default maximum number of images to extract
+const MAX_IMAGES = 20;
 
-axios.get(url).then((res) => {
-  const $ = cheerio.load(res.data);
+// Get the URL from the command line arguments
+const url = process.argv[2];
 
-  // Extraer título
-  const title = $('title').text();
+// Check if a URL was provided
+if (!url) {
+  console.error('❌ Please provide a URL as a command-line argument.');
+  process.exit(1); // Exit the script with an error code
+}
 
-  // Meta descripción
-  const metaDesc = $('meta[name="description"]').attr('content') || 'No encontrada';
+// Extract the hostname from the URL to use in the filename
+const urlObject = new URL(url);
+const hostname = urlObject.hostname.replace('www.', '').replace(/\./g, '-'); // Replace dots with dashes for filename
 
-  // H1 y H2
-  const h1 = $('h1').first().text().trim() || 'No encontrado';
-  const h2s = [];
-  $('h2').each((i, el) => {
-    h2s.push($(el).text().trim());
-  });
+// Define the output filename using the hostname
+const outputFilename = `seo-onpage-${hostname}.json`;
 
-  // Imágenes y alt
-  const images = [];
-  $('img').each((i, el) => {
-    images.push({
-      src: $(el).attr('src'),
-      alt: $(el).attr('alt') || 'Sin texto alternativo'
+// Asynchronous function to perform the scraping
+async function scrapeSEOData(url) {
+  try {
+    // Fetch the web page content
+    const response = await axios.get(url);
+    const $ = cheerio.load(response.data);
+
+    // Extract title
+    const title = $('title').text();
+
+    // Extract meta description
+    const metaDesc = $('meta[name="description"]').attr('content') || 'Not found';
+
+    // Extract viewport
+    const viewport = $('meta[name="viewport"]').attr('content') || 'Not found';
+
+    // Extract lang attribute from html tag
+    const lang = $('html').attr('lang') || 'Not found';
+
+    // Extract H1 heading
+    const h1 = $('h1').first().text().trim() || 'Not found';
+
+    // Extract H2 headings
+    const h2s = [];
+    $('h2').each((i, el) => {
+      h2s.push($(el).text().trim());
     });
-  });
 
-  // Construimos el JSON
-  const seoData = {
-    url,
-    title,
-    meta_description: metaDesc,
-    h1,
-    h2: h2s,
-    images: images.slice(0, 20) // Limita para que no sea muy grande
-  };
+    // Extract images and their alt text
+    const images = [];
+    $('img').each((i, el) => {
+      images.push({
+        src: $(el).attr('src'),
+        alt: $(el).attr('alt') || 'No alt text provided'
+      });
+    });
 
-  // Guardamos en archivo
-  fs.writeFileSync('seo-onpage-surdiseno.json', JSON.stringify(seoData, null, 2));
-  console.log('✅ Informe SEO on-page guardado como seo-onpage-surdiseno.json');
+    // Build the JSON object with the extracted data
+    const seoData = {
+      url,
+      title,
+      meta_description: metaDesc,
+      viewport,
+      lang,
+      h1,
+      h2: h2s,
+      images: images.slice(0, MAX_IMAGES) // Limit the number of images
+    };
 
-}).catch((err) => {
-  console.error('❌ Error al cargar la URL:', err.message);
-});
+    // Save the data to a JSON file
+    fs.writeFileSync(outputFilename, JSON.stringify(seoData, null, 2));
+    console.log(`✅ SEO on-page report saved as ${outputFilename}`);
+
+  } catch (error) {
+    // Handle errors during the process
+    if (error.response) {
+      console.error(`❌ Error loading URL: ${error.response.status} - ${error.response.statusText}`);
+    } else if (error.request) {
+      console.error('❌ No response received:', error.request);
+    } else {
+      console.error('❌ Error during request setup:', error.message);
+    }
+  }
+}
+
+// Execute the scraping function
+scrapeSEOData(url);
