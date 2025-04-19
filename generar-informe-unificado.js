@@ -35,11 +35,7 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   }
 
 
-  // Recomendaciones con IA (Gemini)
-  if (homeResult && homeResult.insightsIA) {
-    md += `\n---\n\n## 🤖 Recomendaciones con IA (Gemini)\n\n`;
-    md += homeResult.insightsIA;
-  }
+
   // Recomendaciones visuales
   md += `\n---\n\n## 🧩 Recomendaciones por Zona Visual\n\n`;
   md += `| Zona visual        | ¿Está en el HTML? | Oportunidades SEO |\n`;
