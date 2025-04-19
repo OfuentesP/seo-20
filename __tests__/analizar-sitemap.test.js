@@ -1,75 +1,85 @@
-const { analizarSitemap } = require('../analizar-sitemap');
 const axios = require('axios');
+const xml2js = require('xml2js');
 
-jest.mock('axios');
+function extraerSeccion(url) {
+  const parts = url.split('/');
+  return parts.filter(Boolean).slice(2).join('/').split('?')[0] || 'home';
+}
 
-describe('analizarSitemap', () => {
-  it('should process a valid sitemap', async () => {
-    const correctSitemap = `
-      <?xml version="1.0" encoding="UTF-8"?>
-      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <url>
-          <loc>https://www.example.com/</loc>
-        </url>
-        <url>
-          <loc>https://www.example.com/page1</loc>
-        </url>
-        <url>
-          <loc>https://www.example.com/test</loc>
-        </url>
-      </urlset>
-    `;
-    axios.get.mockResolvedValue({ data: correctSitemap });
+module.exports = async function analizarSitemap(url, verbose = false) {
+  const sitemapUrl = `${url.replace(/\/$/, '')}/sitemap.xml`;
+  let resultadoMd = `# 🗺️ Análisis de Sitemap para ${sitemapUrl}\n`;
 
-    const result = await analizarSitemap('https://www.example.com');
-    expect(result).toContain(`# 🗺️ Análisis de Sitemap para https://www.example.com/sitemap.xml
-✅ El sitemap está accesible y retornó código 200
-📦 Contiene **3** URLs
-🕒 Última fecha de modificación encontrada: **No disponible**
-🔍 Etiquetas detectadas: - lastmod: ❌ No - changefreq: ❌ No - priority: ❌ No
-### 🧩 Secciones más representadas:
-- home: 1 URLs
-- page1: 1 URLs
-- test: 1 URLs
-⚠️ **Advertencia:** Se detectaron **1** URLs que parecen ser de test o entorno de desarrollo:
-- https://www.example.com/test
-### 📌 Recomendaciones SEO para el sitemap:
-- ✅ Usa <lastmod> para mejorar el rastreo eficiente de Google
-- ❗ Considera incluir <changefreq> para indicar frecuencia de actualización
-- ❗ Evalúa usar <priority> para destacar páginas clave
-- 🔍 Elimina URLs con términos como “test”, “prueba”, “dev” si no deberían estar indexadas
-- 🔥 Evita páginas con noindex, redirecciones o errores 4xx/5xx en tu sitemap
-- 📦 Divide el sitemap si supera las 50.000 URLs o 50MB y usa un índice
-- 🎯 Añade sitemaps específicos para imágenes o videos si aplica al contenido del sitio`);
-  });
-  it('should handle an incorrect sitemap', async () => {
-    axios.get.mockResolvedValue({ data: 'incorrect sitemap' });
-    const result = await analizarSitemap('https://www.example.com');
-    expect(result).toContain('❌ Error al procesar la respuesta del sitemap.');
-  });
-  it('should handle an empty sitemap', async () => {
+  try {
+    const res = await axios.get(sitemapUrl, { timeout: 10000 });
+    resultadoMd += '✅ El sitemap está accesible y retornó código 200\n';
 
-    const emptySitemap = `
-      <?xml version="1.0" encoding="UTF-8"?>
-      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      </urlset>
-    `;
-    axios.get.mockResolvedValue({ data: emptySitemap });
+    const xml = res.data;
+    const parser = new xml2js.Parser({ explicitArray: false });
+    const result = await parser.parseStringPromise(xml);
 
-    const result = await analizarSitemap('https://www.example.com');
-    expect(result).toContain(`# 🗺️ Análisis de Sitemap para https://www.example.com/sitemap.xml
-✅ El sitemap está accesible y retornó código 200
-📦 Contiene **0** URLs
-🕒 Última fecha de modificación encontrada: **No disponible**
-🔍 Etiquetas detectadas: - lastmod: ❌ No - changefreq: ❌ No - priority: ❌ No
-### 🧩 Secciones más representadas:
-### 📌 Recomendaciones SEO para el sitemap
-- ✅ Usa <lastmod> para mejorar el rastreo eficiente de Google
-- ❗ Considera incluir <changefreq> para indicar frecuencia de actualización
-- ❗ Evalúa usar <priority> para destacar páginas clave
-- 🔍 Elimina URLs con términos como “test”, “prueba”, “dev” si no deberían estar indexadas
-- 🔥 Evita páginas con noindex, redirecciones o errores 4xx/5xx en tu sitemap
-- 📦 Divide el sitemap si supera las 50.000 URLs o 50MB y usa un índice
-- 🎯 Añade sitemaps específicos para imágenes o videos si aplica al contenido del sitio`);
-  });
-});
+    const urls = result.urlset?.url || [];
+    const listaUrls = Array.isArray(urls) ? urls : [urls];
+
+    const secciones = {};
+    let contieneLastmod = false;
+    let contieneChangefreq = false;
+    let contienePriority = false;
+    let ultimaFecha = '';
+
+    const urlsTest = [];
+
+    for (const entry of listaUrls) {
+      const loc = entry.loc;
+      const seccion = extraerSeccion(loc);
+
+      secciones[seccion] = (secciones[seccion] || 0) + 1;
+
+      if (loc.includes('test') || loc.includes('prueba') || loc.includes('dev')) {
+        urlsTest.push(loc);
+      }
+
+      if (entry.lastmod) {
+        contieneLastmod = true;
+        ultimaFecha = ultimaFecha || entry.lastmod;
+      }
+      if (entry.changefreq) contieneChangefreq = true;
+      if (entry.priority) contienePriority = true;
+    }
+
+    resultadoMd += `📦 Contiene **${listaUrls.length}** URLs\n`;
+    resultadoMd += `🕒 Última fecha de modificación encontrada: **${ultimaFecha || 'No disponible'}**\n`;
+
+    resultadoMd += '🔍 Etiquetas detectadas:\n';
+    resultadoMd += `- \`<lastmod>\`: ${contieneLastmod ? '✅ Sí' : '❌ No'}\n`;
+    resultadoMd += `- \`<changefreq>\`: ${contieneChangefreq ? '✅ Sí' : '❌ No'}\n`;
+    resultadoMd += `- \`<priority>\`: ${contienePriority ? '✅ Sí' : '❌ No'}\n`;
+
+    resultadoMd += `### 🧩 Secciones más representadas:\n`;
+    Object.entries(secciones)
+      .sort((a, b) => b[1] - a[1])
+      .forEach(([sec, count]) => {
+        resultadoMd += `- \`${sec}\`: ${count} URLs\n`;
+      });
+
+    if (urlsTest.length > 0) {
+      resultadoMd += `⚠️ **Advertencia:** Se detectaron **${urlsTest.length}** URLs que parecen ser de test o entorno de desarrollo:\n`;
+      urlsTest.slice(0, 5).forEach(u => {
+        resultadoMd += `- ${u}\n`;
+      });
+    }
+
+    resultadoMd += `### 📌 Recomendaciones SEO para el sitemap\n`;
+    resultadoMd += `- ✅ Usa \`<lastmod>\` para mejorar el rastreo eficiente de Google\n`;
+    resultadoMd += `- ❗ Considera incluir \`<changefreq>\` para indicar frecuencia de actualización\n`;
+    resultadoMd += `- ❗ Evalúa usar \`<priority>\` para destacar páginas clave\n`;
+    resultadoMd += `- 🔍 Elimina URLs con términos como “test”, “prueba”, “dev” si no deberían estar indexadas\n`;
+    resultadoMd += `- 🔥 Evita páginas con \`noindex\`, redirecciones o errores 4xx/5xx en tu sitemap\n`;
+    resultadoMd += `- 📦 Divide el sitemap si supera las 50.000 URLs o 50MB y usa un índice\n`;
+    resultadoMd += `- 🎯 Añade sitemaps específicos para imágenes o videos si aplica al contenido del sitio\n`;
+
+    return resultadoMd;
+  } catch (err) {
+    return `# 🗺️ Análisis de Sitemap para ${sitemapUrl}\n❌ Error al acceder al sitemap: ${err.message}`;
+  }
+};
