@@ -2,7 +2,6 @@
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
-const { execSync } = require('child_process');
 const metascraper = require('metascraper')([
   require('metascraper-title')(),
   require('metascraper-description')(),
@@ -87,29 +86,6 @@ module.exports = async function analizarMetadatosEnriquecidos(url) {
       fuente: 'html-metadata',
       gravedad: 'media',
       detalle: 'Falló al procesar los metadatos'
-    });
-  }
-
-  // 3. seo-analyzer
-  try {
-    const output = execSync(`seo-analyzer -u ${url} --json`, { encoding: 'utf-8' });
-    const data = JSON.parse(output);
-    const errores = data.result?.issues?.length || 0;
-
-    results.push({
-      campo: 'Errores estructurales (seo-analyzer)',
-      cumple: errores === 0,
-      fuente: 'seo-analyzer',
-      gravedad: errores > 5 ? 'alta' : errores > 0 ? 'media' : 'baja',
-      detalle: `${errores} problemas encontrados`
-    });
-  } catch (err) {
-    results.push({
-      campo: 'seo-analyzer',
-      cumple: false,
-      fuente: 'seo-analyzer',
-      gravedad: 'media',
-      detalle: 'Falló la ejecución o análisis'
     });
   }
 

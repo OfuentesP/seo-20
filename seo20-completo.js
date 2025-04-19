@@ -13,6 +13,7 @@ const analizarResumenSitemap = require('./analizar-sitemap-resumen');
 const analizarMetadatos = require('./analizar-metadatos');
 const analizarMetadatosEnriquecidos = require('./metadatos-enriquecidos');
 const puppeteer = require('puppeteer');
+const generarInsightsIA = require('./generar-insights-ai');
 
 (async () => {
   const url = prompt('🔍 Ingresa la URL del sitio: ').trim();
@@ -99,6 +100,7 @@ fs.mkdirSync(folderName, { recursive: true });
   let homeScraping = '';
   let secciones = [];
   let metadatos = [];
+  let insightsIA = ''; // <--- acá
 
   if (fs.existsSync(homeReportPath)) {
     homeLighthouse = JSON.parse(fs.readFileSync(homeReportPath, 'utf-8'));
@@ -108,18 +110,28 @@ fs.mkdirSync(folderName, { recursive: true });
     secciones = analizarSeccionesSeo(homeTextPath);
     metadatos = analizarMetadatos(homeTextPath);
     enrichedMeta = await analizarMetadatosEnriquecidos(url);
+    enrichedMeta = await analizarMetadatosEnriquecidos(url);
+    insightsIA = await generarInsightsIA({ lighthouse: homeLighthouse, scraping: homeScraping });
+    insightsIA = await generarInsightsIA({
+      lighthouse: homeLighthouse,
+      scraping: homeScraping
+    });
+    console.log("🧠 Recomendaciones Gemini IA:\n", insightsIA);
+  
   }
 
   let informeFinalMd = await generarInformeUnificadoCompleto({
     sitio: url,
     fecha: new Date().toISOString().slice(0, 10),
-    homeResult: {
-      lighthouse: homeLighthouse,
-      scraping: homeScraping,
-      secciones: secciones,
-      metadatos: metadatos,
-      enriched: enrichedMeta
-    },
+      insightsIA: insightsIA,
+      homeResult: {
+        lighthouse: homeLighthouse,
+        scraping: homeScraping,
+        secciones: secciones,
+        metadatos: metadatos,
+        enriched: enrichedMeta,
+        insightsIA: insightsIA, // 👈 Mover insights aquí
+      },
     sitemapMd: sitemapMdString,
     paginas: [],
     urls404: urls404Sitemap,
