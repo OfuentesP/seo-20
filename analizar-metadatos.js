@@ -1,126 +1,116 @@
-
 const fs = require('fs');
-const cheerio = require('cheerio');
+const path = require('path');
+const fetch = require('node-fetch');
+const { execSync } = require('child_process');
+const metascraper = require('metascraper')([
+  require('metascraper-title')(),
+  require('metascraper-description')(),
+  require('metascraper-image')(),
+  require('metascraper-url')()
+]);
+const htmlMetadata = require('html-metadata');
 
-// Configuration object for metadata analysis
-const config = {
-  titleMinLength: 10,
-  titleMaxLength: 70,
-  descriptionMinLength: 50,
-  descriptionMaxLength: 180,
-  // Array of required Open Graph tags. Adjust as needed.
-  requiredOpenGraphTags: ['og:title', 'og:description', 'og:image'],
-  severities: {
-    metaTitle: 'media',
-    metaDescription: 'media',
-    metaRobots: 'media',
-    canonical: 'alta',
-    openGraph: 'media',
-    structuredData: 'baja',
-    viewport: 'media',
-    lang: 'alta'
-  }
-};
+module.exports = async function analizarMetadatosEnriquecidos(url) {
+  const results = [];
 
-module.exports = function analizarMetadatos(htmlPath) {
-  const rawHtml = fs.readFileSync(htmlPath, 'utf-8');
-  const $ = cheerio.load(rawHtml);
+  // 1. Metascraper
+  try {
+    const res = await fetch(url);
+    const html = await res.text();
+    const metadata = await metascraper({ html, url });
 
-  const head = $('head');
+    results.push({
+      campo: 'Título (metascraper)',
+      cumple: metadata.title?.length >= 10,
+      fuente: 'metascraper',
+      gravedad: 'media',
+      detalle: metadata.title || 'No detectado'
+    });
 
-  const metaTitle = $('title').text().trim();
-  const metaDescription = $('meta[name="description"]').attr('content') || '';
-  const metaRobots = $('meta[name="robots"]').attr('content') || '';
-  const viewport = $('meta[name="viewport"]').attr('content') || ''; // Added viewport check
-  const canonical = $('link[rel="canonical"]').attr('href') || '';
-  const lang = $('html').attr('lang') || ''; // Added language attribute check
+    results.push({
+      campo: 'Descripción (metascraper)',
+      cumple: metadata.description?.length >= 50,
+      fuente: 'metascraper',
+      gravedad: 'media',
+      detalle: metadata.description || 'No detectado'
+    });
 
-  // Extract Open Graph tags based on the required tags in the config
-  const openGraphTags = config.requiredOpenGraphTags.map(name => $(`meta[property="${name}"]`).attr('content'));
-
-  const ldJson = $('script[type="application/ld+json"]').length;
-
-  const report = [];
-
-  // Check Meta Title length against configured limits
-  report.push({
-    campo: 'Meta Title',
-    cumple: metaTitle.length >= config.titleMinLength && metaTitle.length <= config.titleMaxLength,
-    gravedad: config.severities.metaTitle,
-    detalle: metaTitle
-  });
-
-  // Check Meta Description length against configured limits
-  report.push({
-    campo: 'Meta Description',
-    cumple: metaDescription.length >= config.descriptionMinLength && metaDescription.length <= config.descriptionMaxLength,
-    gravedad: config.severities.metaDescription,
-    detalle: metaDescription
-  });
-
-  // Check Meta Robots for noindex or nofollow directives
-  let robotsResult = true;
-  let robotsDetail = metaRobots;
-  if (metaRobots.toLowerCase().includes('noindex') || metaRobots.toLowerCase().includes('nofollow')) {
-    robotsResult = false;
-    robotsDetail = `Directiva robots desfavorable encontrada: ${metaRobots}`;
+    results.push({
+      campo: 'Imagen social (og:image)',
+      cumple: Boolean(metadata.image),
+      fuente: 'metascraper',
+      gravedad: 'media',
+      detalle: metadata.image || 'No detectada'
+    });
+  } catch (err) {
+    results.push({
+      campo: 'Metascraper general',
+      cumple: false,
+      fuente: 'metascraper',
+      gravedad: 'alta',
+      detalle: 'Falló al procesar el HTML'
+    });
   }
 
-  report.push({
-    campo: 'Meta Robots',
-    cumple: robotsResult,
-    gravedad: config.severities.metaRobots,
-    detalle: robotsDetail
-  });
+  // 2. HTML-Metadata
+  try {
+    const metadata = await htmlMetadata(url);
 
-  // Check for Canonical URL
-  report.push({
-    campo: 'Canonical Tags',
-    cumple: !!canonical,
-    gravedad: config.severities.canonical,
-    detalle: canonical
-  });
+    results.push({
+      campo: 'Canonical',
+      cumple: Boolean(metadata.general.canonical),
+      fuente: 'html-metadata',
+      gravedad: 'alta',
+      detalle: metadata.general.canonical || 'No detectado'
+    });
 
-  // Check for required Open Graph tags
-  let openGraphResult = true;
-  let openGraphDetail = openGraphTags.filter(Boolean).join(' | ');
-  if (!openGraphTags.every(t => !!t)) {
-    openGraphResult = false;
-    openGraphDetail = `Faltan algunas etiquetas Open Graph requeridas: ${config.requiredOpenGraphTags.filter((_, index) => !openGraphTags[index]).join(', ')}`;
+    results.push({
+      campo: 'Twitter Card',
+      cumple: metadata.twitter?.card || false,
+      fuente: 'html-metadata',
+      gravedad: 'media',
+      detalle: metadata.twitter?.title || 'No detectada'
+    });
+
+    results.push({
+      campo: 'Open Graph',
+      cumple: Object.keys(metadata.openGraph || {}).length > 0,
+      fuente: 'html-metadata',
+      gravedad: 'media',
+      detalle: metadata.openGraph?.title || 'No detectado'
+    });
+  } catch (err) {
+    results.push({
+      campo: 'html-metadata general',
+      cumple: false,
+      fuente: 'html-metadata',
+      gravedad: 'media',
+      detalle: 'Falló al procesar los metadatos'
+    });
   }
 
-  report.push({
-    campo: `Open Graph (${config.requiredOpenGraphTags.join(', ')})`,
-    cumple: openGraphResult,
-    gravedad: config.severities.openGraph,
-    detalle: openGraphDetail
-  });
+  // 3. seo-analyzer
+  try {
+    const output = execSync(`seo-analyzer -u ${url} --json`, { encoding: 'utf-8' });
+    const data = JSON.parse(output);
+    const errores = data.result?.issues?.length || 0;
 
-  // Check for Structured Data (Schema.org)
-  report.push({
-    campo: 'Datos estructurados (Schema.org)',
-    cumple: ldJson > 0,
-    gravedad: config.severities.structuredData,
-    detalle: `${ldJson} bloques detectados`
-  });
+    results.push({
+      campo: 'Errores estructurales (seo-analyzer)',
+      cumple: errores === 0,
+      fuente: 'seo-analyzer',
+      gravedad: errores > 5 ? 'alta' : errores > 0 ? 'media' : 'baja',
+      detalle: `${errores} problemas encontrados`
+    });
+  } catch (err) {
+    results.push({
+      campo: 'seo-analyzer',
+      cumple: false,
+      fuente: 'seo-analyzer',
+      gravedad: 'media',
+      detalle: 'Falló la ejecución o análisis'
+    });
+  }
 
-  // Check for Viewport meta tag
-  report.push({
-    campo: 'Meta Viewport',
-    cumple: !!viewport,
-    gravedad: config.severities.viewport,
-    detalle: viewport
-  });
-
-  // Check for language attribute in <html> tag
-  report.push({
-    campo: 'Atributo Lang en <html>',
-    cumple: !!lang,
-    gravedad: config.severities.lang,
-    detalle: lang
-  });
-
-  return [
-    ...report
-  ]
+  return results;
 };
