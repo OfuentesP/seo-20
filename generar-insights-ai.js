@@ -5,7 +5,8 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 module.exports = async function generarInsightsIA({ lighthouse, scraping }) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' }); // 🔄 v1 en backend automático
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+
     const prompt = `
 Eres un experto en SEO y experiencia de usuario. Recibirás un resumen técnico del rendimiento SEO de un sitio, junto con el texto visible del home. Tu tarea es detectar problemas y generar recomendaciones prácticas tanto para el equipo técnico como para el negocio.
 

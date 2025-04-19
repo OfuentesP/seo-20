@@ -47,7 +47,8 @@ const puppeteer = require('puppeteer');
 
   // Lighthouse + scraping
   try {
-    execSync(`lighthouse ${url} --output json --output-path=${path.join(folderName, 'report.json')} --only-categories=seo --chrome-flags="--headless"`);
+    execSync(`lighthouse ${url} --output json --output-path=${path.join(folderName, 'report.json')} --only-categories=performance,accessibility,seo --chrome-flags="--headless"`);
+
   } catch (err) {
     console.warn('⚠️ Lighthouse falló en el home');
   }

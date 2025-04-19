@@ -1,7 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapMd, paginas, urls404, sitio, fecha, sitemapTotal, sitemapLastmod, insightsIA }) {
+module.exports = function generarInformeUnificadoCompleto({
+  homeResult,
+  sitemapMd,
+  paginas,
+  urls404,
+  sitio,
+  fecha,
+  sitemapTotal,
+  sitemapLastmod,
+  insightsIA
+}) {
   let md = `# 📊 Informe SEO Consolidado – ${sitio}\n\n`;
   md += `_Fecha: ${fecha}_\n\n---\n`;
 
@@ -12,14 +22,9 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
     md += `**Puntajes Lighthouse:**\n\n`;
     md += `| Categoría      | Puntaje |\n`;
     md += `|---------------|---------|\n`;
-    md += `| SEO           | ${Math.round(categories.seo?.score * 100)} / 100 |\n`;
-    md += `| Rendimiento   | ${Math.round(categories.performance?.score * 100)} / 100 |\n`;
-    md += `| Accesibilidad | ${Math.round(categories.accessibility?.score * 100)} / 100 |\n\n`;
-  }
-
-  // 2. Recomendaciones IA (si existen)
-  if (insightsIA && insightsIA.trim().length > 0) {
-    md += `\n---\n\n## 🧠 Recomendaciones Generadas por Gemini AI\n\n${insightsIA}\n`;
+    md += `| SEO           | ${categories.seo ? Math.round(categories.seo.score * 100) : 'N/A'} / 100 |\n`;
+    md += `| Rendimiento   | ${categories.performance ? Math.round(categories.performance.score * 100) : 'N/A'} / 100 |\n`;
+    md += `| Accesibilidad | ${categories.accessibility ? Math.round(categories.accessibility.score * 100) : 'N/A'} / 100 |\n\n`;    
   }
 
   // Reporte técnico primero
@@ -31,7 +36,7 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
   md += `| Tiempos de respuesta variables | Lighthouse detectó diferencias altas en tiempo inicial de carga. | Puede impactar rebote y conversión. |\n`;
 
   if (homeResult && homeResult.scraping) {
-    const palabras = homeResult.scraping.split(/\s+/).filter(w => w.length > 3 && !w.includes('<') && !w.includes('>'));
+    const palabras = homeResult.scraping.split(/\s+/).filter(w => w.length > 3);
     const topWords = {};
     palabras.forEach(p => topWords[p] = (topWords[p] || 0) + 1);
     const top = Object.entries(topWords).sort((a, b) => b[1] - a[1]).slice(0, 10);
@@ -60,32 +65,22 @@ module.exports = function generarInformeUnificadoCompleto({ homeResult, sitemapM
     });
   }
 
-  // Análisis del sitemap (condicional)
-  if (sitemapTotal && sitemapTotal > 0) {
+  // 2. Análisis del Sitemap (solo si se detectaron URLs)
+  if (sitemapTotal > 0) {
     md += `\n---\n\n## 🗺️ Análisis Técnico del Sitemap\n\n`;
     md += `| Total URLs | Con 'test' | Con 'prueba' | Errores 404 |\n`;
     md += `|------------|------------|--------------|-------------|\n`;
     md += `| {TOTAL} | {TEST} | {PRUEBA} | {ERROR404} |\n\n`;
-    if (sitemapLastmod) {
-      md += `📅 Última fecha de modificación encontrada: **${sitemapLastmod}**\n\n`;
-    }
     md += sitemapMd || '❌ No disponible';
   } else {
     md += `\n---\n\n## 🗺️ Análisis Técnico del Sitemap\n\n`;
-    md += `⚠️ No se encontró un sitemap.xml accesible para el sitio. Esto es un error crítico de SEO, ya que impide que los buscadores indexen el sitio eficientemente.\n\n`;
-    md += `### Recomendación:
-Utiliza un archivo sitemap.xml estructurado y accesible desde \`${sitio}/sitemap.xml\`. Puedes generarlo automáticamente desde tu CMS o con herramientas como Screaming Frog o XML-Sitemaps.com.`;
+    md += `❌ No se encontró un sitemap válido para el sitio **${sitio}**. Esto representa un problema crítico para el SEO, ya que los motores de búsqueda no podrán descubrir fácilmente las páginas del sitio. Asegúrate de que el archivo **sitemap.xml** esté disponible públicamente y correctamente enlazado desde el archivo robots.txt.\n\n`;
   }
 
-  // Metadatos enriquecidos
-  if (homeResult && homeResult.enriched && Array.isArray(homeResult.enriched)) {
-    md += `\n---\n\n## 🏷️ Metadatos del Sitio Web\n\n`;
-    md += `| Campo                          | Cumple | Fuente         | Gravedad | Detalle |\n`;
-    md += `|-------------------------------|--------|----------------|----------|---------|\n`;
-    homeResult.enriched.forEach(item => {
-      const cumpleIcono = item.cumple ? '✔️' : '❌';
-      md += `| ${item.campo} | ${cumpleIcono} | ${item.fuente} | ${item.gravedad} | ${item.detalle.replace(/\\|/g, '')} |\n`;
-    });
+  // 3. Recomendaciones IA (Gemini)
+  if (insightsIA && typeof insightsIA === 'string') {
+    md += `\n---\n\n## 🤖 Recomendaciones con IA (Gemini)\n\n`;
+    md += insightsIA;
   }
 
   return md;
