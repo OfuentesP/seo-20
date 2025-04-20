@@ -2,12 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const lighthouse = require('lighthouse');
-const { URL } = require('url');
+const chromeLauncher = require('chrome-launcher');
 const analyzer = require('seo-analyzer');
-const { execSync } = require('child_process');
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 
-// Asegura que la carpeta /resultados exista
+// Crear carpeta de resultados si no existe
 const resultadosPath = path.join(__dirname, 'resultados');
 if (!fs.existsSync(resultadosPath)) fs.mkdirSync(resultadosPath);
 
@@ -19,7 +18,7 @@ rl.on('line', async (url) => {
   try {
     console.log('🌐 URL recibida:', url);
 
-    // Puppeteer para screenshot
+    // 1. Screenshot con Puppeteer
     const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -31,44 +30,50 @@ rl.on('line', async (url) => {
     console.log('📸 Capturando screenshot del home...');
     const screenshotPath = path.join(resultadosPath, 'screenshot.png');
     await page.screenshot({ path: screenshotPath, fullPage: true });
+
     await browser.close();
 
-    // Ejecutar Lighthouse con CHROME_PATH
+    // 2. Lighthouse desde Node.js directamente
     console.log('⚙️ Ejecutando Lighthouse...');
     const chromePath = puppeteer.executablePath();
-    process.env.CHROME_PATH = chromePath;
+    const chrome = await chromeLauncher.launch({
+      chromePath,
+      chromeFlags: ['--no-sandbox']
+    });
 
     const lhResultPath = path.join(resultadosPath, 'lh-report.json');
-    const lhCmd = `lighthouse ${url} \
-      --chrome-path="${chromePath}" \
-      --chrome-flags="--no-sandbox" \
-      --output json \
-      --output-path "${lhResultPath}" \
-      --quiet \
-      --only-categories=seo`;
+    const lhOptions = {
+      port: chrome.port,
+      output: 'json',
+      onlyCategories: ['seo']
+    };
 
-    execSync(lhCmd, { stdio: 'inherit' });
+    const lhRunnerResult = await lighthouse(url, lhOptions);
+    const lhJson = lhRunnerResult.report;
+    fs.writeFileSync(lhResultPath, lhJson);
+    const seoScore = lhRunnerResult.lhr.categories.seo.score * 100;
 
-    const lhData = JSON.parse(fs.readFileSync(lhResultPath, 'utf8'));
-    const seoScore = lhData.categories.seo.score * 100;
+    await chrome.kill();
 
-    // Análisis con seo-analyzer
+    // 3. Análisis con seo-analyzer
     console.log('🔍 Ejecutando seo-analyzer...');
     const analysis = await analyzer({ url });
 
-    // Crear PDF
+    // 4. Generar PDF
     console.log('📝 Generando PDF...');
     const pdfDoc = await PDFDocument.create();
     const page1 = pdfDoc.addPage();
     const { width, height } = page1.getSize();
-
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
     page1.drawText('Informe SEO', {
       x: 50, y: height - 60, size: 24, font, color: rgb(0.2, 0.4, 0.8)
     });
+
     page1.drawText(`Sitio analizado: ${url}`, {
       x: 50, y: height - 100, size: 14, font
     });
+
     page1.drawText(`Puntaje SEO (Lighthouse): ${seoScore}`, {
       x: 50, y: height - 130, size: 14, font
     });
