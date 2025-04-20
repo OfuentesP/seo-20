@@ -1,30 +1,16 @@
-const readline = require('readline');
 const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
-const generarPDFConHTML = require('./pdf-generator'); // Nuevo import
+const generarPDFConHTML = require('./pdf-generator');
 const path = require('path');
 const fs = require('fs');
-const ejecutarScraping = require('./generar-scrapping-funcional');
-
-async function leerURLDesdeStdin() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise(resolve => {
-    rl.question('🔗 Ingresa la URL a analizar: ', respuesta => {
-      rl.close();
-      resolve(respuesta.trim());
-    });
-  });
-}
+const ejecutarScraping = require('./generar-scrapping-funcional'); // recuerda: doble "p"
 
 (async () => {
-  const url = await leerURLDesdeStdin();
+  const url = process.argv[2];
 
-  // 🔹 Validación básica
+  // 🔹 Validación de argumento
   if (!url || !url.startsWith('http')) {
-    console.error('❌ URL inválida');
+    console.error('❌ Debes proporcionar una URL válida como argumento.');
+    console.error('Ejemplo: node seo20-completo.js https://www.amoble.cl');
     process.exit(1);
   }
 
@@ -42,15 +28,16 @@ async function leerURLDesdeStdin() {
     textoScraping = fs.readFileSync(scrapingPath, 'utf-8').trim();
   }
 
-  // 🔹 Obtenemos el informe con los datos estructurados
+  // 🔹 Generar bloques de análisis
   const homeResult = await generarInformeUnificadoCompleto({
     url,
     textoScraping
   });
 
-  // 🔹 Convertimos los bloques a HTML
+  // 🔹 Convertir homeResult a HTML
   const homeResultHTML = homeResult.map(b => `<h3>${b.titulo}</h3><p>${b.contenido}</p>`).join('');
 
+  // 🔹 Cargar otras secciones si existen
   const recomendacionesPath = path.join(carpeta, 'recomendaciones.html');
   const sitemapPath = path.join(carpeta, 'sitemap-analysis.html');
   const urlsPath = path.join(carpeta, 'analisis-por-url.html');
@@ -61,6 +48,7 @@ async function leerURLDesdeStdin() {
   const urlsPorPaginaHTML = fs.existsSync(urlsPath) ? fs.readFileSync(urlsPath, 'utf-8') : '';
   const erroresHTML = fs.existsSync(erroresPath) ? fs.readFileSync(erroresPath, 'utf-8') : '';
 
+  // 🔹 Generar PDF final
   const informePath = path.join(carpeta, 'informe-seo-final.pdf');
   await generarPDFConHTML({
     sitio: dominio,
