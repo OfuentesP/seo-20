@@ -47,6 +47,29 @@ async function ejecutarLighthouse(url, carpeta) {
   // 🔹 Ejecutar Lighthouse
   await ejecutarLighthouse(url, carpeta);
 
+  // 🔹 Leer resultados de Lighthouse
+  const lighthousePath = path.join(carpeta, 'lighthouse.json');
+  const lighthouseResult = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
+  const categories = lighthouseResult.categories;
+
+  const lighthouseScoresHTML = `
+    <h2>Resultados de Lighthouse</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Puntuación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Rendimiento</td><td>${Math.round(categories.performance.score * 100)} / 100</td></tr>
+        <tr><td>Accesibilidad</td><td>${Math.round(categories.accessibility.score * 100)} / 100</td></tr>
+        <tr><td>Buenas Prácticas</td><td>${Math.round(categories['best-practices'].score * 100)} / 100</td></tr>
+        <tr><td>SEO</td><td>${Math.round(categories.seo.score * 100)} / 100</td></tr>
+      </tbody>
+    </table>
+  `;
+
   // 🔹 Generar secciones del informe
   const { homeResult } = await generarInformeUnificadoCompleto({
     url,
@@ -72,6 +95,7 @@ async function ejecutarLighthouse(url, carpeta) {
   await generarPDFConHTML({
     sitio: dominio,
     fecha,
+    lighthouseScoresHTML,
     homeResultHTML,
     recomendacionesHTML,
     sitemapHTML,
