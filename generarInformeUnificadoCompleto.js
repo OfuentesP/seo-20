@@ -1,62 +1,105 @@
-function generarInformeUnificadoCompleto({
-  homeResult,
-  sitemapMd,
-  paginas,
-  urls404,
-  sitio,
-  fecha,
-  sitemapTotal,
-  sitemapLastmod,
-  insightsIA
-}) {
-  console.log('📥 homeResult.lighthouse:', !!homeResult.lighthouse);
-  console.log('📥 homeResult.scraping:', homeResult.scraping?.length);
-  console.log('📥 homeResult.secciones:', homeResult.secciones?.length);
-  console.log('📥 homeResult.enriched:', homeResult.enriched?.length);
+const fs = require('fs');
+const path = require('path');
 
-  let md = `# 📊 Informe SEO Consolidado – ${sitio}\n\n`;
-  md += `_Fecha: ${fecha}_\n\n---\n`;
+async function generarInformeUnificadoCompleto({ url, textoScraping }) {
+  const fecha = new Date().toISOString().split('T')[0];
+  const dominio = new URL(url).hostname.replace(/^www\./, '');
+  const carpeta = path.join(__dirname, 'resultados', `${fecha}_${dominio}`);
 
+  // ---------- HOME RESULT ----------
+  const homeResult = [];
 
-  // 1. Análisis del Home
-  md += `\n## 🏠 Análisis del Home\n\n`;
-
-  if (homeResult && homeResult.lighthouse) {
-    const categories = homeResult.lighthouse.categories || {};
-    md += `**Puntajes Lighthouse:**\n\n`;
-    md += `| Categoría      | Puntaje |\n`;
-    md += `|---------------|---------|\n`;
-    md += `| SEO           | ${Math.round(categories.seo?.score * 100)} / 100 |\n`;
-    md += `| Rendimiento   | ${Math.round(categories.performance?.score * 100) || 'N/A'} / 100 |\n`;
-    md += `| Accesibilidad | ${Math.round(categories.accessibility?.score * 100) || 'N/A'} / 100 |\n\n`;
-
-    // Agregar métricas específicas
-    if (homeResult.lighthouse.audits) {
-      md += `\n### 📈 Métricas de Rendimiento:\n\n`;
-      md += `| Métrica                     | Valor | Recomendado |\n`;
-      md += `|-----------------------------|-------|-------------|\n`;
-      const metrics = {
-        'first-contentful-paint': '⏱️ < 1.8s',
-        'largest-contentful-paint': '⏱️ < 2.5s',
-        'total-blocking-time': '🧱 < 200ms',
-        'cumulative-layout-shift': '🎯 < 0.1'
-      };
-
-      for (const key in metrics) {
-        const audit = homeResult.lighthouse.audits[key];
-        if (audit) {
-          const valor = audit.displayValue || audit.numericValue || 'N/A';
-          md += `| ${audit.title} | ${valor} | ${metrics[key]} |\n`;
-        }
-      }
-    }
+  // 🔹 Incluir texto visible del home (scraping)
+  if (textoScraping && textoScraping.length > 0) {
+    homeResult.push({
+      titulo: 'Texto visible del home (scraping)',
+      contenido: textoScraping.length > 1000 ? textoScraping.slice(0, 1000) + ' [...]' : textoScraping
+    });
+  } else {
+    homeResult.push({
+      titulo: 'Texto visible del home (scraping)',
+      contenido: 'No se pudo extraer contenido visible del home o el archivo estaba vacío.'
+    });
   }
 
-  // ... (resto del contenido igual)
-  // Nota: se omite por longitud pero no se elimina
-  // Asegúrate de copiar el resto del contenido aquí si estás reemplazando en tu entorno local
+  // 🔹 Metadata
+  const metadataPath = path.join(carpeta, 'metadata.json');
+  if (fs.existsSync(metadataPath)) {
+    const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+    homeResult.push({
+      titulo: 'Metadatos',
+      contenido: JSON.stringify(metadata, null, 2)
+    });
+  }
 
-  return md;
+  // 🔹 Secciones extraídas
+  const seccionesPath = path.join(carpeta, 'secciones.json');
+  if (fs.existsSync(seccionesPath)) {
+    const secciones = JSON.parse(fs.readFileSync(seccionesPath, 'utf-8'));
+    homeResult.push({
+      titulo: 'Secciones identificadas en el home',
+      contenido: secciones.join('\n')
+    });
+  }
+
+  // 🔹 Resultado Lighthouse
+  const lighthousePath = path.join(carpeta, 'lighthouse.json');
+  let lighthouseData = null;
+  if (fs.existsSync(lighthousePath)) {
+    lighthouseData = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
+    const score = lighthouseData.categories?.seo?.score ?? null;
+    homeResult.push({
+      titulo: 'Puntaje SEO de Lighthouse',
+      contenido: score !== null ? `${score * 100}/100` : 'No disponible'
+    });
+  }
+
+  // ---------- CONSTRUCCIÓN DE INFORME MARKDOWN ----------
+  let markdown = `# Informe SEO\n\n`;
+  markdown += `**URL:** ${url}\n`;
+  markdown += `**Fecha:** ${fecha}\n\n`;
+
+  markdown += `## Análisis del Home\n`;
+  homeResult.forEach(bloque => {
+    markdown += `### ${bloque.titulo}\n`;
+    markdown += `${bloque.contenido}\n\n`;
+  });
+
+  // 🔹 Análisis Sitemap
+  const sitemapPath = path.join(carpeta, 'sitemap-analysis.md');
+  if (fs.existsSync(sitemapPath)) {
+    markdown += `## Análisis del Sitemap\n`;
+    markdown += fs.readFileSync(sitemapPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  // 🔹 Análisis Masivo
+  const urlsPath = path.join(carpeta, 'analisis-por-url.md');
+  if (fs.existsSync(urlsPath)) {
+    markdown += `## Análisis por URL\n`;
+    markdown += fs.readFileSync(urlsPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  // 🔹 URLs con error
+  const erroresPath = path.join(carpeta, 'urls-con-errores.md');
+  if (fs.existsSync(erroresPath)) {
+    markdown += `## URLs con error 404 u otros\n`;
+    markdown += fs.readFileSync(erroresPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  // 🔹 Recomendaciones SEO
+  const recomendacionesPath = path.join(carpeta, 'recomendaciones.md');
+  if (fs.existsSync(recomendacionesPath)) {
+    markdown += `## Recomendaciones SEO\n`;
+    markdown += fs.readFileSync(recomendacionesPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  return markdown;
 }
 
-module.exports = { generarInformeUnificadoCompleto };
+module.exports = {
+  generarInformeUnificadoCompleto
+};
