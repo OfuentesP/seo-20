@@ -3,7 +3,7 @@ const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCo
 const generarPDFConHTML = require('./pdf-generator'); // Nuevo import
 const path = require('path');
 const fs = require('fs');
-const ejecutarScraping = require('./generar-scraping-funcional');
+const ejecutarScraping = require('./generar-scrapping-funcional');
 
 async function leerURLDesdeStdin() {
   const rl = readline.createInterface({
