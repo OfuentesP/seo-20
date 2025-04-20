@@ -1,5 +1,20 @@
 const express = require('express');
-const app = express();
+const path = require('path');
+const fs = require('fs');
+const { exec } = require('child_process');
+
+const app = express(); // <-- esta línea es clave
+
+const PORT = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+
+// Ruta base
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 
 
 app.post('/analizar', (req, res) => {
@@ -33,5 +48,8 @@ app.post('/analizar', (req, res) => {
         res.download(rutaArchivo, nombreArchivo);
       });
     });
+  });
+  app.listen(PORT, () => {
+    console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
   });
   
