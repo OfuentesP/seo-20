@@ -41,13 +41,30 @@ rl.on('line', async (url) => {
     fs.writeFileSync(lhResultPath, result.report);
     await browser.close();
 
+    // Leer archivos complementarios
+    const scraping = fs.existsSync(path.join(resultadosPath, 'scraping.txt'))
+      ? fs.readFileSync(path.join(resultadosPath, 'scraping.txt'), 'utf8')
+      : '';
+    const secciones = fs.existsSync(path.join(resultadosPath, 'secciones.json'))
+      ? JSON.parse(fs.readFileSync(path.join(resultadosPath, 'secciones.json'), 'utf8'))
+      : [];
+    const enriched = fs.existsSync(path.join(resultadosPath, 'metadata.json'))
+      ? JSON.parse(fs.readFileSync(path.join(resultadosPath, 'metadata.json'), 'utf8'))
+      : [];
+
     // Generar contenido HTML desde plantilla
     console.log('📄 Generando informe con plantilla HTML...');
     const plantillaPath = path.join(__dirname, 'plantillas', 'plantilla-informe.html');
     const htmlBase = fs.readFileSync(plantillaPath, 'utf8');
 
     const fechaActual = new Date().toISOString().split('T')[0];
-    const homeResult = { lighthouse: result.lhr };
+    const homeResult = {
+      lighthouse: result.lhr,
+      scraping,
+      secciones,
+      enriched
+    };
+
     const md = generarInformeUnificadoCompleto({
       homeResult,
       sitemapMd: '',
@@ -60,20 +77,20 @@ rl.on('line', async (url) => {
       insightsIA: null
     });
 
-    const secciones = md.split('\n---\n');
+    const seccionesMd = md.split('\n---\n');
     const mdToHtml = (txt) => markdownIt().render(txt || '');
 
     const htmlFinal = htmlBase
       .replace(/{{sitio}}/g, url)
       .replace(/{{fecha}}/g, fechaActual)
-      .replace(/{{home}}/g, mdToHtml(secciones[0]))
-      .replace(/{{rendimiento}}/g, mdToHtml(secciones[1]))
-      .replace(/{{tecnico}}/g, mdToHtml(secciones[2]))
-      .replace(/{{palabras}}/g, mdToHtml(secciones[3]))
-      .replace(/{{zonas}}/g, mdToHtml(secciones[4]))
-      .replace(/{{sitemap}}/g, mdToHtml(secciones[5]))
-      .replace(/{{metadatos}}/g, mdToHtml(secciones[6]))
-      .replace(/{{insights}}/g, mdToHtml(secciones[7]));
+      .replace(/{{home}}/g, mdToHtml(seccionesMd[0]))
+      .replace(/{{rendimiento}}/g, mdToHtml(seccionesMd[1]))
+      .replace(/{{tecnico}}/g, mdToHtml(seccionesMd[2]))
+      .replace(/{{palabras}}/g, mdToHtml(seccionesMd[3]))
+      .replace(/{{zonas}}/g, mdToHtml(seccionesMd[4]))
+      .replace(/{{sitemap}}/g, mdToHtml(seccionesMd[5]))
+      .replace(/{{metadatos}}/g, mdToHtml(seccionesMd[6]))
+      .replace(/{{insights}}/g, mdToHtml(seccionesMd[7]));
 
     // Generar PDF final
     const browser2 = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
