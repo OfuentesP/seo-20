@@ -45,7 +45,8 @@ rl.on('line', async (url) => {
 
     const lhResultPath = path.join(resultadosPath, 'lh-report.json');
     const lhCmd = `lighthouse ${url} --chrome-path="${chromePath}" --output json --output-path "${lhResultPath}" --quiet --only-categories=seo`;
-    execSync(lhCmd, { stdio: 'ignore' });
+    execSync(lhCmd, { stdio: 'inherit' });
+
 
     const lhData = JSON.parse(fs.readFileSync(lhResultPath, 'utf8'));
     const seoScore = lhData.categories.seo.score * 100;
