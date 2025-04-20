@@ -8,7 +8,11 @@ async function ejecutarScraping(url) {
     return null;
   }
 
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  
   const page = await browser.newPage();
 
   try {

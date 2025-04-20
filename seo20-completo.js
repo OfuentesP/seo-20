@@ -8,7 +8,10 @@ async function ejecutarLighthouse(url, carpeta) {
   const { default: lighthouse } = await import('lighthouse');
   const chromeLauncher = await import('chrome-launcher');
 
-  const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+  const chrome = await chromeLauncher.launch({
+    chromeFlags: ['--headless', '--no-sandbox', '--disable-setuid-sandbox']
+  });
+  
   const result = await lighthouse(url, {
     port: chrome.port,
     output: 'json',
