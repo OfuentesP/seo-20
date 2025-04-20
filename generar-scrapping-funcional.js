@@ -8,10 +8,11 @@ async function ejecutarScraping(url) {
     return null;
   }
 
-  console.log('🚀 Lanzando Puppeteer con --no-sandbox');
+  console.log('🚀 Lanzando Puppeteer con Chromium del sistema');
 
   const browser = await puppeteer.launch({
     headless: 'new',
+    executablePath: '/usr/bin/chromium-browser', // o '/usr/bin/chromium' si es necesario
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
 
@@ -25,10 +26,12 @@ async function ejecutarScraping(url) {
         if (nodo.nodeType === Node.TEXT_NODE) {
           return nodo.textContent.trim();
         }
-        if (nodo.nodeType === Node.ELEMENT_NODE &&
-            nodo.tagName !== 'SCRIPT' &&
-            nodo.tagName !== 'STYLE' &&
-            getComputedStyle(nodo).display !== 'none') {
+        if (
+          nodo.nodeType === Node.ELEMENT_NODE &&
+          nodo.tagName !== 'SCRIPT' &&
+          nodo.tagName !== 'STYLE' &&
+          getComputedStyle(nodo).display !== 'none'
+        ) {
           return Array.from(nodo.childNodes).map(obtenerTextoVisible).join(' ');
         }
         return '';
