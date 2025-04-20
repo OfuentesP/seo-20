@@ -93,6 +93,56 @@ async function ejecutarLighthouse(url, carpeta) {
     `;
   }
 
+  // 🔹 Leer Core Web Vitals de Lighthouse
+  let coreWebVitalsHTML = '';
+  try {
+    const lighthousePath = path.join(carpeta, 'lighthouse.json');
+    const lighthouseResult = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
+    const audits = lighthouseResult.audits;
+
+    const lcp = audits['largest-contentful-paint']?.displayValue || 'N/A';
+    const fid = audits['first-input-delay']?.displayValue || 'N/A';
+    const cls = audits['cumulative-layout-shift']?.displayValue || 'N/A';
+
+    coreWebVitalsHTML = `
+      <h2>Como está funcionando mi página</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th>Valor</th>
+            <th>Requerido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>LCP (Largest Contentful Paint)</td><td>${lcp}</td><td>Menos de 2.5s</td></tr>
+          <tr><td>FID (First Input Delay)</td><td>${fid}</td><td>Menos de 100ms</td></tr>
+          <tr><td>CLS (Cumulative Layout Shift)</td><td>${cls}</td><td>Menos de 0.1</td></tr>
+        </tbody>
+      </table>
+    `;
+  } catch (error) {
+    console.error('❌ Error al leer lighthouse.json para Core Web Vitals. Usando valores predeterminados.');
+    lighthouseScoresHTML = `
+      <h2>Resultados de Lighthouse</h2>
+      <p>No se pudieron obtener los resultados de Lighthouse. Se muestran valores predeterminados.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Puntuación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Rendimiento</td><td>N/A</td></tr>
+          <tr><td>Accesibilidad</td><td>N/A</td></tr>
+          <tr><td>Buenas Prácticas</td><td>N/A</td></tr>
+          <tr><td>SEO</td><td>N/A</td></tr>
+        </tbody>
+      </table>
+    `;
+  }
+
   // 🔹 Generar secciones del informe
   const { homeResult } = await generarInformeUnificadoCompleto({
     url,
@@ -119,6 +169,7 @@ async function ejecutarLighthouse(url, carpeta) {
     sitio: dominio,
     fecha,
     lighthouseScoresHTML,
+    coreWebVitalsHTML,
     homeResultHTML,
     recomendacionesHTML,
     sitemapHTML,
