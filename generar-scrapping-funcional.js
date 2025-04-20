@@ -12,9 +12,10 @@ async function ejecutarScraping(url) {
 
   const browser = await puppeteer.launch({
     headless: 'new',
-    executablePath: '/usr/bin/chromium-browser', // o '/usr/bin/chromium' si es necesario
+    executablePath: '/usr/bin/chromium-browser',
     args: ['--no-sandbox', '--disable-setuid-sandbox']
   });
+  
 
   const page = await browser.newPage();
 
