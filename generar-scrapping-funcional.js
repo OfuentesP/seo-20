@@ -8,14 +8,19 @@ async function ejecutarScraping(url) {
     return null;
   }
 
-  console.log('🚀 Lanzando Puppeteer con Chromium del sistema');
+  console.log('🚀 Lanzando Puppeteer con navegador embebido');
 
   const browser = await puppeteer.launch({
     headless: 'new',
-    executablePath: '/usr/bin/chromium-browser',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--single-process',
+      '--no-zygote'
+    ]
   });
-  
 
   const page = await browser.newPage();
 
