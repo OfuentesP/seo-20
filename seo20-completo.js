@@ -41,6 +41,15 @@ rl.on('line', async (url) => {
       chromeFlags: ['--no-sandbox']
     });
 
+    // Esperar manualmente a que Chrome esté disponible
+const isReady = await lighthouse(url, {
+  port: chrome.port,
+  output: 'json',
+  onlyCategories: ['seo']
+}).catch(err => {
+  throw new Error('Lighthouse no logró conectarse al puerto de Chrome. Posiblemente falló el lanzamiento.');
+});
+
     const lhResultPath = path.join(resultadosPath, 'lh-report.json');
     const lhOptions = {
       port: chrome.port,
