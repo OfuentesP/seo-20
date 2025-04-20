@@ -49,9 +49,9 @@ rl.on('line', async (url) => {
 
     // 3. Análisis con seo-analyzer
     console.log('🔍 Ejecutando seo-analyzer...');
-    const Analyzer = require('seo-analyzer').default;
-    const instance = new Analyzer({ url });
-    const analysis = await instance.analyze();
+    const analyzer = (await import('seo-analyzer')).default;
+    const analysis = await analyzer({ url });
+    
     
     
 
