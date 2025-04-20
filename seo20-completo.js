@@ -7,11 +7,11 @@ const analyzer = require('seo-analyzer');
 const { execSync } = require('child_process');
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 
-// Crea carpeta si no existe
+// Asegura que la carpeta /resultados exista
 const resultadosPath = path.join(__dirname, 'resultados');
 if (!fs.existsSync(resultadosPath)) fs.mkdirSync(resultadosPath);
 
-// Lee URL desde stdin
+// Leer URL desde stdin
 const readline = require('readline');
 const rl = readline.createInterface({ input: process.stdin });
 console.log('🔍 Ingresa la URL del sitio:');
@@ -19,9 +19,7 @@ rl.on('line', async (url) => {
   try {
     console.log('🌐 URL recibida:', url);
 
-    // ======================
-    // 1. Abrir Puppeteer
-    // ======================
+    // Puppeteer para screenshot
     const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -33,43 +31,47 @@ rl.on('line', async (url) => {
     console.log('📸 Capturando screenshot del home...');
     const screenshotPath = path.join(resultadosPath, 'screenshot.png');
     await page.screenshot({ path: screenshotPath, fullPage: true });
-
     await browser.close();
 
-    // ======================
-    // 2. Ejecutar Lighthouse
-    // ======================
+    // Ejecutar Lighthouse con CHROME_PATH
     console.log('⚙️ Ejecutando Lighthouse...');
     const chromePath = puppeteer.executablePath();
     process.env.CHROME_PATH = chromePath;
 
     const lhResultPath = path.join(resultadosPath, 'lh-report.json');
-    const lhCmd = `lighthouse ${url} --chrome-path="${chromePath}" --output json --output-path "${lhResultPath}" --quiet --only-categories=seo`;
-    execSync(lhCmd, { stdio: 'inherit' });
+    const lhCmd = `lighthouse ${url} \
+      --chrome-path="${chromePath}" \
+      --chrome-flags="--no-sandbox" \
+      --output json \
+      --output-path "${lhResultPath}" \
+      --quiet \
+      --only-categories=seo`;
 
+    execSync(lhCmd, { stdio: 'inherit' });
 
     const lhData = JSON.parse(fs.readFileSync(lhResultPath, 'utf8'));
     const seoScore = lhData.categories.seo.score * 100;
 
-    // ======================
-    // 3. Ejecutar SEO Analyzer
-    // ======================
+    // Análisis con seo-analyzer
     console.log('🔍 Ejecutando seo-analyzer...');
     const analysis = await analyzer({ url });
 
-    // ======================
-    // 4. Crear informe PDF
-    // ======================
+    // Crear PDF
     console.log('📝 Generando PDF...');
     const pdfDoc = await PDFDocument.create();
     const page1 = pdfDoc.addPage();
     const { width, height } = page1.getSize();
 
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-    const title = 'Informe SEO';
-    page1.drawText(title, { x: 50, y: height - 60, size: 24, font, color: rgb(0.2, 0.4, 0.8) });
-    page1.drawText(`Sitio analizado: ${url}`, { x: 50, y: height - 100, size: 14, font });
-    page1.drawText(`Puntaje SEO (Lighthouse): ${seoScore}`, { x: 50, y: height - 130, size: 14, font });
+    page1.drawText('Informe SEO', {
+      x: 50, y: height - 60, size: 24, font, color: rgb(0.2, 0.4, 0.8)
+    });
+    page1.drawText(`Sitio analizado: ${url}`, {
+      x: 50, y: height - 100, size: 14, font
+    });
+    page1.drawText(`Puntaje SEO (Lighthouse): ${seoScore}`, {
+      x: 50, y: height - 130, size: 14, font
+    });
 
     const outputPath = path.join(resultadosPath, 'informe-seo.pdf');
     const pdfBytes = await pdfDoc.save();
