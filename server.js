@@ -1,3 +1,7 @@
+const express = require('express');
+const app = express();
+
+
 app.post('/analizar', (req, res) => {
     const { url } = req.body;
   
