@@ -1,23 +1,21 @@
+// seo20-completo.js
 const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
-const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+const readline = require('readline');
+const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
 
-// Crear carpeta de resultados si no existe
 const resultadosPath = path.join(__dirname, 'resultados');
 if (!fs.existsSync(resultadosPath)) fs.mkdirSync(resultadosPath);
 
-// Leer URL desde stdin
-const readline = require('readline');
 const rl = readline.createInterface({ input: process.stdin });
-
 console.log('🔍 Ingresa la URL del sitio:');
 
 rl.on('line', async (url) => {
   try {
     console.log('🌐 URL recibida:', url);
 
-    // 1. Lanzar Puppeteer para captura
+    // Lanzar Puppeteer
     const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -30,7 +28,7 @@ rl.on('line', async (url) => {
     const screenshotPath = path.join(resultadosPath, 'screenshot.png');
     await page.screenshot({ path: screenshotPath, fullPage: true });
 
-    // 2. Lighthouse desde Puppeteer
+    // Ejecutar Lighthouse desde Puppeteer
     console.log('⚙️ Ejecutando Lighthouse...');
     const lighthouse = (await import('lighthouse')).default;
     const wsEndpoint = browser.wsEndpoint();
@@ -44,31 +42,18 @@ rl.on('line', async (url) => {
     });
 
     fs.writeFileSync(lhResultPath, result.report);
-    const seoScore = result.lhr.categories.seo.score * 100;
-
-    // 3. Generar PDF
-    console.log('📝 Generando PDF...');
-    const pdfDoc = await PDFDocument.create();
-    const page1 = pdfDoc.addPage();
-    const { width, height } = page1.getSize();
-    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-
-    page1.drawText('Informe SEO', {
-      x: 50, y: height - 60, size: 24, font, color: rgb(0.2, 0.4, 0.8)
-    });
-    page1.drawText(`Sitio analizado: ${url}`, {
-      x: 50, y: height - 100, size: 14, font
-    });
-    page1.drawText(`Puntaje SEO (Lighthouse): ${seoScore}`, {
-      x: 50, y: height - 130, size: 14, font
-    });
-
-    const outputPath = path.join(resultadosPath, 'informe-seo.pdf');
-    const pdfBytes = await pdfDoc.save();
-    fs.writeFileSync(outputPath, pdfBytes);
-
-    console.log('✅ Informe generado:', outputPath);
     await browser.close();
+
+    // Generar PDF final consolidado
+    console.log('📄 Generando informe PDF completo...');
+    const outputPath = path.join(resultadosPath, 'informe-seo.pdf');
+    await generarInformeUnificadoCompleto({
+      url,
+      jsonPath: lhResultPath,
+      outputPath
+    });
+
+    console.log('✅ Informe final listo:', outputPath);
     process.exit(0);
   } catch (err) {
     console.error('❌ Error general:', err.message || err);
