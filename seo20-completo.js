@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
-const analyzer = require('seo-analyzer');
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 
 // Crear carpeta de resultados si no existe
@@ -47,15 +46,7 @@ rl.on('line', async (url) => {
     fs.writeFileSync(lhResultPath, result.report);
     const seoScore = result.lhr.categories.seo.score * 100;
 
-    // 3. Análisis con seo-analyzer
-    console.log('🔍 Ejecutando seo-analyzer...');
-    const analyzer = (await import('seo-analyzer')).default;
-    const analysis = await analyzer({ url });
-    
-    
-    
-
-    // 4. Generar PDF
+    // 3. Generar PDF
     console.log('📝 Generando PDF...');
     const pdfDoc = await PDFDocument.create();
     const page1 = pdfDoc.addPage();
