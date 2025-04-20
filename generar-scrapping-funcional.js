@@ -7,7 +7,9 @@ async function ejecutarScraping(url) {
     console.error('❌ URL inválida para scraping');
     return null;
   }
+
   console.log('🚀 Lanzando Puppeteer con --no-sandbox');
+
   const browser = await puppeteer.launch({
     headless: 'new',
     args: ['--no-sandbox', '--disable-setuid-sandbox']
