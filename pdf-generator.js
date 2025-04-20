@@ -13,6 +13,7 @@ module.exports = async function generarPDFConHTML({
   sitio,
   fecha,
   lighthouseScoresHTML,
+  coreWebVitalsHTML,
   homeResultHTML,
   recomendacionesHTML,
   sitemapHTML,
@@ -26,6 +27,7 @@ module.exports = async function generarPDFConHTML({
   const finalHTML = renderHTML(htmlBase, {
     sitio,
     fecha,    
+    coreWebVitals: coreWebVitalsHTML,
     lighthouseScores: lighthouseScoresHTML,
     homeResult: homeResultHTML,
     recomendaciones: recomendacionesHTML,
