@@ -8,7 +8,7 @@ async function ejecutarScraping(url) {
     return null;
   }
 
-  const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ headless: 'new', executablePath: '/usr/bin/chromium' });
   const page = await browser.newPage();
 
   try {
