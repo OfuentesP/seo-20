@@ -2,15 +2,11 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-// Función principal
-(async () => {
-  const url = process.argv[2];
+async function ejecutarScraping(url) {
   if (!url || !url.startsWith('http')) {
-    console.error('❌ Debes proporcionar una URL válida como argumento.');
-    process.exit(1);
+    console.error('❌ URL inválida para scraping');
+    return null;
   }
-
-  console.log(`🔍 Navegando a: ${url}`);
 
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
@@ -23,7 +19,10 @@ const path = require('path');
         if (nodo.nodeType === Node.TEXT_NODE) {
           return nodo.textContent.trim();
         }
-        if (nodo.nodeType === Node.ELEMENT_NODE && nodo.tagName !== 'SCRIPT' && nodo.tagName !== 'STYLE' && getComputedStyle(nodo).display !== 'none') {
+        if (nodo.nodeType === Node.ELEMENT_NODE &&
+            nodo.tagName !== 'SCRIPT' &&
+            nodo.tagName !== 'STYLE' &&
+            getComputedStyle(nodo).display !== 'none') {
           return Array.from(nodo.childNodes).map(obtenerTextoVisible).join(' ');
         }
         return '';
@@ -34,16 +33,19 @@ const path = require('path');
     const fecha = new Date().toISOString().split('T')[0];
     const dominio = new URL(url).hostname.replace(/^www\./, '');
     const carpeta = path.join(__dirname, 'resultados', `${fecha}_${dominio}`);
-
     fs.mkdirSync(carpeta, { recursive: true });
 
     const archivo = path.join(carpeta, 'scraping.txt');
     fs.writeFileSync(archivo, textoVisible.trim());
 
     console.log(`✅ Scraping guardado en: ${archivo}`);
+    return archivo;
   } catch (err) {
     console.error('⚠️ Error durante el scraping:', err.message);
+    return null;
   } finally {
     await browser.close();
   }
-})();
+}
+
+module.exports = ejecutarScraping;
