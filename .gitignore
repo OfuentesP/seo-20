@@ -4,8 +4,7 @@ node_modules
 package-lock.json
 
 # Salidas automáticas
-resultados/
-resultados-previos/
+
 
 # Logs
 *.log

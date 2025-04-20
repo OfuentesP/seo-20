@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+        <html lang="es-CL" data-website-id="1" data-main-object="website.page(4,)" data-oe-company-name="Dko Home" data-add2cart-redirect="1">
+    <head>
+                <meta charset="utf-8"/>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="generator" content="Odoo"/>
+        <meta name="description" content="DKo Home, la mejor tienda de muebles y decoración de Santiago. Encuentra todo para armar o decorar tu living, comedor, dormitorio, oficina, muebles de cocina, y terraza."/>
+        <meta name="keywords" content="muebles, decoración, comedor, dko home, cocina, living, tienda de muebles, dormitorio, oficina, muebles de cocina"/>
+                        <meta property="og:type" content="website"/>
+                        <meta property="og:title" content="DKo Home | Tienda de muebles y decoración"/>
+                        <meta property="og:site_name" content="Dko Home"/>
+                        <meta property="og:url" content="https://solid-spa-dko-home.odoo.com/"/>
+                        <meta property="og:image" content="https://www.dkohome.cl/web/image/185147-dc57358c/living.jpg"/>
+                        <meta property="og:description" content="DKo Home, la mejor tienda de muebles y decoración de Santiago. Encuentra todo para armar o decorar tu living, comedor, dormitorio, oficina, muebles de cocina, y terraza."/>
+                <meta name="twitter:site" content="dkohome.cl"/>
+                    <meta name="twitter:card" content="summary_large_image"/>
+                    <meta name="twitter:title" content="DKo Home | Tienda de muebles y decoración"/>
+                    <meta name="twitter:image" content="https://www.dkohome.cl/web/image/185147-dc57358c/living.jpg"/>
+                    <meta name="twitter:description" content="DKo Home, la mejor tienda de muebles y decoración de Santiago. Encuentra todo para armar o decorar tu living, comedor, dormitorio, oficina, muebles de cocina, y terraza."/>
+        <link rel="canonical" href="https://www.dkohome.cl/"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin=""/>
+                <title>DKo Home | Tienda de muebles y decoración</title>
+                <link type="image/x-icon" rel="shortcut icon" href="/web/image/website/1/favicon?unique=f503372"/>
+            <link rel="preload" href="/web/static/lib/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" crossorigin=""/>
+            <link type="text/css" rel="stylesheet" href="/web/assets/1085154-908ae9d/1/web.assets_common.min.css" data-asset-bundle="web.assets_common" data-asset-version="908ae9d"/>
+            <link type="text/css" rel="stylesheet" href="/web/assets/1086262-b02273e/1/web.assets_frontend.min.css" data-asset-bundle="web.assets_frontend" data-asset-version="b02273e"/>
+                <script id="web.layout.odooscript" type="text/javascript">
+                    var odoo = {
+                        csrf_token: "6ab011985e71c51a388241278a6fd07e477de409o1776574993",
+                        debug: "",
+                    };
+                </script>
+            <script type="text/javascript">
+                odoo.__session_info__ = {"is_admin": false, "is_system": false, "is_website_user": true, "user_id": false, "is_frontend": true, "profile_session": null, "profile_collectors": null, "profile_params": null, "show_effect": false, "translationURL": "/website/translations", "cache_hashes": {"translations": "e8d1a2cdc178741fd692c362fa528855fa970e41"}, "lang_url_code": "es_CL", "geoip_country_code": "TW"};
+                if (!/(^|;\s)tz=/.test(document.cookie)) {
+                    const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    document.cookie = `tz=${userTZ}; path=/`;
+                }
+            </script>
+            <script defer="defer" type="text/javascript" src="/web/assets/1085116-f49b04f/1/web.assets_common_minimal.min.js" data-asset-bundle="web.assets_common_minimal" data-asset-version="f49b04f"></script>
+            <script defer="defer" type="text/javascript" src="/web/assets/1085117-fe4012f/1/web.assets_frontend_minimal.min.js" data-asset-bundle="web.assets_frontend_minimal" data-asset-version="fe4012f"></script>
+            <script defer="defer" type="text/javascript" data-src="/web/assets/1025688-1bc3afc/1/web.assets_common_lazy.min.js" data-asset-bundle="web.assets_common_lazy" data-asset-version="1bc3afc"></script>
+            <script defer="defer" type="text/javascript" data-src="/web/assets/1086264-e40cb3a/1/web.assets_frontend_lazy.min.js" data-asset-bundle="web.assets_frontend_lazy" data-asset-version="e40cb3a"></script>
+            <script type="module" src="/oct8pos_connector/static/src/modules/ldrs/dist/auto/dotPulse.js"></script>
+        <meta name="p:domain_verify" content="07e93086bdecc9a5daf3b513311afd72"/>
+<meta name="facebook-domain-verification" content="iq04suo0kcx4kw1o37xkjhmmgt86k6" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P62JWM2');</script>
+<!-- End Google Tag Manager -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '3527378244240373');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src=https://www.facebook.com/tr?id=3527378244240373&ev=PageView&noscript=1
+/></noscript>
+<!-- End Meta Pixel Code -->
+<script>window[['CHIPBOT','DOMAIN','ID'].join('_')]='dom_84JgQYMcj6J7';!function(c,h,i,p,b,o,t){o=h.createElement(i),t=h.getElementsByTagName(i)[0],o.async=1,o.src=https://static.getchipbot.com/edge/p/chipbot.js,t.parentNode.insertBefore(o,t)}(window,document,"script");</script>
+<meta name="p:domain_verify" content="07e93086bdecc9a5daf3b513311afd72"/>
+    </head>
+            <body class="">
+        <div id="wrapwrap" class="homepage   ">
+    <header id="top" data-anchor="true" data-name="Header" class="  o_hoverable_dropdown o_header_fixed">
+    <nav data-name="Navbar" class="navbar navbar-expand-lg navbar-light o_colored_level o_cc shadow-sm">
+            <div id="top_menu_container" class="container flex-row flex-wrap">
+    <a href="/" class="navbar-brand logo mr-4">
+            <span role="img" aria-label="Logo of DKo Home" title="DKo Home"><img src="/web/image/website/1/logo/DKo%20Home?unique=f503372" class="img img-fluid" alt="DKo Home" loading="lazy"/></span>
+        </a>
+                <div></div>
+                <div style="margin-left:auto;margin-right:0px;width:55%">
+                    <div class="oe_structure oe_structure_solo" id="oe_structure_header_slogan_1">
+      <form method="get" data-snippet="s_searchbar_input" class="o_searchbar_form s_searchbar_input" action="/shop" data-name="Search" data-gtm-form-interact-id="0">
+        <div role="search" class="input-group ">
+          <input type="search" name="search" class="search-query form-control oe_search_box None" placeholder="Buscar…" data-search-type="products" data-limit="5" data-display-image="true" data-display-description="true" data-display-extra-link="true" data-display-detail="true" data-order-by="name asc" autocomplete="off" data-listener-added_34f50fa9="true" data-listener-added_453794d6="true" data-listener-added_3e5785fa="true" data-listener-added_b65d3fc4="true" data-gtm-form-interact-field-id="0"/>
+          <div class="input-group-append">
+            <button type="submit" aria-label="Búsqueda" title="Búsqueda" class="btn oe_search_button btn-primary">
+              <i class="fa fa-search" data-original-title="" title="" aria-describedby="tooltip608780"></i>
+            </button>
+          </div>
+        </div>
+        <input name="order" type="hidden" class="o_search_order_by" value="name asc"/>
+      </form>
+    </div>
+  </div>
+                <ul class="nav navbar-nav navbar-expand ml-auto order-last order-lg-0">
+            <li class="nav-item ml-3 o_no_autohide_item">
+                <a style="border:none;position:relative;top:-1.5px;height: 37.5px;width: 54px;" href="/web/login" class="btn btn-outline-primary">
+                <i class="fa fa-user-circle-o"></i>
+                </a>
+            </li>
+            <li>
+                <a href="/shop/cart">
+                    <i class="fa fa-shopping-cart" style="position: relative; top: 8px;"></i>
+                    <sup class="my_cart_quantity badge badge-primary" style="position: relative; top: 1px; left: -2px" data-order-id="">0</sup>
+                </a>
+            </li>            
+                    <li class="nav-item">
+    <div class="oe_structure oe_structure_solo ml-2">
+      <section class="s_searchbar o_colored_level pb0 pt0" data-snippet="s_searchbar" data-name="Search" style="background-image: none;">
+        <div class="container">
+          <h2>
+            <br/>
+          </h2>
+        </div>
+      </section>
+    </div>
+                    </li>
+                </ul>
+                <div class="w-100">
+                    <div class="oe_structure oe_structure_solo d-none" id="oe_structure_header_slogan_3">
+    </div>
+  </div>
+  <button type="button" data-toggle="collapse" data-target="#top_menu_collapse" class="navbar-toggler ">
+    <span class="navbar-toggler-icon o_not_editable"></span>
+  </button>
+                <div id="top_menu_collapse" class="collapse navbar-collapse">
+    <ul id="top_menu" class="nav navbar-nav o_menu_loading flex-grow-1 justify-content-center">
+    <li class="nav-item">
+        <a role="menuitem" href="/shop" class="nav-link ">
+            <span>VER TODO</span>
+        </a>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>MUEBLES</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><section class="s_mega_menu_multi_menus py-4 o_colored_level o_cc o_cc1 pb0 pt24" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip588747">
+        <div class="container">
+            <div class="row" data-original-title="" title="" aria-describedby="tooltip980697">
+                    <div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip46956">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip400190"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip509663"><strong><a href="/shop/category/muebles-living-34209" class="oe_unremovable" data-original-title="" title="">Living</a><br></strong><a class="oe_unremovable" href="/shop/category/muebles-living-sofas-y-sillones-34284">
+</a><a class="oe_unremovable" href="/shop/category/muebles-living-banquetas-y-poltronas-34271" data-original-title="" title="">Banquetas y Poltronas</a>
+<br>
+<a class="oe_unremovable" href="/shop/category/muebles-living-bergeres-y-reclinables-34273" data-original-title="" title="">Bergeres y Reclinables</a>
+<br>
+<a class="oe_unremovable" href="/shop/category/muebles-living-estante-y-repisas-34272" data-original-title="" title="">Estantes y Repisas</a>
+<br>
+<a class="oe_unremovable" href="/shop/category/muebles-living-mesas-de-centro-laterales-y-arrimos-34270" data-original-title="" title="">Mesas y Arrimos</a>
+<br>
+<a class="oe_unremovable" href="/shop/category/muebles-living-pisos-y-pouf-34279" data-original-title="" title="">Pisos y Poufs</a>
+<br>
+<a class="oe_unremovable" href="/shop/category/muebles-living-racks-34281" data-original-title="" title="">Racks<br>
+</a><a class="oe_unremovable" href="/shop/category/muebles-living-seccionales-y-modulares-34282" data-original-title="" title="">Seccionales y Modulares</a>
+ <br>
+<a class="oe_unremovable" href="/shop/category/muebles-living-sofas-camas-y-futones-34275" data-original-title="" title="">Sofás cama y Futones</a>
+<br>
+<a class="oe_unremovable" href="/shop/category/muebles-living-sofas-y-sillones-34284" data-original-title="" title="">Sofás y Sillones</a>
+<br><a class="oe_unremovable" href="/shop/category/muebles-living-racks-34281"></a></span></p><a class="oe_unremovable" href="/shop/category/muebles-living-racks-34281"></a><a class="oe_unremovable" href="https://solid-spa-dko-home.odoo.com/shop/category/muebles-living-pisos-y-pouf-34279"></a><a class="oe_unremovable" href="/shop/category/muebles-living-pisos-y-pouf-34279" data-original-title="" title=""></a><a class="oe_unremovable" href="/shop/category/muebles-living-mesas-de-centro-laterales-y-arrimos-34270"></a><a class="oe_unremovable" href="/shop/category/muebles-living-banquetas-y-poltronas-34271" data-original-title="" title=""></a><a class="oe_unremovable" href="/shop/category/muebles-living-estante-y-repisas-34272" data-original-title="" title=""></a><a class="oe_unremovable" href="/shop/category/muebles-living-bergeres-y-reclinables-34273"></a><a class="oe_unremovable" href="/shop/category/muebles-living-sofas-camas-y-futones-34275"></a><a class="oe_unremovable" href="/shop/category/muebles-living-seccionales-y-modulares-34282"></a><a class="oe_unremovable" href="/shop/category/muebles-living-sofas-y-sillones-34284"></a></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip902282">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip344830"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip745868"><strong data-original-title="" title="" aria-describedby="tooltip738131"><a class="oe_unremovable" href="/shop/category/muebles-dormitorio-34206" data-original-title="" title="">Dormitorio</a> </strong><a class="oe_unremovable" href="/shop/category/muebles-dormitorio-camas-y-bases-34241"></a><br><a href="/shop/category/muebles-dormitorio-camas-y-bases-34241" data-original-title="" title="">Camas y Bases</a> <br>
+<a href="https://www.dkohome.cl/shop/category/muebles-dormitorio-closets-34254" data-original-title="" title="">Closets</a>
+<br><a href="/shop/category/muebles-dormitorio-colchones-34204" data-original-title="" title="">Colchones</a><br><a class="oe_unremovable" href="/shop/category/muebles-dormitorio-comodas-tocadores-y-zapateros-34250" data-original-title="" title="">Cómodas y Zapateros</a><a class="oe_unremovable" href="/shop/category/muebles-dormitorio-cunas-34251">​</a><a class="oe_unremovable" href="/shop/category/muebles-dormitorio-respaldos-34253" data-original-title="" title="">​</a><br><a href="/shop/category/muebles-infantil-34208" data-original-title="" title="">Infantil</a><a class="oe_unremovable" href="/shop/category/muebles-dormitorio-closets-34254" data-original-title="" title=""></a> <br>
+<a href="https://www.dkohome.cl/shop/category/muebles-dormitorio-respaldos-34253" data-original-title="" title="">Respaldos</a>
+<br><a class="oe_unremovable" href="/shop/category/muebles-dormitorio-veladores-34260" data-original-title="" title="">Veladores​</a></span></p></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip743879">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip195816"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip976663"><strong><a class="oe_unremovable" href="/shop/category/muebles-home-office-34207" data-original-title="" title="">Oficina</a></strong><br><a class="oe_unremovable" href="/shop/category/muebles-home-office-escritorios-34263">
+</a><a href="https://www.dkohome.cl/shop/category/muebles-oficina-cajoneras-34262" data-original-title="" title="">Cajoneras</a> <br><a href="/shop/category/muebles-oficina-escritorios-34263">Escritorios</a>​<br><a class="oe_unremovable" href="/shop/category/muebles-home-office-sillas-oficina-34265" data-original-title="" title="">Sillas de oficina</a></span></p></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip195658">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip195816"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip976663"><strong><a class="oe_unremovable" href="/shop/category/muebles-cocina-34203" data-original-title="" title="">​</a></strong></span><strong><a href="/shop/category/muebles-bano-34202">Baño</a></strong><br><a href="/shop/category/muebles-bano-vanitorios-34214">Vanitorios</a></p><a class="oe_unremovable" href="/shop/category/muebles-home-office-sillas-oficina-34265"></a><a class="oe_unremovable" href="/shop/category/muebles-cocina-34203" data-original-title="" title=""></a><a class="oe_unremovable" href="/shop/category/muebles-home-office-sillas-oficina-34265"></a><a class="oe_unremovable" href="/shop/category/muebles-home-office-escritorios-34263"></a><a class="oe_unremovable" href="/shop/category/muebles-home-office-cajoneras-34262"></a><a class="oe_unremovable" href="/shop/category/muebles-home-office-34207"></a></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip195658">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip195816"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip976663"><strong><a href="/shop/category/muebles-terraza-34211">Terraza</a><a class="oe_unremovable" href="/shop/category/muebles-home-office-34207">​</a></strong></span><br><a href="/shop/category/muebles-terraza-juegos-de-comedor-34344" data-listener-added_062c5da5="true" data-original-title="" title="">Juegos de comedor</a><br><a href="/shop/category/muebles-terraza-juegos-de-living-34345">Juegos de living</a><br><a href="/shop/category/muebles-terraza-mesas-de-terraza-34346" data-original-title="" title="">Mesas de terraza</a><br><a href="/shop/category/muebles-terraza-set-de-balcon-34349" data-original-title="" title="">Set de balcón </a><br><a href="/shop/category/muebles-terraza-quitasol-34348">Quitasol</a><br><a href="/shop/category/muebles-terraza-sillas-de-terraza-34350" data-original-title="" title="">Sillas de terraza</a></p><a class="oe_unremovable" href="/shop/category/muebles-home-office-34207"></a><p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip195816"></p><a class="oe_unremovable" href="/shop/category/muebles-home-office-sillas-oficina-34265"></a><a class="oe_unremovable" href="/shop/category/muebles-home-office-escritorios-34263"></a><a class="oe_unremovable" href="/shop/category/muebles-home-office-cajoneras-34262"></a><a class="oe_unremovable" href="/shop/category/muebles-home-office-34207"></a></div>
+            </div>
+        </div>
+    </section>
+<section class="s_mega_menu_multi_menus py-4 o_colored_level o_cc o_cc1 o_snippet_invisible pb0 pt0 o_conditional_hidden" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip119241" data-visibility="conditional" data-visibility-value-country='[{"id":6,"name":"Albania","display_name":"Albania","code":"AL"}]' data-visibility-selectors='html:not([data-country="AL"]) body:not(.editor_enable) [data-visibility-id="country_o_6"]' data-visibility-id="country_o_6">
+        <div class="container">
+            <div class="row" data-original-title="" title="" aria-describedby="tooltip603344">
+                    <div class="col-12 col-sm py-2 text-center o_colored_level" data-original-title="" title="" aria-describedby="tooltip549007">
+                        <h4 class="o_default_snippet_text">Primer menú</h4>
+                        <nav class="nav flex-column">
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 1</a>
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 2</a>
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 3</a>
+                        </nav>
+                    </div>
+                    <div class="col-12 col-sm py-2 text-center o_colored_level">
+                        <h4 class="o_default_snippet_text">Segundo menú</h4>
+                        <nav class="nav flex-column">
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 1</a>
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 2</a>
+                                <a href="#" class="nav-link" data-name="Menu Item" data-original-title="" title="">Elemento de menú 3</a>
+                        </nav>
+                    </div>
+                    <div class="col-12 col-sm py-2 text-center">
+                        <h4 class="o_default_snippet_text">Tercer menú</h4>
+                        <nav class="nav flex-column">
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 1</a>
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 2</a>
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 3</a>
+                        </nav>
+                    </div>
+                    <div class="col-12 col-sm py-2 text-center">
+                        <h4 class="o_default_snippet_text">Último menú</h4>
+                        <nav class="nav flex-column">
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 1</a>
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 2</a>
+                                <a href="#" class="nav-link o_default_snippet_text" data-name="Menu Item">Elemento de menú 3</a>
+                        </nav>
+                    </div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>LIVING</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><a href="https://www.dkohome.cl/blog/inspiracion-para-todos-los-espacios-de-tu-hogar-2/nueva-coleccion-de-menaje-para-mesas-llenas-de-inspiracion-39#">
+             </a>
+<br>
+<section class="s_mega_menu_odoo_menu o_colored_level o_cc o_cc1 pt0" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip216967"><div class="container"><div class="row"><div class="col-md-6 pb24 col-lg-12 o_colored_level pt8"><div data-original-title="" title="" aria-describedby="tooltip55860"><strong><a href="/shop/category/muebles-living-34209" data-original-title="" title="">Ver todo</a></strong><br><a href="/shop/category/muebles-living-banquetas-y-poltronas-34271">Banquetas y Poltronas</a><br><a href="/shop/category/muebles-living-bergeres-y-reclinables-34273">Bergeres y Reclinables</a><br><a href="/shop/category/muebles-living-estantes-y-repisas-34272">Estantes y Repisas</a><br>
+<a href="https://www.dkohome.cl/shop/category/muebles-living-mesas-de-centro-laterales-y-arrimos-34270" data-original-title="" title="">Mesas y Arrimos</a>
+<br><a href="/shop/category/muebles-living-pisos-y-poufs-34279">Pisos y Poufs</a><br><a href="/shop/category/muebles-living-racks-34281">Racks</a><br><a href="/shop/category/muebles-living-seccionales-y-modulares-34282">Seccionales y Modulares</a><br><a href="/shop/category/muebles-living-sofas-cama-y-futones-34275" data-original-title="" title="">Sofás cama y Futones</a><br><a href="/shop/category/muebles-living-sofas-y-sillones-34284">Sofás y Sillones</a></div></div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>COMEDOR</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><section class="s_mega_menu_odoo_menu pt16 o_colored_level o_cc o_cc1 pb24" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip25702">
+        <div class="container">
+            <div class="row" data-original-title="" title="" aria-describedby="tooltip385179">
+                <div class="col-md-6 pt16 o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip819583">
+                    <div data-original-title="" title="" aria-describedby="tooltip451424"><strong><a href="/shop/category/muebles-comedor-juego-de-comedor-34232">JUEGOS DE COMEDOR</a></strong><a href="/shop/category/muebles-comedor-juegos-de-comedor-juegos-de-comedor-4-sillas-34604" data-original-title="" title=""><br>Juegos de comedor 4 sillas</a><br><a href="/shop/category/muebles-comedor-juegos-de-comedor-juegos-de-comedor-6-sillas-34605">Juegos de comedor 6 sillas</a><br><a href="/shop/category/muebles-comedor-muebles-de-bar-juegos-y-mesas-de-bar-34607">Juegos de comedor altos</a></div></div><div class="col-md-6 pt16 o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip819583">
+                    <div data-original-title="" title="" aria-describedby="tooltip451424"><strong data-original-title="" title="" aria-describedby="tooltip710573"><a href="/shop/category/muebles-comedores-mesas-de-comedor-34236">MESAS DE COMEDOR</a></strong><a href="/shop/category/muebles-comedor-mesas-de-comedor-mesas-de-comedor-4-puestos-34606" data-original-title="" title=""><br>Mesas de 4 puestos</a><br>
+<a href="/shop/category/muebles-comedor-mesas-de-comedor-mesas-de-comedor-6-puestos-34609" data-original-title="" title="">M<span style="color: rgb(0, 0, 0);font-size: 15px;font-style: normal;font-weight: 400;background-color: rgb(255, 255, 255)" data-original-title="" title="" aria-describedby="tooltip379945">esas de 6 puestos</span><br></a><br></div></div><div class="col-md-6 pt16 o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip819583">
+                    <div data-original-title="" title="" aria-describedby="tooltip451424"><strong data-original-title="" title="" aria-describedby="tooltip241060"><a href="/shop?order=name+asc&amp;search=silla">SILLAS</a></strong><a href="/shop/category/muebles-comedor-sillas-y-sitiales-34240" data-original-title="" title=""><br>Sillas de comedor</a><br><a href="/shop/category/muebles-comedor-muebles-de-bar-sillas-de-bar-34610">Sillas altas</a></div></div><div class="col-md-6 pt16 o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip819583">
+                    <div data-original-title="" title="" aria-describedby="tooltip451424"><strong data-original-title="" title="" aria-describedby="tooltip288002">COMPLEMENTOS</strong><a href="/shop/category/muebles-comedor-buffets-y-vitrinas-34230" data-original-title="" title=""><br>Buffet y vitrinas</a></div></div><div class="col-md-6 pt16 o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip819583">
+                    <div data-original-title="" title="" aria-describedby="tooltip451424"><strong><a href="/shop/category/menaje-menaje-mesa-33972">MENAJE</a></strong><br><a href="/shop/category/menaje-menaje-mesa-accesorios-mesa-33973">Accesorios mesa</a><br><a href="/shop/category/menaje-menaje-mesa-cuchilleria-33974">Cuchillería</a><br><a href="/shop/category/menaje-menaje-mesa-vajilla-33975">Vajilla</a><br><a href="/shop/category/menaje-menaje-mesa-vasos-y-copas-33976">Vasos y copas</a></div></div><div class="col-md-6 o_colored_level pb0 pt0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip819583">
+                    <div data-original-title="" title="" aria-describedby="tooltip451424"><strong data-original-title="" title="" aria-describedby="tooltip288002"><a href="https://www.dkohome.cl/shop/230024801-comedor-redondo-6-sillas-alytus-77196?category=34232#attr=84998,84999,85000" target="_blank"><img class="img-fluid o_we_custom_image" src="/web/image/1084591-e0ee1a48/Comedor%20redondo%206%20sillas%20Alytus.jpg?access_token=f9fd0ad5-786b-4db8-ba35-054989dca0ce" alt="" data-original-title="" title="" aria-describedby="tooltip570740" loading="lazy" data-original-id="1084589" data-original-src="/web/image/1084589-1fc55f63/Comedor%20redondo%206%20sillas%20Alytus.jpg" data-mimetype="image/jpeg" data-resize-width="765"></a>​</strong><br></div></div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>COCINAS</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><section class="s_mega_menu_odoo_menu pt16 o_colored_level o_cc o_cc1" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip707055">
+        <div class="container">
+            <div class="row" data-original-title="" title="" aria-describedby="tooltip178780">
+                <div class="col-md-6 pt16 pb24 o_colored_level col-lg-3" data-original-title="" title="" aria-describedby="tooltip725704">
+                    <p class="text-uppercase font-weight-bold mt-0" data-original-title="" title="" aria-describedby="tooltip373192"><span style="font-size: 14px;"><a href="/cocinas-modulares#scrollTop=0" data-original-title="" title="">cocinas modulares</a></span></p>
+                    <nav class="nav flex-column" data-original-title="" title="" aria-describedby="tooltip868870"><a href="/shop/category/muebles-cocina-cocina-amalia-34591">Amalia</a><a href="/shop/category/muebles-cocina-cocina-americana-blanco-34592" data-original-title="" title="">Americana Blanca</a><a href="/shop/category/muebles-cocina-cocina-americana-gris-34601">Americana Gris</a><a href="/shop/category/muebles-cocina-cocina-botanic-gris-34594" data-original-title="" title="">Botanic Gris</a><a href="/shop/category/muebles-cocina-cocina-botanic-verde-34595" data-original-title="" title="">Botanic Verde</a><a href="/shop/category/muebles-cocina-cocina-louise-34596" data-original-title="" title="">Louise</a><a href="/shop/category/muebles-cocina-cocina-maxxi-blanco-34597" data-original-title="" title="" aria-describedby="popover870141">Maxxi Blanca</a><a href="/shop/category/muebles-cocina-cocina-maxxi-cafe-34598" data-original-title="" title="" aria-describedby="popover289185">Maxxi Café</a><a href="/shop/category/muebles-cocina-cocina-requinte-34599">Requinte</a></nav>
+                </div><div class="col-md-6 pt16 pb24 o_colored_level col-lg-3" data-original-title="" title="" aria-describedby="tooltip725704">
+                    <p class="text-uppercase font-weight-bold mt-0" data-original-title="" title="" aria-describedby="tooltip373192"><span style="font-size: 14px;"><a href="/shop?search=cocina+compacta&amp;order=name+asc">cocinas compactas</a></span></p>
+                    <nav class="nav flex-column" data-original-title="" title="" aria-describedby="tooltip868870"><a href="/shop/230033737-cocina-compacta-bruna-blanco-86341?category=34217#attr=130256,116426,116425" data-original-title="" title="">Bruna</a><a href="/shop/230033739-cocina-compacta-evelyn-grafito-86343?category=34217#attr=130257,116430,116429">Evelyn</a><a href="/shop/230033736-cocina-compacta-fernanda-menta-86340?category=34217#attr=130258,116424,116423" data-original-title="" title="">Fernanda</a><a href="/shop/230033738-cocina-compacta-helena-blanco-86342?category=34217#attr=130264,116428,116427">Helena</a><a href="/shop?search=compacta+hellen&amp;order=name+asc" data-original-title="" title="">Hellen</a><br><strong data-original-title="" title="" aria-describedby="tooltip155094"><p><a href="/shop/category/muebles-cocina-lavaplatos-34221" data-original-title="" title=""><span data-original-title="" title="" aria-describedby="tooltip333415" style="font-size: 14px;"><strong data-original-title="" title="" aria-describedby="tooltip844827">LAVAPLATOS</strong></span></a></p></strong></nav>
+                </div><div class="col-md-6 pt16 pb24 o_colored_level col-lg-3" data-original-title="" title="" aria-describedby="tooltip725704">
+                    <p class="text-uppercase font-weight-bold mt-0" data-original-title="" title="" aria-describedby="tooltip373192"><span style="font-size: 14px;"><a href="/shop/category/menaje-menaje-cocina-33937" data-original-title="" title="">MENAJE COCINA</a></span><br></p>
+                    <nav class="nav flex-column" data-original-title="" title="" aria-describedby="tooltip868870"><a href="/shop/category/menaje-menaje-cocina-baterias-y-ollas-33956" data-original-title="" title="">Baterías y Ollas</a><a href="/shop/category/menaje-menaje-cocina-contenedores-33947">Contenedores</a><a href="/shop/category/menaje-menaje-cocina-cuchillos-y-tablas-33948">Cuchillos y Tablas</a><a href="/shop/category/menaje-menaje-cocina-teteras-y-cafeteras-33952">Teteras y Cafeteras</a><a href="/shop/category/menaje-menaje-cocina-utensilios-33946">Utensilios</a><a href="/shop/category/menaje-menaje-cocina-reposteria-34524">Repostería</a><a href="/shop/category/menaje-menaje-cocina-sartenes-y-woks-34525">Sartenes y Woks</a> <br></nav></div><div class="col-md-6 o_colored_level pt0 col-lg-3 pb32" data-original-title="" title="" aria-describedby="tooltip725704">
+                    <h4 class="text-uppercase h5 font-weight-bold mt-0" data-original-title="" title="" aria-describedby="tooltip373192"><br></h4>
+                    <nav class="nav flex-column" data-original-title="" title="" aria-describedby="tooltip868870"><a href="https://www.dkohome.cl/shop/category/muebles-cocina-cocina-requinte-34599" data-original-title="" title=""><img class="img-fluid o_we_custom_image img-thumbnail" src="/web/image/1085253-6953275e/Requinte.jpg?access_token=baba94e9-d974-4194-9d38-50c5588ea67a" alt="" data-original-title="" title="" aria-describedby="tooltip66401" data-original-id="973795" data-original-src="/web/image/973795-fe78d09f/Requinte.jpg" data-mimetype="image/jpeg" loading="lazy" data-quality="100" data-resize-width="1113"><br></a></nav>
+                </div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>DORMITORIO</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><section class="s_mega_menu_multi_menus py-4 o_colored_level o_cc o_cc1" style="background-image: none; background-color: rgba(255, 0, 0, 0) !important;" data-original-title="" title="" aria-describedby="tooltip111100">
+        <div class="container">
+            <div class="row">
+                    <div class="col-12 col-sm py-2 text-center o_colored_level col-lg-6">
+                        <blockquote style="border-color: rgba(222, 226, 230, 0) !important; text-align: left;" data-original-title="" title="" aria-describedby="tooltip214312"><span style="font-style: normal;" data-original-title="" title="" aria-describedby="tooltip403506"><strong><a href="/shop/category/muebles-dormitorio-34206">DORMITORIO</a><br></strong><a href="/shop/category/muebles-dormitorio-camas-y-bases-34241">Camas y bases</a><br><a href="/shop/category/muebles-dormitorio-closets-34254">Closets</a><br><a href="/shop/category/muebles-dormitorio-colchones-34204">Colchones</a><br><a href="/shop/category/muebles-dormitorio-comodas-tocadores-y-zapateros-34250">Cómodas y zapateros</a><br><a href="/shop/category/muebles-infantil-34208">Infantil</a><br><a href="/shop/category/muebles-dormitorio-veladores-34260">Veladores</a><br><a href="/shop/category/muebles-living-sofas-cama-y-futones-34275">Sofás cama y futones</a></span></blockquote><nav class="nav flex-column"></nav>
+                    </div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-5">
+                        <blockquote style="border-color: rgba(222, 226, 230, 0) !important; text-align: left;" data-original-title="" title="" aria-describedby="tooltip214312"><a href="https://www.dkohome.cl/shop/230033425-cama-2-plazas-boegel-cafe-200x150cm-86029?category=34241#attr=115535,115537,115536"><img class="img-fluid o_we_custom_image" src="/web/image/1099878-07b6dce7/Cama%202%20plazas%20Boegel%20caf%C3%A9%20150x200cm.jpg?access_token=93315d24-26d0-4157-a200-2a74689f3c17" alt="" data-original-id="1099877" data-original-src="/web/image/1099877-5411e7a1/Cama%202%20plazas%20Boegel%20caf%C3%A9%20150x200cm.jpg" data-mimetype="image/jpeg" data-original-title="" title="" aria-describedby="tooltip992602" data-quality="100" style="width: 50% !important;" loading="lazy"></a><br></blockquote><nav class="nav flex-column"></nav>
+                    </div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>TERRAZA</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><section class="s_mega_menu_odoo_menu pt16 o_colored_level o_cc o_cc1" data-original-title="" title="" aria-describedby="tooltip998796" style="background-image: none;"><div class="container"><div class="row"><div class="col-md-6 col-lg pt16 pb24 o_colored_level" data-original-title="" title="" aria-describedby="tooltip431271"><nav class="nav flex-column"><span style="color: rgb(0, 0, 0);font-style: normal;font-weight: 400;background-color: rgb(255, 255, 255);font-size: 14px" data-original-title="" title="" aria-describedby="tooltip438190"><strong style="font-weight: bolder"><a href="/shop/category/muebles-terraza-34211" data-listener-added_752af4fa="true" data-original-title="" title="" data-listener-added_cf4efede="true">Ver todo​</a></strong></span><a href="https://www.dkohome.cl/shop/category/muebles-terraza-juegos-de-comedor-34344" data-listener-added_b9d71eed="true" data-original-title="" title="">Juegos de comedor</a><a href="https://www.dkohome.cl/shop/category/muebles-terraza-juegos-de-living-34345" data-listener-added_b9d71eed="true" data-original-title="" title="">Juegos de living</a><a href="https://www.dkohome.cl/shop/category/muebles-terraza-mesas-de-terraza-34346">Mesas de terraza</a><a href="https://www.dkohome.cl/shop/category/muebles-terraza-set-de-balcon-34349">Set de balcón </a><a href="https://www.dkohome.cl/shop/category/muebles-terraza-quitasol-34348">Quitasol</a><a href="https://www.dkohome.cl/shop/category/muebles-terraza-sillas-de-terraza-34350">Sillas de terraza</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>DECO</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><section class="s_mega_menu_multi_menus py-4 o_colored_level o_cc o_cc1" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip47123">
+        <div class="container">
+            <div class="row" data-original-title="" title="" aria-describedby="tooltip652131">
+                    <div class="col-12 col-sm py-2 text-center o_colored_level pb0 pt0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip26334">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip271912"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip768941"><strong><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-31407" data-original-title="" title="">Adornos y Decoración</a><br></strong><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-canastos-y-cajas-31411" data-original-title="" title="">Canastos y Cajas</a><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-ceramica-31412">​</a><br><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-floreros-y-faroles-31414" data-original-title="" title="">Floreros y Faroles</a><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-madera-31415">​</a><br><a href="/shop/category/decoracion-iluminacion-34505">Iluminación</a><br><a href="/shop/category/decoracion-organizacion-34513" data-original-title="" title="">Organización</a></span></p><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-vidrio-31418" data-original-title="" title=""></a><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-metal-31416"></a><a class="oe_unremovable" href="/shop/category/decoracion-adornos-decoracion-madera-31415"></a></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip903676">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip948601"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip201952"><strong data-original-title="" title="" aria-describedby="tooltip412313"><a class="oe_unremovable" href="/shop/category/decoracion-decojardin-31408">Decojardín</a><br></strong><a class="oe_unremovable" href="/shop/category/decoracion-decojardin-flores-y-plantas-31419" data-original-title="" title="">Plantas</a><br><a href="/shop/category/decoracion-decojardin-flores-artificiales-34561">Flores artificiales</a><br><a class="oe_unremovable" href="/shop/category/decoracion-decojardin-maceteros-31420" data-original-title="" title="" aria-describedby="popover315140">Maceteros</a></span></p></div><div class="col-12 col-sm py-2 text-center o_colored_level pb0 pt0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip880861">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip834858"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip29548"><strong data-original-title="" title="" aria-describedby="tooltip148173"><a class="oe_unremovable" href="/shop/category/decoracion-decomuro-31409" data-original-title="" title="">Decomuro</a><br></strong><a class="oe_unremovable" href="/shop/category/decoracion-decomuro-canvas-31423" data-original-title="" title="" aria-describedby="popover756155">Canvas</a><br><a class="oe_unremovable" href="/shop/category/decoracion-decomuro-cuadros-31424">Cuadros</a><br><a class="oe_unremovable" href="/shop/category/decoracion-decomuro-espejos-31425" data-original-title="" title="">Espejos</a><a class="oe_unremovable" href="/shop/category/decoracion-decomuro-marco-fotos-31426" data-original-title="" title="">​</a> <br>
+<a href="https://www.dkohome.cl/shop/category/decoracion-decomuro-percheros-y-porta-cartas-34514" data-original-title="" title="">Percheros y Porta cartas</a>
+<br><a class="oe_unremovable" href="/shop/category/decoracion-decomuro-relojes-31428" data-original-title="" title="">Relojes</a></span></p></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip503936">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip910989"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip445821"><strong data-original-title="" title="" aria-describedby="tooltip685153"><a class="oe_unremovable" href="/shop/category/decoracion-velas-31410">Velas</a><br></strong><a class="oe_unremovable" href="/shop/category/decoracion-velas-inciensos-y-aromaticos-31490" data-original-title="" title="">Inciensos y Aromáticos</a><br>Porta velas<a class="oe_unremovable" href="/shop/category/decoracion-velas-porta-velas-y-candelabros-31491" data-original-title="" title=""> y Candelabros</a><br></span></p></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip956577"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip374158"><strong data-original-title="" title="" aria-describedby="tooltip721539"><a class="oe_unremovable" href="/shop/category/decoracion-cojines-34451">Cojines</a><br></strong><a class="oe_unremovable" href="/shop/category/decoracion-cojines-cojines-decorativos-34464" data-original-title="" title="">Cojines decorativos</a><br><a class="oe_unremovable" href="/shop/category/decoracion-cojines-cojines-infantiles-34556" data-original-title="" title="" aria-describedby="popover254833">Cojines infantiles</a><br><a href="/shop/category/decoracion-cojines-fundas-y-rellenos-34466" class="oe_unremovable"><font class="text-white">Fundas y Rellenos</font></a><br></span></p></div><div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip910828">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip956577"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip374158"><strong data-original-title="" title="" aria-describedby="tooltip721539"><a class="oe_unremovable" href="/shop/category/decoracion-cojines-34451">T</a>extil<br></strong><a class="oe_unremovable" href="/shop/category/alfombras-ropa-de-cama-mantas-y-pieceras-34475" data-original-title="" title="">Mantas y pieceras</a><br><a class="oe_unremovable" href="/shop/category/alfombras-textil-cocina-34454" data-original-title="" title="">Textil cocina</a><br><a data-original-title="" title="" href="/shop/category/alfombras-textil-comedor-manteles-e-individuales-34485">Manteles e individuales<br></a><br><a href="/shop/category/decoracion-cojines-fundas-y-rellenos-34466" class="oe_unremovable" data-original-title="" title=""><font class="text-white" data-original-title="" title="" aria-describedby="tooltip586924">​</font></a><br></span></p></div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item dropdown  position-static">
+        <a data-toggle="dropdown" href="#" class="nav-link dropdown-toggle o_mega_menu_toggle">
+            <span>ALFOMBRAS</span>
+        </a>
+        <div data-name="Mega Menu" class="dropdown-menu o_mega_menu o_no_parent_editor dropdown-menu-left"><section class="s_mega_menu_multi_menus py-4 o_colored_level o_cc o_cc1" style="background-image: none;">
+        <div>
+            <div class="row" data-original-title="" title="" aria-describedby="tooltip543246">
+                    <div class="col-12 col-sm py-2 text-center o_colored_level pt0 pb0 offset-lg-2 col-lg-2" data-original-title="" title="" aria-describedby="tooltip720014">
+                        <p style="text-align: left;" data-original-title="" title="" aria-describedby="tooltip356903"><span style="font-size: 14px;"><strong><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-34450" data-original-title="" title="">Alfombras</a><br></strong><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-alfombra-de-pasillo-34457?attrib=7-67">​</a></span><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip14720"><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-alfombras-cocina-34460?attrib=7-67"></a></span><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip203973">
+</span><span data-original-title="" title="" aria-describedby="tooltip203973"><a href="/shop/category/textil-hogar-alfombras-alfombras-de-living-34461" data-original-title="" title="">Alfombras de living</a></span><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip203973"> </span><br><a href="/shop/category/textil-hogar-alfombras-alfombras-infantiles-34458" data-original-title="" title="">Alfombras infantiles</a><br><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip828109"><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-bajadas-de-cama-34462" data-original-title="" title="">Bajadas de cama</a></span><br><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip487763"><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-limpia-pies-34463" data-original-title="" title="">Limpia Pies</a><br><a href="/shop/category/textil-hogar-alfombras-alfombras-exterior-34555">Alfombras de exterior</a><br></span></p><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-alfombras-cocina-34460?attrib=7-67"></a><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-alfombras-bano-34459?attrib=7-67"></a><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-alfombras-infantiles-34458?attrib=7-67" data-original-title="" title=""></a><a class="oe_unremovable" href="/shop/category/textil-hogar-alfombras-alfombra-de-pasillo-34457?attrib=7-67"></a><nav class="nav flex-column"></nav>
+                    </div>
+            </div>
+        </div>
+    </section></div>
+    </li>
+    <li class="nav-item">
+        <a role="menuitem" href="/linsy" class="nav-link ">
+            <span>LINSY</span>
+        </a>
+    </li>
+        <li class="nav-item divider d-none"></li> 
+    </ul>
+                </div>
+                </div>
+    </nav>
+    </header>
+                <main>
+    <div id="wrap" class="oe_structure oe_empty">
+      <section class="s_text_block o_colored_level pt240 o_background_video pb208" data-snippet="s_text_block" data-name="Text" style="background-image: none;" data-bg-video-src="//www.youtube.com/embed/korvMrXw79c?autoplay=1&amp;mute=1&amp;enablejsapi=1&amp;rel=0&amp;loop=1&amp;playlist=korvMrXw79c&amp;controls=0&amp;fs=0">
+        <div class="s_allow_columns container">
+          <p>
+            <br/>
+          </p>
+        </div>
+      </section>
+      <section class="s_image_gallery o_spc-small pt24 o_colored_level o_masonry pb0" data-vcss="001" data-columns="6" style="overflow: hidden; background-image: none;" data-snippet="s_images_wall" data-name="Images Wall" data-original-title="" title="" aria-describedby="tooltip473456">
+        <div class="container-fluid">
+          <div class="row s_nb_column_fixed">
+            <div class="o_masonry_col o_snippet_not_selectable col-lg-2">
+              <a href="https://www.dkohome.cl/shop/category/muebles-comedor-34205" data-original-title="" title="">
+                <img class="img img-fluid d-block" src="/web/image/911324-88800a42/web-05.jpg" data-index="0" data-name="Image" loading="lazy" data-original-title="" title="" aria-describedby="tooltip724620" alt="" data-original-id="911306" data-original-src="/web/image/911306-17fa64cf/web-05.jpg" data-mimetype="image/jpeg" data-resize-width="510" data-quality="100"/>
+              </a>
+            </div>
+            <div class="o_masonry_col o_snippet_not_selectable col-lg-2">
+              <a href="https://www.dkohome.cl/shop/category/muebles-living-sofas-cama-y-futones-34275" data-original-title="" title="">
+                <img class="img img-fluid d-block" src="/web/image/911325-a5b751ea/web-01.jpg" data-index="1" data-name="Image" loading="lazy" data-original-title="" title="" aria-describedby="tooltip395827" alt="" data-original-id="911308" data-original-src="/web/image/911308-6742c3c3/web-01.jpg" data-mimetype="image/jpeg" data-resize-width="510" data-quality="100"/>
+              </a>
+            </div>
+            <div class="o_masonry_col o_snippet_not_selectable col-lg-2" data-original-title="" title="" aria-describedby="tooltip129438">
+              <a href="https://www.dkohome.cl/shop/category/muebles-comedor-sillas-y-sitiales-34240" data-original-title="" title="">
+                <img class="img img-fluid d-block" src="/web/image/911326-2613bfd9/web-02.jpg" data-index="2" data-name="Image" loading="lazy" data-original-title="" title="" aria-describedby="tooltip425634" alt="" data-original-id="911307" data-original-src="/web/image/911307-16fee3b5/web-02.jpg" data-mimetype="image/jpeg" data-resize-width="510" data-quality="100"/>
+              </a>
+            </div>
+            <div class="o_masonry_col o_snippet_not_selectable col-lg-2" data-original-title="" title="" aria-describedby="tooltip962401">
+              <a href="https://www.dkohome.cl/shop/category/muebles-dormitorio-34206" data-original-title="" title="">
+                <img class="img img-fluid d-block" src="/web/image/911327-cba54ac3/web-04.jpg" data-index="3" data-name="Image" loading="lazy" data-original-title="" title="" aria-describedby="tooltip45461" alt="" data-original-id="911315" data-original-src="/web/image/911315-24963791/web-04.jpg" data-mimetype="image/jpeg" data-resize-width="510" data-quality="100"/>
+              </a>
+            </div>
+            <div class="o_masonry_col o_snippet_not_selectable col-lg-2">
+              <a href="https://www.dkohome.cl/shop?order=list_price+desc&amp;attrib=1-132">
+                <img class="img img-fluid d-block" src="/web/image/911329-c2adf7b6/LINSY.jpg" data-index="4" data-name="Image" loading="lazy" data-original-title="" title="" aria-describedby="tooltip579230" alt="" data-original-id="911316" data-original-src="/web/image/911316-fe3e9fb5/LINSY.jpg" data-mimetype="image/jpeg" data-resize-width="962" data-quality="100"/>
+              </a>
+            </div>
+            <div class="o_masonry_col o_snippet_not_selectable col-lg-2" data-original-title="" title="" aria-describedby="tooltip501400">
+              <a href="https://www.dkohome.cl/shop/category/muebles-recien-llegado-34552" data-original-title="" title="">
+                <img class="img img-fluid d-block" src="/web/image/1052032-5fb11ccd/web-06%201.jpg" data-index="5" data-name="Image" loading="lazy" data-original-title="" title="" aria-describedby="tooltip225722" alt="" data-original-id="1052031" data-original-src="/web/image/1052031-326faa75/web-06%201.jpg" data-mimetype="image/jpeg" data-resize-width="510"/>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="s_title o_colored_level pb0 pt8" data-vcss="001" data-snippet="s_title" data-name="Title" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip952398">
+        <div class="s_allow_columns container-fluid" data-original-title="" title="" aria-describedby="tooltip450974">
+          <h1 style="text-align: center;" data-original-title="" title="" aria-describedby="tooltip507177">
+            <font style="font-size: 62px;"><a href="https://www.dkohome.cl/espacio-de-trabajo" data-original-title="" title=""><img class="img-fluid o_we_custom_image" src="/web/image/1059142-275d807b/Banner%20escolares-.jpg" alt="" data-original-title="" title="" aria-describedby="tooltip301325" style="width: 100% !important;" loading="lazy" data-original-id="972083" data-original-src="/web/image/972083-f08b1122/Banner%20escolares-.jpg" data-mimetype="image/jpeg" data-resize-width="1200" data-quality="100"/></a>​</font>
+            <br/>
+          </h1>
+        </div>
+      </section>
+      <section class="s_title o_colored_level pt0 pb0" data-vcss="001" data-snippet="s_title" style="background-image: none;" data-name="Título páginas estáticas">
+        <div class="s_allow_columns container">
+          <h2 style="text-align: center;">Recién llegados&nbsp;</h2>
+        </div>
+      </section>
+      <section data-snippet="s_dynamic_snippet_products" class="s_dynamic_snippet_products s_dynamic o_colored_level pt0 pb0 s_product_product_centered o_dynamic_empty" data-name="Products" style="background-image: none;" data-filter-id="1" data-template-key="website_sale.dynamic_filter_template_product_product_centered" data-product-category-id="all" data-number-of-elements="4" data-number-of-elements-small-devices="2" data-number-of-records="16" data-carousel-interval="2000" data-product-names="Sofá modular izquierdo Dante gris oscuro,Cómoda 6 cajones Belem,Velador Marcus 2 cajones,Cómoda Eloísa 7 cajones,Tocador Ivonne, Escritorio con organizador 134x61x112 blanco-madera,Estante 4 niveles Quincy,Sitial Mila amarillo,Biblioteca 2 puertas Stanley,Estante 2 cajones Mila 119cm,Buffet Miravet 2 puertas 3 cajones,Escritorio Venka,Sofá 1 cuerpo + ottoman Leo gris,Cómoda 5 cajones Orbit,Cómoda 6 cajones Turku,Sofá 3 cuerpos Salma,Sitial Mila beige,Mesa centro Eloísa" data-force-minimum-max-limit-to16="1" data-original-title="" title="" aria-describedby="tooltip798857">
+        <div class="o_not_editable container-fluid">
+          <div class="css_non_editable_mode_hidden">
+            <div class="missing_option_warning alert alert-info rounded-0 fade show d-none d-print-none o_default_snippet_text">
+                        Su fragmento dinámico se mostrará aquí... Este mensaje se muestra porque no proporcionó tanto un filtro como una plantilla para usar.<br/>
+                    </div>
+          </div>
+          <div class="dynamic_snippet_template"></div>
+        </div>
+      </section>
+      <section class="s_image_gallery pb24 o_colored_level o_spc-none o_grid pt0" data-vcss="001" data-columns="1" style="overflow: hidden; background-image: none;" data-snippet="s_images_wall" data-name="Images Wall" data-original-title="" title="" aria-describedby="tooltip863159">
+        <div class="container-fluid">
+          <div class="row s_nb_column_fixed"></div>
+          <div class="row s_nb_column_fixed">
+            <div class="col-lg-12" data-original-title="" title="" aria-describedby="tooltip204916">
+              <a href="https://www.dkohome.cl/shop/category/muebles-comedor-34205" data-original-title="" title="">
+                <img class="img img-fluid d-block" src="/web/image/911818-bc4018f2/BANNER-COMEDOR.jpg" data-index="0" data-name="Image" loading="lazy" data-original-title="" title="" aria-describedby="tooltip390015" alt="" data-original-id="911817" data-original-src="/web/image/911817-4ef0128e/BANNER-COMEDOR.jpg" data-mimetype="image/jpeg" data-resize-width="1920"/>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="s_text_block o_colored_level pt0 pb4" data-snippet="s_text_block" data-name="Text" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip12323">
+        <div class="s_allow_columns container">
+          <p>
+            <a href="https://www.dkohome.cl/facilidades-de-pago" data-original-title="" title="" target="_blank">
+              <img class="img-fluid o_we_custom_image o_visible" src="/web/image/1066798-7d4da947/P.O.P%20Santander-04.jpg" alt="" data-original-title="" title="" aria-describedby="tooltip752508" loading="lazy" data-original-id="1066797" data-original-src="/web/image/1066797-9d2ec0b2/P.O.P%20Santander-04.jpg" data-mimetype="image/jpeg" data-resize-width="1920" data-quality="100"/>
+            </a>
+            <br/>
+          </p>
+        </div>
+      </section>
+      <section class="s_three_columns o_colored_level o_cc o_cc2 pb24 pt0" data-vcss="001" data-snippet="s_three_columns" data-name="Columns" style="background-color: rgba(255, 0, 0, 0) !important; background-image: none;" data-original-title="" title="" aria-describedby="tooltip375415">
+        <div class="container">
+          <div class="row d-flex align-items-stretch">
+            <div class="s_col_no_bgcolor pt16 pb16 col-lg-3">
+              <div class="card bg-white h-100">
+                <a href="https://www.dkohome.cl/nuestras-tiendas" data-original-title="" title="">
+                  <img class="card-img-top" src="/web/image/370639-6003602f/Fachada.jpg" alt="" loading="lazy" data-original-title="" title="" aria-describedby="tooltip645600" data-original-id="370622" data-original-src="/web/image/370622-c1bc152f/Fachada.jpg" data-mimetype="image/jpeg" data-resize-width="468"/>
+                </a>
+                <div class="card-body">
+                  <h3>Nuestras tiendas</h3>
+                  <p style="text-align: justify;">Visita nuestras tiendas ubicadas en Conchalí, <span style="color: rgb(33, 37, 41);font-size: 14px;font-style: normal;font-weight: 400;background-color: rgba(255, 255, 255, 0.9);text-decoration: none">Maipú y&nbsp;</span>Peñalolén. Lunes a sábado&nbsp;10:00 a 20:00 hrs. Domingo y festivos&nbsp;10:30 a 20:00 hrs.</p>
+                </div>
+              </div>
+            </div>
+            <div class="s_col_no_bgcolor pt16 pb16 col-lg-3">
+              <div class="card bg-white h-100">
+                <a href="https://userexperiencecl.com/dkohome/">
+                  <img class="card-img-top" src="/web/image/370640-7aa96356/TourVirtual.jpg" alt="" loading="lazy" data-original-title="" title="" aria-describedby="tooltip211962" data-original-id="370625" data-original-src="/web/image/370625-7e1fa942/TourVirtual.jpg" data-mimetype="image/jpeg" data-resize-width="468"/>
+                </a>
+                <div class="card-body">
+                  <h3>Tour Virtual 360°</h3>
+                  <p style="text-align: justify;">Un mundo de posibilidades a un solo clic. Vive la experiencia y encuentra lo mejor en muebles y decoración para tu hogar.</p>
+                </div>
+              </div>
+            </div>
+            <div class="s_col_no_bgcolor pt16 pb16 col-lg-3" data-original-title="" title="" aria-describedby="tooltip375247">
+              <div class="card bg-white h-100">
+                <a href="https://www.dkohome.cl/blog/inspiracion-para-todos-los-espacios-de-tu-hogar-2" data-original-title="" title="">
+                  <img class="card-img-top" src="/web/image/376619-fe246f0c/Blog.jpg" alt="" loading="lazy" data-original-title="" title="" aria-describedby="tooltip180916" data-original-id="376608" data-original-src="/web/image/376608-0b5180c0/Blog.jpg" data-mimetype="image/jpeg" data-resize-width="468"/>
+                </a>
+                <div class="card-body">
+                  <h3>Blog</h3>
+                  <p style="text-align: justify;">Conócenos, inspírate y encuentra las últimas tendencias con DKo Home.</p>
+                </div>
+              </div>
+            </div>
+            <div class="s_col_no_bgcolor pt16 pb16 col-lg-3" data-original-title="" title="" aria-describedby="tooltip780253">
+              <div class="card bg-white h-100">
+                <a data-original-title="" title="" href="https://www.dkohome.cl/venta-empresas#scrollTop=0">
+                  <img class="card-img-top" src="/web/image/1075698-8d17dd66/proyecto.jpg" alt="" loading="lazy" data-original-title="" title="" aria-describedby="tooltip990534" data-original-id="376609" data-original-src="/web/image/376609-2bb3c09f/proyecto.jpg" data-mimetype="image/jpeg" data-resize-width="468" data-quality="100"/>
+                </a>
+                <div class="card-body">
+                  <h3>Proyectos</h3>
+                  <p data-original-title="" title="" aria-describedby="tooltip257268" style="text-align: justify;">Consulta y cotiza con nosotros, con asesoría personalizada y soluciones para diferentes tipos de proyectos habitacionales y no habitacionales.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="s_title pt40 pb40 o_colored_level" data-vcss="001" data-snippet="s_title" data-name="Title" style="background-image: none;">
+        <div class="s_allow_columns container">
+          <h1 style="text-align: center;">
+            <font style="font-size: 62px;"><a href="https://www.dkohome.cl/linsy" data-original-title="" title=""><img class="img-fluid o_we_custom_image" src="/web/image/972145-298dd3d9/Banner%20Linsy_Nuevo%20febrero%202025.jpg" alt="" data-original-id="972144" data-original-src="/web/image/972144-d1fd08b7/Banner%20Linsy_Nuevo%20febrero%202025.jpg" data-mimetype="image/jpeg" data-original-title="" title="" aria-describedby="tooltip981703" data-quality="100" style="width: 100% !important;" loading="lazy"/></a>​</font>
+            <br/>
+          </h1>
+        </div>
+      </section>
+      <section class="s_text_block o_colored_level pt8 pb8" data-snippet="s_text_block" data-name="Text" style="background-image: none;">
+        <div class="s_allow_columns container">
+          <h2 style="text-align: center;">Visita nuestras tiendas y descubre un mundo de inspiración para tu hogar</h2>
+        </div>
+      </section>
+      <section class="s_picture pb24 o_colored_level pt0" data-snippet="s_picture" data-name="Picture" style="background-image: none;">
+        <div class="container-fluid">
+          <div class="row s_nb_column_fixed" data-original-title="" title="" aria-describedby="tooltip819209">
+            <div class="col-lg-10 offset-lg-1 o_colored_level pb0 pt24" style="text-align: center;">
+              <figure class="figure">
+                <a href="https://www.dkohome.cl/nuestras-tiendas" data-original-title="" title="">
+                  <img src="/web/image/600938-268dccd6/1920x600px_tiendas_29072024.jpg" class="figure-img padding-large rounded" alt="" loading="lazy" data-original-title="" title="" aria-describedby="tooltip346020" style="padding: 0px !important; width: 100% !important;" data-original-id="600937" data-original-src="/web/image/600937-cf4093fc/1920x600px_tiendas_29072024.jpg" data-mimetype="image/jpeg" data-resize-width="1315"/>
+                </a>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="s_text_image pb32 o_colored_level pt0" data-snippet="s_image_text" data-name="Image - Text" style="background-image: none;">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="pt16 pb16 o_colored_level col-lg-6">
+              <img src="/web/image/370584-41a000da/DkoHome.jpg" class="img img-fluid mx-auto" alt="" loading="lazy" data-original-title="" title="" aria-describedby="tooltip114991" data-original-id="370523" data-original-src="/web/image/370523-393b754f/DkoHome.jpg" data-mimetype="image/jpeg" data-resize-width="1080" data-quality="100"/>
+            </div>
+            <div class="pt16 pb16 o_colored_level col-lg-6">
+              <h2 style="text-align: justify;">
+                <span style="font-size: 18px;"></span>
+                <span style="font-style: normal; font-weight: 400; text-decoration: none; color: rgb(13, 13, 13); background-color: rgb(255, 255, 255); font-size: 18px;">En DKo Home, sabemos que cada detalle cuenta cuando se trata del diseño y estilo de tu hogar. Te ofrecemos una experiencia de compra excepcional, con una amplia variedad de muebles y decoración para todos los gustos. Ya sea que estés renovando tu living, comedor, dormitorio, oficina, cocina o terraza, tenemos lo que necesitas. Explora nuestra tienda online o visita nuestras tiendas para encontrar cientos de ambientaciones y diseños que te inspirarán a transformar tu hogar.</span>
+                <br/>
+              </h2>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="s_product_list o_colored_level pb0 pt32" data-snippet="s_product_list" style="background-color: rgba(255, 0, 0, 0) !important;" data-original-title="" title="" aria-describedby="tooltip128507" data-name="Iconos DKo Home">
+        <div class="container">
+          <div class="row" data-original-title="" title="" aria-describedby="tooltip7461">
+            <div class="col-md-4 col-6 o_colored_level col-lg-2" data-original-title="" title="" aria-describedby="tooltip518094">
+              <a href="" data-original-title="" title="">
+                <img src="/web/image/964797-18e5b5ab/I%CC%81conos_Mesa%20de%20trabajo%201.png" alt="" class="img img-fluid" loading="lazy" data-original-title="" title="" aria-describedby="tooltip329341" data-original-id="964787" data-original-src="/web/image/964787-889fb5ef/I%CC%81conos_Mesa%20de%20trabajo%201.png" data-mimetype="image/png" data-resize-width="201"/>
+              </a>
+              <div class="s_product_list_item_link">&nbsp;<br/>
+¡Retiro inmediato<br/><strong>en bodega</strong>!
+<br/></div>
+            </div>
+            <div class="col-md-4 col-6 o_colored_level col-lg-2" data-original-title="" title="" aria-describedby="tooltip115515">
+              <a href="" data-original-title="" title="">
+                <img src="/web/image/964798-f748b85e/I%CC%81conos-02.png" alt="" class="img img-fluid" loading="lazy" data-original-title="" title="" aria-describedby="tooltip373673" data-original-id="964791" data-original-src="/web/image/964791-86e6cdc3/I%CC%81conos-02.png" data-mimetype="image/png" data-resize-width="201"/>
+              </a>
+              <div class="s_product_list_item_link">&nbsp;<br/>Estacionamiento<br/><strong>gratuito</strong></div>
+            </div>
+            <div class="col-md-4 col-6 o_colored_level col-lg-2" data-original-title="" title="" aria-describedby="tooltip115515">
+              <a href="" data-original-title="" title="">
+                <img src="/web/image/964793-ed505bf4/I%CC%81conos-03.png" alt="" class="img img-fluid" loading="lazy" data-original-title="" title="" aria-describedby="tooltip373673"/>
+              </a>
+              <div class="s_product_list_item_link">&nbsp;<br/>Asesoría&nbsp;<strong><br/></strong>especializada<strong><br/>gratuita</strong></div>
+            </div>
+            <div class="col-md-4 col-6 o_colored_level col-lg-2" data-original-title="" title="" aria-describedby="tooltip518094">
+              <img src="/web/image/964799-109e4130/I%CC%81conos-04.png" alt="" class="img img-fluid" loading="lazy" data-original-title="" title="" aria-describedby="tooltip329341" data-original-id="964794" data-original-src="/web/image/964794-4d952f8d/I%CC%81conos-04.png" data-mimetype="image/png" data-resize-width="201"/>
+              <div class="s_product_list_item_link">&nbsp;<br/><strong>Despacho</strong> a&nbsp;<br/>Santiago&nbsp;<strong>en 1 a 3&nbsp; días&nbsp;</strong>&nbsp;hábiles</div>
+            </div>
+            <div class="col-md-4 col-6 o_colored_level col-lg-2" data-original-title="" title="" aria-describedby="tooltip2749">
+              <a href="" data-original-title="" title="">
+                <img src="/web/image/964800-b61b2631/I%CC%81conos-05.png" alt="" class="img img-fluid" loading="lazy" data-original-title="" title="" aria-describedby="tooltip553140" data-original-id="964795" data-original-src="/web/image/964795-63b70930/I%CC%81conos-05.png" data-mimetype="image/png" data-resize-width="201"/>
+              </a>
+              <div class="s_product_list_item_link">&nbsp;<strong><br/></strong>Despacho a&nbsp;<strong><br/>regiones</strong></div>
+            </div>
+            <div class="col-md-4 col-6 o_colored_level col-lg-2" data-original-title="" title="" aria-describedby="tooltip115515">
+              <a href="" data-original-title="" title="">
+                <img src="/web/image/964801-3b9c65db/I%CC%81conos-06.png" alt="" class="img img-fluid" loading="lazy" data-original-title="" title="" aria-describedby="tooltip373673" data-original-id="964796" data-original-src="/web/image/964796-247b3af6/I%CC%81conos-06.png" data-mimetype="image/png" data-resize-width="201"/>
+              </a>
+              <div class="s_product_list_item_link">&nbsp;<br/>Servicio de armado, solo en <strong>RM</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+                </main>
+                <footer id="bottom" data-anchor="true" data-name="Footer" class="o_footer o_colored_level o_cc ">
+                    <div id="footer" class="oe_structure oe_structure_solo" style="">
+      <section class="s_text_block pb40 pt32" data-snippet="s_text_block" data-name="Text" style="background-image: none;" data-original-title="" title="" aria-describedby="tooltip264686" id="garantia" data-anchor="true">
+        <div class="container-fluid">
+          <div class="row" data-original-title="" title="" aria-describedby="tooltip855881">
+            <div class="o_colored_level pb0 col-lg-2 offset-lg-1" data-original-title="" title="" aria-describedby="tooltip706103">
+              <p>
+                <span style="font-size: 18px; font-weight: bolder;">Servicios</span>
+              </p>
+              <p data-original-title="" title="" aria-describedby="tooltip366027">
+                ﻿<a href="/preguntas-frecuentes" data-original-title="" title="" data-listener-added_b4401ddb="true">﻿
+                  <font class="text-white" data-original-title="" title="" aria-describedby="tooltip218827"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip786090">Preguntas frecuentes​​​</span></font>
+                ﻿</a>﻿﻿<a href="/preguntas-frecuentes" data-original-title="" title="" data-listener-added_b4401ddb="true">﻿<font style="color: rgb(140, 123, 198);"><span style="font-size: 14px;">​</span></font>
+                ﻿</a>﻿﻿<a href="/preguntas-frecuentes" data-original-title="" title="" data-listener-added_b4401ddb="true">﻿<span style="font-size: 14px;">&nbsp;</span>&nbsp;﻿</a>﻿
+                <br/>
+                ﻿<a href="/cambios-devoluciones" data-original-title="" title="">﻿<font class="text-white" data-original-title="" title="" aria-describedby="tooltip404214"><span style="font-size: 14px;">Cambios y devoluciones​​​</span></font>
+                ﻿</a>﻿﻿<a href="/cambios-devoluciones" data-original-title="" title="">﻿<font style="color: rgb(140, 123, 198);"><span style="font-size: 14px;">​</span></font>
+                ﻿</a>﻿﻿<a href="/cambios-devoluciones" data-original-title="" title="">﻿<span style="font-size: 14px;">&nbsp;</span>&nbsp;﻿</a>﻿
+                <br/>
+                ﻿<a href="/garantia" data-original-title="" title="">﻿<font class="text-white" data-original-title="" title="" aria-describedby="tooltip191071"><span style="font-size: 14px;">Garantía</span></font>
+                ﻿</a>﻿﻿<a href="/garantia" data-original-title="" title="">﻿<span style="font-size: 14px;">&nbsp;</span>&nbsp;﻿</a>﻿
+                <br/>
+                <span style="color: rgb(255, 255, 255);font-size: 14px;font-style: normal;font-weight: 400;background-color: rgb(0, 0, 0)"></span>
+                <span style="font-size: 14px; font-style: normal; font-weight: 400; background-color: rgb(0, 0, 0);" class="text-100">
+                  ﻿<a href="/my/home" data-original-title="" title="">﻿<font class="text-white">​​Mi cuenta</font>
+                  ﻿</a>﻿﻿<a href="/my/home" data-original-title="" title="">﻿&nbsp;﻿</a>﻿
+                </span>
+                <span style="color: rgb(255, 255, 255);font-size: 14px;font-style: normal;font-weight: 400;background-color: rgb(0, 0, 0)"></span>
+                <br/>
+                <span style="color: rgb(255, 255, 255);font-size: 14px;font-style: normal;font-weight: 400;background-color: rgb(0, 0, 0)" data-original-title="" title="" aria-describedby="tooltip85669"></span>
+                <span style="font-size: 14px; font-style: normal; font-weight: 400; background-color: rgb(0, 0, 0);" data-original-title="" title="" aria-describedby="tooltip85669" class="text-white">
+                  ﻿<a href="/coberturas" data-original-title="" title="">﻿<font class="text-white">Zonas de cobertura​</font>
+                  ﻿</a>﻿﻿<a href="/coberturas" data-original-title="" title="">﻿&nbsp;﻿</a>﻿
+                </span>
+                <span style="color: rgb(255, 255, 255);font-size: 14px;font-style: normal;font-weight: 400;background-color: rgb(0, 0, 0)" data-original-title="" title="" aria-describedby="tooltip85669"></span>
+                <br/>
+                ﻿<a href="/facilidades-de-pago" data-original-title="" title="">﻿<font class="text-white"><span style="font-size: 14px;">Facilidades de pago​</span></font>
+                ﻿</a>﻿﻿<a href="/facilidades-de-pago" data-original-title="" title="">﻿<span style="font-size: 14px;">&nbsp;</span>&nbsp;﻿</a>﻿
+                <br/>
+                <br/>
+                <br/>
+              </p>
+            </div>
+            <div class="o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip347227">
+              <p>
+                <span style="font-size: 18px; font-weight: bolder;" data-original-title="" title="" aria-describedby="tooltip929111">Sobre DKo Home</span>
+                <br/>
+              </p>
+              <p data-original-title="" title="" aria-describedby="tooltip949501"><span style="font-size: 12px;">﻿<a href="/sobre-nosotros" data-original-title="" title="" data-listener-added_b4401ddb="true">﻿<font class="text-o-color-3" data-original-title="" title="" aria-describedby="tooltip677153"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip995986">Sobre nosotros</span></font>﻿</a>﻿</span><br/><span style="font-size: 12px;">﻿<a href="/nuestras-tiendas" data-original-title="" title="">﻿<font class="text-o-color-3" data-original-title="" title="" aria-describedby="tooltip42321"><span style="font-size: 14px;">Nuestras tiendas</span></font>﻿</a>﻿</span><br/>﻿<a href="/politicas-privacidad-cookies" data-original-title="" title="">﻿<span style="font-size: 12px;"><font class="text-white" data-original-title="" title="" aria-describedby="tooltip387735"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip626547">Políticas de privacidad &amp; cookies</span></font></span>&nbsp;﻿</a>﻿&nbsp;<br/>﻿<a href="/terminos-condiciones" data-original-title="" title="">﻿<span style="font-size: 12px;" data-original-title="" title="" aria-describedby="tooltip422555"><font class="text-white" data-original-title="" title="" aria-describedby="tooltip61200" style="font-size: 12px;"><span style="font-size: 14px;">Términos y condiciones</span></font></span>﻿</a>﻿﻿<a href="/politica-de-despacho" data-original-title="" title="">﻿<span style="font-size: 12px;"><font class="text-white" data-original-title="" title="" aria-describedby="tooltip829140" style="font-size: 12px;"><span style="font-size: 14px;">​</span></font></span>﻿</a>﻿&nbsp;<br/>﻿<a href="https://userexperiencecl.com/dkohome/" data-original-title="" title="" target="_blank">﻿<span style="font-size: 12px"><font style="color: rgb(255, 255, 255) !important;font-size: 12px"><span style="font-size: 14px" data-original-title="" title="" aria-describedby="tooltip303826">Tour virtual</span></font></span>﻿</a>﻿﻿<a href="https://www.dkohome.cl/politica-de-despacho">﻿<span style="font-size: 12px"><font style="color: rgb(255, 255, 255) !important;font-size: 12px"><span style="font-size: 14px">​</span></font></span>﻿</a>﻿<span style="color: rgb(255, 255, 255);font-size: 14px;font-style: normal;font-weight: 400;background-color: rgb(0, 0, 0)">&nbsp;</span>&nbsp;<span style="color: rgb(255, 255, 255);font-size: 14px;font-style: normal;font-weight: 400;background-color: rgb(0, 0, 0)"></span><br/></p>
+            </div>
+            <div class="o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip706103">
+              <p>
+                <span style="font-size: 18px; font-weight: bolder;" data-original-title="" title="" aria-describedby="tooltip863806">Inspírate</span>
+              </p>
+              <p data-original-title="" title="" aria-describedby="tooltip375785">
+                ﻿<a href="/blog/dko-home-2" data-listener-added_b4401ddb="true" data-original-title="" title="" data-listener-added_7edeb60d="true">﻿
+                  <font class="text-white" data-original-title="" title="" aria-describedby="tooltip961802"><span style="font-size: 14px;">Blog</span></font>
+                ﻿</a>﻿<span style="font-size: 14px;">&nbsp;</span>
+                <br/>
+              </p>
+            </div>
+            <div class="o_colored_level pb0 col-lg-2" data-original-title="" title="" aria-describedby="tooltip706103">
+              <h2 data-original-title="" title="" aria-describedby="tooltip117629">
+                <span style="font-size: 18px; font-weight: bolder;">Síguenos</span>
+              </h2>
+              <ul class="list-unstyled" data-original-title="" title="" aria-describedby="tooltip692854">
+                <li class="py-1" data-original-title="" title="" aria-describedby="tooltip190177">
+                  ﻿<a href="https://www.dkohome.cl/website/social/instagram" data-original-title="" title="">﻿
+                    <i class="fa fa-fw fa-instagram fa-1x" style="font-size: 14px;color: rgb(255, 255, 255);background-color: rgb(17, 17, 17)" data-original-title="" title="" aria-describedby="tooltip110694" contenteditable="false">​</i>
+                  ﻿</a>﻿﻿<a href="/website/social/instagram" data-original-title="" title="" data-listener-added_b4401ddb="true" target="_blank">﻿<font class="text-o-color-3" style="color: rgb(246, 246, 246) !important" data-original-title="" title="" aria-describedby="tooltip141118"><span style="font-size: 14px;">&nbsp; Instagram</span></font>
+                  ﻿</a>﻿</li>
+                <li class="py-1" data-original-title="" title="" aria-describedby="tooltip190177">
+                  ﻿<a href="https://www.tiktok.com/@dkohome.cl">﻿
+                    <span class="fa fa-tiktok text-white" data-original-title="" title="" aria-describedby="tooltip744550" contenteditable="false">​</span>
+                  ﻿</a>﻿<span style="font-size: 14px;">&nbsp; &nbsp;</span>
+                  ﻿<a href="https://www.tiktok.com/@dkohome.cl" class="btn btn-outline-custom text-white btn-sm" style="border-width: 0px; border-style: solid;" data-original-title="" title="">﻿<span data-original-title="" title="" aria-describedby="tooltip269221" style="font-size: 14px;">Tik Tok</span>
+                  ﻿</a>﻿</li>
+                <li class="py-1" data-original-title="" title="" aria-describedby="tooltip190177">
+                  ﻿<a href="https://www.dkohome.cl/website/social/facebook" data-original-title="" title="">﻿
+                    <i class="fa fa-fw fa-facebook-square mr-2 fa-1x text-white" data-original-title="" title="" aria-describedby="tooltip698827" contenteditable="false">​</i>
+                  ﻿</a>﻿﻿<a href="/website/social/facebook" target="_blank" data-original-title="" title="" data-listener-added_b4401ddb="true">﻿<font class="text-o-color-3" data-original-title="" title="" aria-describedby="tooltip144324"><span style="font-size: 14px;">Facebook</span></font>
+                  ﻿</a>﻿</li>
+                <li class="py-1" data-original-title="" title="" aria-describedby="tooltip190177">
+                  ﻿<a href="/website/social/linkedin" target="_blank" data-original-title="" title="">﻿
+                    <span style="font-size: 14px;">&nbsp;</span>
+                  ﻿</a>﻿﻿<a href="/website/social/linkedin" target="_blank" data-original-title="" title="">﻿<font class="text-o-color-3" data-original-title="" title="" aria-describedby="tooltip384481"><span class="fa fa-linkedin-square" contenteditable="false">​</span><span style="font-size: 14px;">&nbsp; &nbsp;Linkedin</span></font>
+                  ﻿</a>﻿</li>
+                <li class="py-1" data-original-title="" title="" aria-describedby="tooltip190177"><span style="font-size: 14px;">&nbsp;</span>
+                  ﻿<a href="https://www.youtube.com/@dkohomechile" data-original-title="" title="">﻿<span class="fa text-white fa-youtube-play" data-original-title="" title="" aria-describedby="tooltip724652" contenteditable="false">​</span>
+                  ﻿</a>﻿<span style="font-size: 14px;">&nbsp; &nbsp;</span>
+                  ﻿<a href="https://www.youtube.com/@dkohomechile" data-original-title="" title="">﻿<font class="text-white" data-original-title="" title="" aria-describedby="tooltip145009"><span style="font-size: 14px;">YouTube</span></font>
+                  ﻿</a>﻿</li>
+                <p data-original-title="" title="" aria-describedby="tooltip906185"><span style="font-size: 14px;">&nbsp;</span>
+                  ﻿<a href="https://www.youtube.com/@dkohomechile" data-original-title="" title="">﻿<span class="fa fa-pinterest-square" style="font-style: normal;font-weight: normal;font-size: inherit;color: rgb(255, 255, 255) !important" data-original-title="" title="" aria-describedby="tooltip703702" contenteditable="false">​</span>
+                  ﻿</a>﻿<span style="font-size: 14px;">&nbsp; &nbsp;</span>
+                  ﻿<a href="https://www.pinterest.cl/dkohomecl/" data-original-title="" title="" target="_blank">﻿<font style="color: rgb(255, 255, 255) !important" data-original-title="" title="" aria-describedby="tooltip702256"><span style="font-size: 14px;">Pinterest</span></font>
+                  ﻿</a>﻿</p>
+                <li class="py-1" data-original-title="" title="" aria-describedby="tooltip190177">
+                  <br/>
+                </li>
+              </ul>
+            </div>
+            <div class="o_colored_level pb0 col-lg-3" data-original-title="" title="" aria-describedby="tooltip706103">
+              <h2 data-original-title="" title="" aria-describedby="tooltip117629" style="text-align: left;"><span style="font-size: 18px; font-weight: bolder;">¿Cómo contactarnos?</span>&nbsp;<br/></h2>
+              <p data-original-title="" title="" aria-describedby="tooltip117629" style="text-align: left;">﻿<a href="https://www.dkohome.cl/helpdesk" target="_blank">﻿<span class="fa fa-envelope text-white" data-original-title="" title="" aria-describedby="tooltip907511" contenteditable="false">​</span>﻿</a>﻿&nbsp; <span style="font-size: 14px;">&nbsp;​​</span>﻿<a href="/contacto-dko-home#scrollTop=0" data-original-title="" title="" target="_blank">﻿<font class="text-white" data-original-title="" title="" aria-describedby="tooltip606593"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip108532">Contacto DKo Home</span></font>﻿</a>﻿</p>
+              <p data-original-title="" title="" aria-describedby="tooltip117629" style="text-align: left;">
+                ﻿<a href="mailto:proyectos@dkohome.cl" target="_blank" data-original-title="" title="">﻿
+                  <span class="fa fa-envelope text-white" data-original-title="" title="" aria-describedby="tooltip836154" contenteditable="false">​</span>
+                ﻿</a>﻿<span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip611226">&nbsp; &nbsp;</span>
+                ﻿<a href="mailto:proyectos@dkohome.cl" target="_blank" data-original-title="" title="">﻿<font class="text-white" data-original-title="" title="" aria-describedby="tooltip836314"><span style="font-size: 14px;" data-original-title="" title="" aria-describedby="tooltip547948">Ventas corporativa</span></font>
+                ﻿</a>﻿</p>
+              <p data-original-title="" title="" aria-describedby="tooltip117629" style="text-align: left;">﻿<a href="https://wa.me/56931278438" data-original-title="" title="" target="_blank">﻿<span class="fa fa-whatsapp text-white fa-lg" style="transform: translateY(-1.9%) scaleX(0.72) scaleY(0.72); animation-play-state: paused; transition: none 0s ease 0s;" data-original-title="" title="" aria-describedby="tooltip29049" contenteditable="false">​</span>﻿</a>﻿&nbsp;﻿<a href="https://wa.me/56931278438" data-original-title="" title="">﻿<font class="text-white" data-original-title="" title="" aria-describedby="tooltip234307"><span style="font-size: 14px;">&nbsp; Escribenos por Whatsapp</span></font>﻿</a>﻿</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  <div class="o_footer_copyright o_colored_level o_cc" data-name="Copyright">
+                        <div class="container py-3">
+                            <div class="row">
+                                <div class="col-sm text-center text-sm-left text-muted">
+                                    <span class="o_footer_copyright_name mr-2">
+      <font class="text-o-color-3" style="font-size: 12px;">© Todos los derechos reservados | 2022 | <span style="font-weight: bolder;">DKo Home&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; Sanchez hermanos SpA</span></font>
+    </span>
+  </div>
+                                <div class="col-sm text-center text-sm-right o_not_editable">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <script id="tracking_code" async="1" src="https://www.googletagmanager.com/gtag/js?id=G-59QF66SG6M"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-59QF66SG6M');
+            </script>
+        <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P62JWM2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    </body>
+        </html>
