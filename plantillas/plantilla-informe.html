@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Informe SEO - {{sitio}}</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      padding: 40px;
+      color: #2a2a2a;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #003366;
+      font-size: 28px;
+      border-bottom: 3px solid #0056a3;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #004080;
+      font-size: 22px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    h3 {
+      font-size: 18px;
+      color: #333;
+      margin-top: 25px;
+      margin-bottom: 5px;
+    }
+    .score {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f6f8;
+    }
+    .footer {
+      font-size: 12px;
+      color: #999;
+      margin-top: 60px;
+      text-align: center;
+    }
+    ul, ol {
+      padding-left: 20px;
+    }
+    .separador {
+      border-top: 1px dashed #bbb;
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>📊 Informe SEO Consolidado</h1>
+  <div class="score">Sitio analizado: {{sitio}}</div>
+  <div class="score">Fecha: {{fecha}}</div>
+
+  <div class="section">
+    <h2>🏠 Análisis del Home</h2>
+    {{home}}
+  </div>
+
+  <div class="section">
+    <h2>📈 Métricas de Rendimiento</h2>
+    {{rendimiento}}
+  </div>
+
+  <div class="section">
+    <h2>🔍 Reporte Técnico SEO</h2>
+    {{tecnico}}
+  </div>
+
+  <div class="section">
+    <h2>🗣️ Top Palabras Visibles del Home</h2>
+    {{palabras}}
+  </div>
+
+  <div class="section">
+    <h2>🧩 Recomendaciones por Zona Visual</h2>
+    {{zonas}}
+  </div>
+
+  <div class="section">
+    <h2>🗺️ Análisis Técnico del Sitemap</h2>
+    {{sitemap}}
+  </div>
+
+  <div class="section">
+    <h2>🏷️ Metadatos del Sitio Web</h2>
+    {{metadatos}}
+  </div>
+
+  <div class="section">
+    <h2>🤖 Recomendaciones IA (Gemini)</h2>
+    {{insights}}
+  </div>
+
+  <div class="footer">
+    Generado automáticamente por SEO20 · Informe generado el {{fecha}}
+  </div>
+</body>
+</html>
