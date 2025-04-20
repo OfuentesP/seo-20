@@ -30,6 +30,7 @@
     "metascraper-url": "^5.46.11",
     "prompt-sync": "^4.2.0",
     "puppeteer": "^21.11.0",
+    "seo-analyzer": "^3.2.0",
     "sitemapper": "^3.2.20"
   },
   "devDependencies": {
