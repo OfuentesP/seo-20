@@ -49,7 +49,11 @@ rl.on('line', async (url) => {
 
     // 3. Análisis con seo-analyzer
     console.log('🔍 Ejecutando seo-analyzer...');
-    const analysis = await analyzer({ url });
+    const Analyzer = require('seo-analyzer').default;
+    const instance = new Analyzer({ url });
+    const analysis = await instance.analyze();
+    
+    
 
     // 4. Generar PDF
     console.log('📝 Generando PDF...');
