@@ -48,27 +48,50 @@ async function ejecutarLighthouse(url, carpeta) {
   await ejecutarLighthouse(url, carpeta);
 
   // 🔹 Leer resultados de Lighthouse
-  const lighthousePath = path.join(carpeta, 'lighthouse.json');
-  const lighthouseResult = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
-  const categories = lighthouseResult.categories;
+  let lighthouseScoresHTML = '';
+  try {
+    const lighthousePath = path.join(carpeta, 'lighthouse.json');
+    const lighthouseResult = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
+    const categories = lighthouseResult.categories;
 
-  const lighthouseScoresHTML = `
-    <h2>Resultados de Lighthouse</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Categoría</th>
-          <th>Puntuación</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Rendimiento</td><td>${Math.round(categories.performance.score * 100)} / 100</td></tr>
-        <tr><td>Accesibilidad</td><td>${Math.round(categories.accessibility.score * 100)} / 100</td></tr>
-        <tr><td>Buenas Prácticas</td><td>${Math.round(categories['best-practices'].score * 100)} / 100</td></tr>
-        <tr><td>SEO</td><td>${Math.round(categories.seo.score * 100)} / 100</td></tr>
-      </tbody>
-    </table>
-  `;
+    lighthouseScoresHTML = `
+      <h2>Resultados de Lighthouse</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Puntuación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Rendimiento</td><td>${Math.round(categories.performance.score * 100)} / 100</td></tr>
+          <tr><td>Accesibilidad</td><td>${Math.round(categories.accessibility.score * 100)} / 100</td></tr>
+          <tr><td>Buenas Prácticas</td><td>${Math.round(categories['best-practices'].score * 100)} / 100</td></tr>
+          <tr><td>SEO</td><td>${Math.round(categories.seo.score * 100)} / 100</td></tr>
+        </tbody>
+      </table>
+    `;
+  } catch (error) {
+    console.error('❌ Error al leer lighthouse.json. Usando valores predeterminados.');
+    lighthouseScoresHTML = `
+      <h2>Resultados de Lighthouse</h2>
+      <p>No se pudieron obtener los resultados de Lighthouse. Se muestran valores predeterminados.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Puntuación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Rendimiento</td><td>N/A</td></tr>
+          <tr><td>Accesibilidad</td><td>N/A</td></tr>
+          <tr><td>Buenas Prácticas</td><td>N/A</td></tr>
+          <tr><td>SEO</td><td>N/A</td></tr>
+        </tbody>
+      </table>
+    `;
+  }
 
   // 🔹 Generar secciones del informe
   const { homeResult } = await generarInformeUnificadoCompleto({
