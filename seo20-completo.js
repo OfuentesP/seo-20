@@ -23,7 +23,8 @@ rl.on('line', async (url) => {
     });
 
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 120000 });
+
 
     console.log('📸 Capturando screenshot del home...');
     const screenshotPath = path.join(resultadosPath, 'screenshot.png');
