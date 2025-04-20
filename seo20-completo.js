@@ -1,23 +1,24 @@
 const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
-const lighthouse = require('lighthouse');
 const analyzer = require('seo-analyzer');
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
 
-// Crear carpeta de resultados
+// Crear carpeta de resultados si no existe
 const resultadosPath = path.join(__dirname, 'resultados');
 if (!fs.existsSync(resultadosPath)) fs.mkdirSync(resultadosPath);
 
 // Leer URL desde stdin
 const readline = require('readline');
 const rl = readline.createInterface({ input: process.stdin });
+
 console.log('🔍 Ingresa la URL del sitio:');
+
 rl.on('line', async (url) => {
   try {
     console.log('🌐 URL recibida:', url);
 
-    // 1. Lanzar Puppeteer
+    // 1. Lanzar Puppeteer para captura
     const browser = await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox']
@@ -30,8 +31,9 @@ rl.on('line', async (url) => {
     const screenshotPath = path.join(resultadosPath, 'screenshot.png');
     await page.screenshot({ path: screenshotPath, fullPage: true });
 
-    // 2. Conectar Lighthouse a Puppeteer
+    // 2. Lighthouse desde Puppeteer
     console.log('⚙️ Ejecutando Lighthouse...');
+    const lighthouse = (await import('lighthouse')).default;
     const wsEndpoint = browser.wsEndpoint();
     const browserURL = wsEndpoint.replace('ws://', 'http://').replace('/devtools/browser', '');
 
@@ -45,11 +47,11 @@ rl.on('line', async (url) => {
     fs.writeFileSync(lhResultPath, result.report);
     const seoScore = result.lhr.categories.seo.score * 100;
 
-    // 3. SEO Analyzer
+    // 3. Análisis con seo-analyzer
     console.log('🔍 Ejecutando seo-analyzer...');
     const analysis = await analyzer({ url });
 
-    // 4. Crear PDF
+    // 4. Generar PDF
     console.log('📝 Generando PDF...');
     const pdfDoc = await PDFDocument.create();
     const page1 = pdfDoc.addPage();
