@@ -1,23 +1,42 @@
-
 const fs = require('fs');
+const path = require('path');
 const puppeteer = require('puppeteer');
-const markdownIt = require('markdown-it')();
 
-module.exports = async function generatePdfFromMd(mdPath, pdfPath) {
-  const mdContent = fs.readFileSync(mdPath, 'utf-8');
-  const htmlContent = markdownIt.render(mdContent);
-  const html = `<html><head><meta charset="utf-8"><style>
-    body { font-family: sans-serif; padding: 40px; }
-    h1, h2, h3 { color: #003366; }
-    h1, h2 { page-break-before: always; }
-    table, p { page-break-inside: avoid; }
-    table { border-collapse: collapse; width: 100%; margin-bottom: 24px; }
-    th, td { border: 1px solid #ccc; padding: 8px; }
-  </style></head><body>${htmlContent}</body></html>`;
+// Función para reemplazar placeholders tipo {{nombre}} en el HTML
+function renderHTML(template, variables) {
+  return template.replace(/{{(.*?)}}/g, (_, key) => {
+    return variables[key.trim()] || '';
+  });
+}
+
+module.exports = async function generarPDFConHTML({
+  sitio,
+  fecha,
+  homeResultHTML,
+  recomendacionesHTML,
+  sitemapHTML,
+  urlsPorPaginaHTML,
+  erroresHTML,
+  outputPath
+}) {
+  const plantillaPath = path.join(__dirname, 'plantillas', 'plantilla-informe.html');
+  const htmlBase = fs.readFileSync(plantillaPath, 'utf-8');
+
+  const finalHTML = renderHTML(htmlBase, {
+    sitio,
+    fecha,
+    homeResult: homeResultHTML,
+    recomendaciones: recomendacionesHTML,
+    sitemap: sitemapHTML,
+    urlsPorPagina: urlsPorPaginaHTML,
+    errores404: erroresHTML
+  });
 
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: 'networkidle0' });
-  await page.pdf({ path: pdfPath, format: 'A4', printBackground: true });
+  await page.setContent(finalHTML, { waitUntil: 'networkidle0' });
+  await page.pdf({ path: outputPath, format: 'A4', printBackground: true });
   await browser.close();
+
+  console.log('✅ PDF generado con plantilla HTML en:', outputPath);
 };

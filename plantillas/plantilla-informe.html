@@ -70,52 +70,36 @@
   </style>
 </head>
 <body>
-  <h1>📊 Informe SEO Consolidado</h1>
-  <div class="score">Sitio analizado: {{sitio}}</div>
+  <h1>📊 Informe SEO Consolidado – https://{{sitio}}</h1>
   <div class="score">Fecha: {{fecha}}</div>
 
   <div class="section">
     <h2>🏠 Análisis del Home</h2>
-    {{home}}
+    {{homeResult}}
   </div>
 
   <div class="section">
-    <h2>📈 Métricas de Rendimiento</h2>
-    {{rendimiento}}
+    <h2>🔍 Reporte Técnico SEO (Lighthouse + Observaciones)</h2>
+    {{recomendaciones}}
   </div>
 
   <div class="section">
-    <h2>🔍 Reporte Técnico SEO</h2>
-    {{tecnico}}
-  </div>
-
-  <div class="section">
-    <h2>🗣️ Top Palabras Visibles del Home</h2>
-    {{palabras}}
-  </div>
-
-  <div class="section">
-    <h2>🧩 Recomendaciones por Zona Visual</h2>
-    {{zonas}}
-  </div>
-
-  <div class="section">
-    <h2>🗺️ Análisis Técnico del Sitemap</h2>
+    <h2>🗺 Análisis Técnico del Sitemap</h2>
     {{sitemap}}
   </div>
 
   <div class="section">
-    <h2>🏷️ Metadatos del Sitio Web</h2>
-    {{metadatos}}
+    <h2>🔗 Análisis por URL</h2>
+    {{urlsPorPagina}}
   </div>
 
   <div class="section">
-    <h2>🤖 Recomendaciones IA (Gemini)</h2>
-    {{insights}}
+    <h2>🚨 URLs con error 404 u otros</h2>
+    {{errores404}}
   </div>
 
   <div class="footer">
-    Generado automáticamente por SEO20 · Informe generado el {{fecha}}
+    Informe generado automáticamente con SEO20 · Oscar Fuentes – {{fecha}}
   </div>
 </body>
 </html>
