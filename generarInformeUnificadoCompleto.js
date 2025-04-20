@@ -1,12 +1,3 @@
-console.log('📥 homeResult.lighthouse:', !!homeResult.lighthouse);
-console.log('📥 homeResult.scraping:', homeResult.scraping?.length);
-console.log('📥 homeResult.secciones:', homeResult.secciones?.length);
-console.log('📥 homeResult.enriched:', homeResult.enriched?.length);
-
-// generarInformeUnificadoCompleto.js
-const fs = require('fs');
-const path = require('path');
-
 function generarInformeUnificadoCompleto({
   homeResult,
   sitemapMd,
@@ -18,8 +9,14 @@ function generarInformeUnificadoCompleto({
   sitemapLastmod,
   insightsIA
 }) {
+  console.log('📥 homeResult.lighthouse:', !!homeResult.lighthouse);
+  console.log('📥 homeResult.scraping:', homeResult.scraping?.length);
+  console.log('📥 homeResult.secciones:', homeResult.secciones?.length);
+  console.log('📥 homeResult.enriched:', homeResult.enriched?.length);
+
   let md = `# 📊 Informe SEO Consolidado – ${sitio}\n\n`;
   md += `_Fecha: ${fecha}_\n\n---\n`;
+
 
   // 1. Análisis del Home
   md += `\n## 🏠 Análisis del Home\n\n`;
