@@ -19,10 +19,12 @@ async function ejecutarScraping(url) {
         if (nodo.nodeType === Node.TEXT_NODE) {
           return nodo.textContent.trim();
         }
-        if (nodo.nodeType === Node.ELEMENT_NODE &&
-            nodo.tagName !== 'SCRIPT' &&
-            nodo.tagName !== 'STYLE' &&
-            getComputedStyle(nodo).display !== 'none') {
+        if (
+          nodo.nodeType === Node.ELEMENT_NODE &&
+          nodo.tagName !== 'SCRIPT' &&
+          nodo.tagName !== 'STYLE' &&
+          getComputedStyle(nodo).display !== 'none'
+        ) {
           return Array.from(nodo.childNodes).map(obtenerTextoVisible).join(' ');
         }
         return '';
