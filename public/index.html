@@ -25,10 +25,15 @@
     </button>
 
     <div id="spinner" class="w-8 h-8 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto mt-6 hidden"></div>
-    <p id="progreso" class="text-sm text-blue-600 mt-2"></p>
+
+    <ul id="etapas" class="text-left mt-4 hidden">
+      <li id="etapa-1" class="mb-1">🔄 <span class="text-gray-700">Preparando análisis...</span></li>
+      <li id="etapa-2" class="mb-1">🔲 Scraping</li>
+      <li id="etapa-3" class="mb-1">🔲 Lighthouse</li>
+      <li id="etapa-4" class="mb-1">🔲 Generando PDF</li>
+    </ul>
 
     <p id="status" class="mt-4 font-medium text-blue-600"></p>
-
     <div id="log" class="mt-4 bg-gray-100 border border-gray-300 rounded-md p-3 text-left text-sm text-gray-700 overflow-auto max-h-40 hidden"></div>
   </div>
 
@@ -39,40 +44,34 @@
       const log = document.getElementById('log');
       const spinner = document.getElementById('spinner');
       const btn = document.getElementById('analizarBtn');
-      const progreso = document.getElementById('progreso');
+      const etapas = document.getElementById('etapas');
 
       status.innerText = 'Iniciando análisis...';
       status.className = 'mt-4 font-medium text-blue-600';
 
       log.innerText = '';
       log.classList.add('hidden');
+      etapas.classList.remove('hidden');
 
+      setEtapa(1);
       spinner.classList.remove('hidden');
-      progreso.classList.remove('hidden');
-      progreso.innerText = '0%';
       btn.disabled = true;
 
       try {
-        // Simulación de progreso con setInterval
-        let porcentaje = 0;
-        const interval = setInterval(() => {
-          if (porcentaje < 90) {
-            porcentaje += 10;
-            progreso.innerText = `${porcentaje}%`;
-          }
-        }, 1500);
+        setEtapa(2);
+        await new Promise(r => setTimeout(r, 1000));
 
+        setEtapa(3);
+        await new Promise(r => setTimeout(r, 2000));
+
+        setEtapa(4);
         const res = await fetch('/analizar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url })
         });
 
-        clearInterval(interval);
-        progreso.innerText = '100%';
-
         if (res.ok) {
-          status.innerText = 'Informe generado. Descargando...';
           const blob = await res.blob();
           const link = document.createElement('a');
           link.href = URL.createObjectURL(blob);
@@ -95,6 +94,19 @@
       } finally {
         spinner.classList.add('hidden');
         btn.disabled = false;
+      }
+    }
+
+    function setEtapa(n) {
+      for (let i = 1; i <= 4; i++) {
+        const item = document.getElementById(`etapa-${i}`);
+        if (i < n) {
+          item.innerHTML = `✅ <span class="text-green-600">${item.textContent.slice(2)}</span>`;
+        } else if (i === n) {
+          item.innerHTML = `🔄 <span class="text-blue-600 font-semibold">${item.textContent.slice(2)}</span>`;
+        } else {
+          item.innerHTML = `🔲 ${item.textContent.slice(2)}`;
+        }
       }
     }
   </script>
