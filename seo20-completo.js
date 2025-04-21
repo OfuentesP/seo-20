@@ -107,3 +107,4 @@ async function ejecutarLighthouse(url, carpeta) {
 
   console.log(`🎉 Informe PDF final generado: ${informePath}`);
 })();
+ 
