@@ -1,20 +1,13 @@
-
-
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
 
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 app.post('/analizar', (req, res) => {
   const { url } = req.body;
@@ -24,7 +17,7 @@ app.post('/analizar', (req, res) => {
   }
 
   const fecha = new Date().toISOString().split('T')[0];
-  const comando = `echo "${url}" | node seo20-completo.js`;
+  const comando = `node seo20-completo.js "${url}"`;
 
   exec(comando, { timeout: 180000 }, (error, stdout, stderr) => {
     if (error) {
@@ -32,20 +25,19 @@ app.post('/analizar', (req, res) => {
       return res.status(500).json({ error: 'Error en el análisis SEO.' });
     }
 
-    const nombreArchivo = `informe-seo.pdf`;
-    const rutaArchivo = path.join(__dirname, 'resultados', nombreArchivo);
+    const rutaPDF = path.join(__dirname, 'resultados', 'informe-seo.pdf');
 
-    fs.access(rutaArchivo, fs.constants.F_OK, (err) => {
+    fs.access(rutaPDF, fs.constants.F_OK, (err) => {
       if (err) {
-        console.error('No se encontró el archivo:', rutaArchivo);
-        return res.status(500).json({ error: 'No se pudo generar el informe.' });
+        console.error('No se encontró el informe:', rutaPDF);
+        return res.status(404).json({ error: 'Informe no disponible.' });
       }
 
-      res.download(rutaArchivo, nombreArchivo);
+      res.download(rutaPDF, 'informe-seo.pdf');
     });
   });
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🌐 Servidor corriendo en http://localhost:${PORT}`);
 });
