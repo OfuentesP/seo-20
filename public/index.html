@@ -5,21 +5,29 @@
   <title>SEO20 - Generar Informe</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center p-6">
-  <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-xl text-center">
+<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-xl text-center">
     <h1 class="text-2xl font-bold mb-6">Generar Informe SEO</h1>
 
-    <input type="text" id="url" placeholder="https://www.ejemplo.cl"
-      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <input
+      type="text"
+      id="url"
+      placeholder="https://www.amoble.cl"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
 
-    <button id="analizarBtn" onclick="analizar()"
-      class="w-full mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50">
+    <button
+      id="analizarBtn"
+      onclick="analizar()"
+      class="w-full mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+    >
       Analizar
     </button>
 
     <div id="spinner" class="w-8 h-8 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto mt-6 hidden"></div>
+    <p id="progreso" class="text-sm text-blue-600 mt-2"></p>
 
-    <p id="status" class="mt-4 font-medium text-green-600"></p>
+    <p id="status" class="mt-4 font-medium text-blue-600"></p>
 
     <div id="log" class="mt-4 bg-gray-100 border border-gray-300 rounded-md p-3 text-left text-sm text-gray-700 overflow-auto max-h-40 hidden"></div>
   </div>
@@ -31,23 +39,37 @@
       const log = document.getElementById('log');
       const spinner = document.getElementById('spinner');
       const btn = document.getElementById('analizarBtn');
+      const progreso = document.getElementById('progreso');
 
       status.innerText = 'Iniciando análisis...';
-      status.classList.remove('text-red-600', 'text-green-600');
-      status.classList.add('text-blue-600');
+      status.className = 'mt-4 font-medium text-blue-600';
 
       log.innerText = '';
       log.classList.add('hidden');
 
       spinner.classList.remove('hidden');
+      progreso.classList.remove('hidden');
+      progreso.innerText = '0%';
       btn.disabled = true;
 
       try {
+        // Simulación de progreso con setInterval
+        let porcentaje = 0;
+        const interval = setInterval(() => {
+          if (porcentaje < 90) {
+            porcentaje += 10;
+            progreso.innerText = `${porcentaje}%`;
+          }
+        }, 1500);
+
         const res = await fetch('/analizar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url })
         });
+
+        clearInterval(interval);
+        progreso.innerText = '100%';
 
         if (res.ok) {
           status.innerText = 'Informe generado. Descargando...';
@@ -57,20 +79,17 @@
           link.download = 'informe-seo.pdf';
           link.click();
           status.innerText = '✅ Informe descargado con éxito.';
-          status.classList.remove('text-blue-600');
-          status.classList.add('text-green-600');
+          status.className = 'mt-4 font-medium text-green-600';
         } else {
           const error = await res.json();
           status.innerText = '❌ Error al generar el informe.';
-          status.classList.remove('text-blue-600');
-          status.classList.add('text-red-600');
+          status.className = 'mt-4 font-medium text-red-600';
           log.innerText = error.error || 'Error desconocido.';
           log.classList.remove('hidden');
         }
       } catch (err) {
         status.innerText = '❌ Error al contactar el servidor.';
-        status.classList.remove('text-blue-600');
-        status.classList.add('text-red-600');
+        status.className = 'mt-4 font-medium text-red-600';
         log.innerText = err.message || err;
         log.classList.remove('hidden');
       } finally {
