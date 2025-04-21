@@ -2,62 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>SEO20 - Generador de Informe</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      background-color: #f4f4f4;
-      color: #333;
-      max-width: 600px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-    }
-    input, button {
-      padding: 0.5rem;
-      margin-top: 1rem;
-      width: 100%;
-      font-size: 1rem;
-    }
-    #spinner {
-      display: none;
-      margin: 1rem auto;
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #3498db;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    #status {
-      margin-top: 1rem;
-      font-weight: bold;
-    }
-    #log {
-      margin-top: 1rem;
-      font-family: monospace;
-      background: #fff;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      max-height: 200px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-  </style>
+  <title>SEO20 - Generar Informe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Generar Informe SEO</h1>
-  <input type="text" id="url" placeholder="https://www.ejemplo.cl" />
-  <button id="analizarBtn" onclick="analizar()">Analizar</button>
-  <div id="spinner"></div>
-  <p id="status"></p>
-  <div id="log"></div>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center p-6">
+  <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-xl text-center">
+    <h1 class="text-2xl font-bold mb-6">Generar Informe SEO</h1>
+
+    <input type="text" id="url" placeholder="https://www.ejemplo.cl"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+    <button id="analizarBtn" onclick="analizar()"
+      class="w-full mt-4 bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50">
+      Analizar
+    </button>
+
+    <div id="spinner" class="w-8 h-8 border-4 border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto mt-6 hidden"></div>
+
+    <p id="status" class="mt-4 font-medium text-green-600"></p>
+
+    <div id="log" class="mt-4 bg-gray-100 border border-gray-300 rounded-md p-3 text-left text-sm text-gray-700 overflow-auto max-h-40 hidden"></div>
+  </div>
 
   <script>
     async function analizar() {
@@ -67,9 +32,14 @@
       const spinner = document.getElementById('spinner');
       const btn = document.getElementById('analizarBtn');
 
-      log.innerText = '';
       status.innerText = 'Iniciando análisis...';
-      spinner.style.display = 'block';
+      status.classList.remove('text-red-600', 'text-green-600');
+      status.classList.add('text-blue-600');
+
+      log.innerText = '';
+      log.classList.add('hidden');
+
+      spinner.classList.remove('hidden');
       btn.disabled = true;
 
       try {
@@ -87,16 +57,24 @@
           link.download = 'informe-seo.pdf';
           link.click();
           status.innerText = '✅ Informe descargado con éxito.';
+          status.classList.remove('text-blue-600');
+          status.classList.add('text-green-600');
         } else {
           const error = await res.json();
           status.innerText = '❌ Error al generar el informe.';
+          status.classList.remove('text-blue-600');
+          status.classList.add('text-red-600');
           log.innerText = error.error || 'Error desconocido.';
+          log.classList.remove('hidden');
         }
       } catch (err) {
         status.innerText = '❌ Error al contactar el servidor.';
+        status.classList.remove('text-blue-600');
+        status.classList.add('text-red-600');
         log.innerText = err.message || err;
+        log.classList.remove('hidden');
       } finally {
-        spinner.style.display = 'none';
+        spinner.classList.add('hidden');
         btn.disabled = false;
       }
     }
