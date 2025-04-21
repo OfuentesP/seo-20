@@ -13,10 +13,11 @@ const path = require('path');
 
   const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
   const result = await lighthouse(url, {
-    port: chrome.port,
+    port: chrome.port, // ⬅️ ESTE FALTABA
     output: 'json',
     logLevel: 'info'
   });
+  console.log(`🔌 Chrome ejecutándose en puerto: ${chrome.port}`);
 
   await chrome.kill();
 
