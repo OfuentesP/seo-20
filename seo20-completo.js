@@ -13,10 +13,23 @@ async function ejecutarLighthouse(url, carpeta) {
   const chromeLauncher = await import('chrome-launcher');
 
   const chrome = await chromeLauncher.launch({
-    chromeFlags: ['--headless','--no-sandbox','--disable-setuid-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote'],
-    executablePath:'/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome'
+    chromeFlags: [
+      '--headless',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--single-process',
+      '--no-zygote'
+    ],
+    executablePath: '/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome'
   });
-  const result = await lighthouse(url, {output: 'json', logLevel: 'info'});
+
+  const result = await lighthouse(url, {
+    port: chrome.port, // ✅ Necesario para evitar ECONNREFUSED
+    output: 'json',
+    logLevel: 'info'
+  });
 
   await chrome.kill();
 
@@ -96,7 +109,7 @@ async function ejecutarLighthouse(url, carpeta) {
     `;
   }
 
-  // 🔹 Leer Core Web Vitals de Lighthouse
+  // 🔹 Core Web Vitals
   let coreWebVitalsHTML = '';
   try {
     const lighthousePath = path.join(carpeta, 'lighthouse.json');
@@ -126,23 +139,9 @@ async function ejecutarLighthouse(url, carpeta) {
     `;
   } catch (error) {
     console.error('❌ Error al leer lighthouse.json para Core Web Vitals. Usando valores predeterminados.');
-    lighthouseScoresHTML = `
-      <h2>Resultados de Lighthouse</h2>
-      <p>No se pudieron obtener los resultados de Lighthouse. Se muestran valores predeterminados.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Categoría</th>
-            <th>Puntuación</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Rendimiento</td><td>N/A</td></tr>
-          <tr><td>Accesibilidad</td><td>N/A</td></tr>
-          <tr><td>Buenas Prácticas</td><td>N/A</td></tr>
-          <tr><td>SEO</td><td>N/A</td></tr>
-        </tbody>
-      </table>
+    coreWebVitalsHTML = `
+      <h2>Como está funcionando mi página</h2>
+      <p>No se pudieron obtener los Core Web Vitals.</p>
     `;
   }
 
@@ -156,7 +155,6 @@ async function ejecutarLighthouse(url, carpeta) {
     .map(b => `<h3>${b.titulo}</h3>\n${b.contenido}`)
     .join('\n');
 
-  // 🔹 Cargar otras secciones si existen
   const recomendacionesPath = path.join(carpeta, 'recomendaciones.html');
   const sitemapPath = path.join(carpeta, 'sitemap-analysis.html');
   const urlsPath = path.join(carpeta, 'analisis-por-url.html');
@@ -180,6 +178,11 @@ async function ejecutarLighthouse(url, carpeta) {
     erroresHTML,
     outputPath: informePath
   });
+
+  // 🔁 Copiar el informe a una ubicación común para el servidor web
+  const destino = path.join(__dirname, 'resultados', 'informe-seo.pdf');
+  fs.copyFileSync(informePath, destino);
+  console.log(`📎 Copia del informe disponible en: ${destino}`);
 
   console.log(`🎉 Informe PDF final generado: ${informePath}`);
 })();

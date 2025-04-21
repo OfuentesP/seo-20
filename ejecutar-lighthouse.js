@@ -1,32 +1,30 @@
-const { writeFileSync, mkdirSync } = require('fs');
-const path = require('path');
-
-(async () => {
-  const url = process.argv[2];
-  if (!url || !url.startsWith('http')) {
-    console.error('❌ Debes pasar una URL válida como argumento.');
-    process.exit(1);
+async function ejecutarLighthouse(url, carpeta) {
+    const { default: lighthouse } = await import('lighthouse');
+    const chromeLauncher = await import('chrome-launcher');
+  
+    const chrome = await chromeLauncher.launch({
+      chromeFlags: [
+        '--headless',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--single-process',
+        '--no-zygote'
+      ],
+      executablePath: '/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome'
+    });
+  
+    const result = await lighthouse(url, {
+      port: chrome.port, // ✅ PORT AGREGADO
+      output: 'json',
+      logLevel: 'info'
+    });
+  
+    await chrome.kill();
+  
+    const outputPath = path.join(carpeta, 'lighthouse.json');
+    fs.writeFileSync(outputPath, result.report);
+    console.log(`📊 Lighthouse guardado en: ${outputPath}`);
   }
-
-  const { default: lighthouse } = await import('lighthouse');
-  const chromeLauncher = await import('chrome-launcher');
-
-  const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
-  const result = await lighthouse(url, {
-    port: chrome.port, // ⬅️ ESTE FALTABA
-    output: 'json',
-    logLevel: 'info'
-  });
-  console.log(`🔌 Chrome ejecutándose en puerto: ${chrome.port}`);
-
-  await chrome.kill();
-
-  const fecha = new Date().toISOString().split('T')[0];
-  const dominio = new URL(url).hostname.replace(/^www\./, '');
-  const folder = path.join(__dirname, 'resultados', `${fecha}_${dominio}`);
-  mkdirSync(folder, { recursive: true });
-
-  const jsonPath = path.join(folder, 'lighthouse.json');
-  writeFileSync(jsonPath, result.report);
-  console.log(`✅ Lighthouse guardado en: ${jsonPath}`);
-})();
+  
