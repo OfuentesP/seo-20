@@ -16,12 +16,7 @@ async function ejecutarLighthouse(url, carpeta) {
     chromeFlags: ['--headless','--no-sandbox','--disable-setuid-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote'],
     executablePath:'/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome'
   });
-  
-  const result = await lighthouse(url, {
-    port: chrome.port,
-    output: 'json',
-    logLevel: 'info'
-  });
+  const result = await lighthouse(url, {output: 'json', logLevel: 'info'});
 
   await chrome.kill();
 
