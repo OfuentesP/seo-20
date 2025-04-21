@@ -1,3 +1,7 @@
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
 const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
 const generarPDFConHTML = require('./pdf-generator');
 const path = require('path');
@@ -9,14 +13,10 @@ async function ejecutarLighthouse(url, carpeta) {
   const chromeLauncher = await import('chrome-launcher');
 
   const chrome = await chromeLauncher.launch({
-    chromeFlags: ['--headless', '--no-sandbox', '--disable-setuid-sandbox']
+    chromeFlags: ['--headless','--no-sandbox','--disable-setuid-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote'],
+    executablePath:'/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome'
   });
-  
-  const result = await lighthouse(url, {
-    port: chrome.port,
-    output: 'json',
-    logLevel: 'info'
-  });
+  const result = await lighthouse(url, {output: 'json', logLevel: 'info'});
 
   await chrome.kill();
 
