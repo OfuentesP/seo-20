@@ -42,40 +42,85 @@ async function generarInformeUnificadoCompleto({ url, textoScraping }) {
     });
   }
 
-  // 🔹 Puntajes Lighthouse
+  // 🔹 Resultado Lighthouse
   const lighthousePath = path.join(carpeta, 'lighthouse.json');
   let lighthouseData = null;
   if (fs.existsSync(lighthousePath)) {
     lighthouseData = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
-
     const seo = lighthouseData.categories?.seo?.score ?? null;
-    const performance = lighthouseData.categories?.performance?.score ?? null;
-    const accessibility = lighthouseData.categories?.accessibility?.score ?? null;
+const performance = lighthouseData.categories?.performance?.score ?? null;
+const accessibility = lighthouseData.categories?.accessibility?.score ?? null;
 
-    const puntajes = [
-      { categoria: 'SEO', valor: seo !== null ? `${seo * 100} / 100` : 'No disponible' },
-      { categoria: 'Rendimiento', valor: performance !== null ? `${performance * 100} / 100` : 'No disponible' },
-      { categoria: 'Accesibilidad', valor: accessibility !== null ? `${accessibility * 100} / 100` : 'No disponible' }
-    ];
+const puntajes = [
+  { categoria: 'SEO', valor: seo !== null ? `${seo * 100} / 100` : 'No disponible' },
+  { categoria: 'Rendimiento', valor: performance !== null ? `${performance * 100} / 100` : 'No disponible' },
+  { categoria: 'Accesibilidad', valor: accessibility !== null ? `${accessibility * 100} / 100` : 'No disponible' }
+];
 
-    const tablaHTML = `
-      <table>
-        <thead>
-          <tr><th>Categoría</th><th>Puntaje</th></tr>
-        </thead>
-        <tbody>
-          ${puntajes.map(p => `<tr><td>${p.categoria}</td><td>${p.valor}</td></tr>`).join('\n')}
-        </tbody>
-      </table>
-    `;
+const tablaHTML = `
+  <table>
+    <thead><tr><th>Categoría</th><th>Puntaje</th></tr></thead>
+    <tbody>
+      ${puntajes.map(p => `<tr><td>${p.categoria}</td><td>${p.valor}</td></tr>`).join('\n')}
+    </tbody>
+  </table>
+`;
 
-    homeResult.push({
-      titulo: 'Puntajes Lighthouse',
-      contenido: tablaHTML
-    });
+homeResult.push({
+  titulo: 'Puntajes Lighthouse',
+  contenido: tablaHTML
+});
+
   }
 
-  return { homeResult };
+  // ---------- CONSTRUCCIÓN DE INFORME MARKDOWN ----------
+  let markdown = `# Informe SEO\n\n`;
+  markdown += `**URL:** ${url}\n`;
+  markdown += `**Fecha:** ${fecha}\n\n`;
+
+  markdown += `## Análisis del Home\n`;
+  homeResult.forEach(bloque => {
+    markdown += `### ${bloque.titulo}\n`;
+    markdown += `${bloque.contenido}\n\n`;
+  });
+
+  // 🔹 Análisis Sitemap
+  const sitemapPath = path.join(carpeta, 'sitemap-analysis.md');
+  if (fs.existsSync(sitemapPath)) {
+    markdown += `## Análisis del Sitemap\n`;
+    markdown += fs.readFileSync(sitemapPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  // 🔹 Análisis Masivo
+  const urlsPath = path.join(carpeta, 'analisis-por-url.md');
+  if (fs.existsSync(urlsPath)) {
+    markdown += `## Análisis por URL\n`;
+    markdown += fs.readFileSync(urlsPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  // 🔹 URLs con error
+  const erroresPath = path.join(carpeta, 'urls-con-errores.md');
+  if (fs.existsSync(erroresPath)) {
+    markdown += `## URLs con error 404 u otros\n`;
+    markdown += fs.readFileSync(erroresPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  // 🔹 Recomendaciones SEO
+  const recomendacionesPath = path.join(carpeta, 'recomendaciones.md');
+  if (fs.existsSync(recomendacionesPath)) {
+    markdown += `## Recomendaciones SEO\n`;
+    markdown += fs.readFileSync(recomendacionesPath, 'utf-8');
+    markdown += '\n\n';
+  }
+
+  return {
+    homeResult,
+    // también puedes retornar otros valores más adelante
+  };
+  
 }
 
 module.exports = {
