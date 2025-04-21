@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const puppeteer = require('puppeteer');
 const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
 const generarPDFConHTML = require('./pdf-generator');
 const ejecutarScraping = require('./generar-scrapping-funcional');
+const puppeteer = require('puppeteer');
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
@@ -25,7 +25,8 @@ async function ejecutarLighthouse(url, carpeta) {
     const result = await lighthouse(url, {
       port,
       output: 'json',
-      logLevel: 'info'
+      logLevel: 'info',
+      onlyCategories: ['seo', 'performance'] // ⚡ más rápido y liviano
     });
 
     const outputPath = path.join(carpeta, 'lighthouse.json');
@@ -60,8 +61,10 @@ async function ejecutarLighthouse(url, carpeta) {
     textoScraping = fs.readFileSync(scrapingPath, 'utf-8').trim();
   }
 
+  // 🔹 Ejecutar Lighthouse
   await ejecutarLighthouse(url, carpeta);
 
+  // 🔹 Generar informe
   const { homeResult } = await generarInformeUnificadoCompleto({
     url,
     textoScraping
@@ -71,6 +74,7 @@ async function ejecutarLighthouse(url, carpeta) {
     .map(b => `<h3>${b.titulo}</h3>\n${b.contenido}`)
     .join('\n');
 
+  // 🔹 Cargar otras secciones si existen
   const recomendacionesPath = path.join(carpeta, 'recomendaciones.html');
   const sitemapPath = path.join(carpeta, 'sitemap-analysis.html');
   const urlsPath = path.join(carpeta, 'analisis-por-url.html');
@@ -82,6 +86,7 @@ async function ejecutarLighthouse(url, carpeta) {
   const erroresHTML = fs.existsSync(erroresPath) ? fs.readFileSync(erroresPath, 'utf-8') : '';
 
   const informePath = path.join(carpeta, 'informe-seo-final.pdf');
+
   await generarPDFConHTML({
     sitio: dominio,
     fecha,
@@ -95,8 +100,10 @@ async function ejecutarLighthouse(url, carpeta) {
     outputPath: informePath
   });
 
-  const destino = path.join(__dirname, 'resultados', 'informe-seo.pdf');
-  fs.copyFileSync(informePath, destino);
-  console.log(`📎 Copia del informe disponible en: ${destino}`);
+  // También se copia a una ruta simple
+  const copiaPath = path.join(__dirname, 'resultados', 'informe-seo.pdf');
+  fs.copyFileSync(informePath, copiaPath);
+  console.log(`📎 Copia del informe disponible en: ${copiaPath}`);
+
   console.log(`🎉 Informe PDF final generado: ${informePath}`);
 })();
