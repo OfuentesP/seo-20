@@ -8,10 +8,11 @@ async function ejecutarScraping(url) {
     return null;
   }
 
-  console.log('🚀 Lanzando Puppeteer con navegador embebido');
+  console.log('🚀 Lanzando Puppeteer con Chromium embebido');
 
   const browser = await puppeteer.launch({
     headless: 'new',
+    executablePath: puppeteer.executablePath(),
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
