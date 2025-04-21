@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 3000;
 
 const basePath = path.resolve(__dirname);
 app.use(express.static(path.join(basePath, 'public')));
-
 app.use(express.json());
 
 app.post('/analizar', (req, res) => {
