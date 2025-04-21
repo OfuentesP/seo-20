@@ -7,22 +7,12 @@ async function ejecutarScraping(url) {
     console.error('❌ URL inválida para scraping');
     return null;
   }
-
-  console.log('🚀 Lanzando Puppeteer con Chromium embebido');
-
   const browser = await puppeteer.launch({
     headless: 'new',
-    executablePath: puppeteer.executablePath(),
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu',
-      '--single-process',
-      '--no-zygote'
-    ]
+    executablePath: '/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome',
+    args: ['--no-sandbox','--disable-setuid-sandbox','--disable-dev-shm-usage','--disable-gpu','--single-process','--no-zygote']
   });
-
+  
   const page = await browser.newPage();
 
   try {
