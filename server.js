@@ -6,7 +6,9 @@ const { exec } = require('child_process');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+const basePath = path.resolve(__dirname);
+app.use(express.static(path.join(basePath, 'public')));
+
 app.use(express.json());
 
 app.post('/analizar', (req, res) => {
