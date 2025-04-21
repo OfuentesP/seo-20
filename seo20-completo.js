@@ -1,12 +1,12 @@
+const fs = require('fs');
+const path = require('path');
+const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
+const generarPDFConHTML = require('./pdf-generator');
+const ejecutarScraping = require('./generar-scrapping-funcional');
+
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
-
-const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
-const generarPDFConHTML = require('./pdf-generator');
-const path = require('path');
-const fs = require('fs');
-const ejecutarScraping = require('./generar-scrapping-funcional');
 
 async function ejecutarLighthouse(url, carpeta) {
   const { default: lighthouse } = await import('lighthouse');
@@ -25,17 +25,21 @@ async function ejecutarLighthouse(url, carpeta) {
     executablePath: '/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome'
   });
 
-  const result = await lighthouse(url, {
-    port: chrome.port, // ✅ Necesario para evitar ECONNREFUSED
-    output: 'json',
-    logLevel: 'info'
-  });
+  try {
+    const result = await lighthouse(url, {
+      port: chrome.port, // ✅ Esta línea es la CLAVE
+      output: 'json',
+      logLevel: 'info'
+    });
 
-  await chrome.kill();
-
-  const outputPath = path.join(carpeta, 'lighthouse.json');
-  fs.writeFileSync(outputPath, result.report);
-  console.log(`📊 Lighthouse guardado en: ${outputPath}`);
+    const outputPath = path.join(carpeta, 'lighthouse.json');
+    fs.writeFileSync(outputPath, result.report);
+    console.log(`📊 Lighthouse guardado en: ${outputPath}`);
+  } catch (error) {
+    console.error('❌ Error ejecutando Lighthouse:', error);
+  } finally {
+    await chrome.kill();
+  }
 }
 
 (async () => {
@@ -60,92 +64,8 @@ async function ejecutarLighthouse(url, carpeta) {
     textoScraping = fs.readFileSync(scrapingPath, 'utf-8').trim();
   }
 
-  // 🔹 Ejecutar Lighthouse
   await ejecutarLighthouse(url, carpeta);
 
-  // 🔹 Leer resultados de Lighthouse
-  let lighthouseScoresHTML = '';
-  try {
-    const lighthousePath = path.join(carpeta, 'lighthouse.json');
-    const lighthouseResult = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
-    const categories = lighthouseResult.categories;
-
-    lighthouseScoresHTML = `
-      <h2>Resultados de Lighthouse</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Categoría</th>
-            <th>Puntuación</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Rendimiento</td><td>${Math.round(categories.performance.score * 100)} / 100</td></tr>
-          <tr><td>Accesibilidad</td><td>${Math.round(categories.accessibility.score * 100)} / 100</td></tr>
-          <tr><td>Buenas Prácticas</td><td>${Math.round(categories['best-practices'].score * 100)} / 100</td></tr>
-          <tr><td>SEO</td><td>${Math.round(categories.seo.score * 100)} / 100</td></tr>
-        </tbody>
-      </table>
-    `;
-  } catch (error) {
-    console.error('❌ Error al leer lighthouse.json. Usando valores predeterminados.');
-    lighthouseScoresHTML = `
-      <h2>Resultados de Lighthouse</h2>
-      <p>No se pudieron obtener los resultados de Lighthouse. Se muestran valores predeterminados.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Categoría</th>
-            <th>Puntuación</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Rendimiento</td><td>N/A</td></tr>
-          <tr><td>Accesibilidad</td><td>N/A</td></tr>
-          <tr><td>Buenas Prácticas</td><td>N/A</td></tr>
-          <tr><td>SEO</td><td>N/A</td></tr>
-        </tbody>
-      </table>
-    `;
-  }
-
-  // 🔹 Core Web Vitals
-  let coreWebVitalsHTML = '';
-  try {
-    const lighthousePath = path.join(carpeta, 'lighthouse.json');
-    const lighthouseResult = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
-    const audits = lighthouseResult.audits;
-
-    const lcp = audits['largest-contentful-paint']?.displayValue || 'N/A';
-    const fid = audits['first-input-delay']?.displayValue || 'N/A';
-    const cls = audits['cumulative-layout-shift']?.displayValue || 'N/A';
-
-    coreWebVitalsHTML = `
-      <h2>Como está funcionando mi página</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Métrica</th>
-            <th>Valor</th>
-            <th>Requerido</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>LCP (Largest Contentful Paint)</td><td>${lcp}</td><td>Menos de 2.5s</td></tr>
-          <tr><td>FID (First Input Delay)</td><td>${fid}</td><td>Menos de 100ms</td></tr>
-          <tr><td>CLS (Cumulative Layout Shift)</td><td>${cls}</td><td>Menos de 0.1</td></tr>
-        </tbody>
-      </table>
-    `;
-  } catch (error) {
-    console.error('❌ Error al leer lighthouse.json para Core Web Vitals. Usando valores predeterminados.');
-    coreWebVitalsHTML = `
-      <h2>Como está funcionando mi página</h2>
-      <p>No se pudieron obtener los Core Web Vitals.</p>
-    `;
-  }
-
-  // 🔹 Generar secciones del informe
   const { homeResult } = await generarInformeUnificadoCompleto({
     url,
     textoScraping
@@ -169,8 +89,8 @@ async function ejecutarLighthouse(url, carpeta) {
   await generarPDFConHTML({
     sitio: dominio,
     fecha,
-    lighthouseScoresHTML,
-    coreWebVitalsHTML,
+    lighthouseScoresHTML: '',
+    coreWebVitalsHTML: '',
     homeResultHTML,
     recomendacionesHTML,
     sitemapHTML,
@@ -179,10 +99,8 @@ async function ejecutarLighthouse(url, carpeta) {
     outputPath: informePath
   });
 
-  // 🔁 Copiar el informe a una ubicación común para el servidor web
   const destino = path.join(__dirname, 'resultados', 'informe-seo.pdf');
   fs.copyFileSync(informePath, destino);
   console.log(`📎 Copia del informe disponible en: ${destino}`);
-
   console.log(`🎉 Informe PDF final generado: ${informePath}`);
 })();
