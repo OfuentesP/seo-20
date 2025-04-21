@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const puppeteer = require('puppeteer');
 const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
 const generarPDFConHTML = require('./pdf-generator');
 const ejecutarScraping = require('./generar-scrapping-funcional');
@@ -10,24 +11,19 @@ process.on('unhandledRejection', (reason, promise) => {
 
 async function ejecutarLighthouse(url, carpeta) {
   const { default: lighthouse } = await import('lighthouse');
-  const chromeLauncher = await import('chrome-launcher');
 
-  const chrome = await chromeLauncher.launch({
-    chromeFlags: [
-      '--headless',
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu',
-      '--single-process',
-      '--no-zygote'
-    ],
-    executablePath: '/home/seo_user/.cache/puppeteer/chrome/linux-135.0.7049.84/chrome-linux64/chrome'
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--remote-debugging-port=9222'],
+    executablePath: puppeteer.executablePath()
   });
+
+  const endpoint = new URL(browser.wsEndpoint());
+  const port = endpoint.port;
 
   try {
     const result = await lighthouse(url, {
-      port: chrome.port, // ✅ Esta línea es la CLAVE
+      port,
       output: 'json',
       logLevel: 'info'
     });
@@ -38,7 +34,7 @@ async function ejecutarLighthouse(url, carpeta) {
   } catch (error) {
     console.error('❌ Error ejecutando Lighthouse:', error);
   } finally {
-    await chrome.kill();
+    await browser.close();
   }
 }
 
