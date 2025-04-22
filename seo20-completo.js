@@ -3,6 +3,8 @@ const path = require('path');
 const { exec } = require('child_process');
 const util = require('util');
 const generarReporteLighthouse = require('./modulos/lighthouse');
+const generarReporteSitemap = require('./modulos/sitemap');
+const mergePDFs = require('./modulos/merge-pdf');
 
 const execAsync = util.promisify(exec);
 
@@ -29,7 +31,7 @@ async function main() {
 
   console.log('📥 Iniciando análisis SEO para:', url);
 
-  // 🔍 Paso 1: Generar Lighthouse JSON
+  // 🚦 Paso 1: Generar Lighthouse JSON
   const jsonLighthousePath = path.join(carpetaResultado, 'lighthouse.json');
   try {
     console.log('🚦 Ejecutando Lighthouse...');
@@ -39,7 +41,7 @@ async function main() {
     return;
   }
 
-  // 📊 Paso 2: Generar reporte y PDF
+  // 📊 Paso 2: Generar reporte Lighthouse
   try {
     console.log('📊 Generando reporte Lighthouse...');
     const { pdf } = await generarReporteLighthouse(jsonLighthousePath);
@@ -48,6 +50,29 @@ async function main() {
     console.log(`✅ Lighthouse PDF guardado en: ${nuevoPathPDF}`);
   } catch (error) {
     console.error('❌ Error generando Lighthouse PDF:', error.message);
+  }
+
+  // 🗺 Paso 3: Generar análisis de sitemap
+  try {
+    console.log('🗺 Generando análisis de sitemap...');
+    const { pdf } = await generarReporteSitemap(url, carpetaResultado);
+    const nuevoPathPDF = path.join(carpetaResultado, 'sitemap.pdf');
+    fs.renameSync(pdf, nuevoPathPDF);
+    console.log(`✅ Sitemap PDF guardado en: ${nuevoPathPDF}`);
+  } catch (error) {
+    console.error('❌ Error generando reporte de sitemap:', error.message);
+  }
+
+  // 📄 Paso 4: Unificar los PDF
+  const pdfFinal = path.join(carpetaResultado, 'informe-seo-final.pdf');
+  try {
+    await mergePDFs([
+      path.join(carpetaResultado, 'lighthouse.pdf'),
+      path.join(carpetaResultado, 'sitemap.pdf')
+    ], pdfFinal);
+    console.log(`✅ PDF unificado generado: ${pdfFinal}`);
+  } catch (error) {
+    console.error('❌ Error unificando PDF final:', error.message);
   }
 
   console.log('🎉 Análisis completo.');
