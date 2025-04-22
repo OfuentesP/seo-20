@@ -1,44 +1,53 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 const { exec } = require('child_process');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const basePath = path.resolve(__dirname);
-app.use(express.static(path.join(basePath, 'public')));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
+// Endpoint para correr análisis SEO
 app.post('/analizar', (req, res) => {
   const { url } = req.body;
-
   if (!url || !url.startsWith('http')) {
     return res.status(400).json({ error: 'URL inválida' });
   }
 
-  const fecha = new Date().toISOString().split('T')[0];
-  const comando = `node seo20-completo.js "${url}"`;
+  const dominio = new URL(url).hostname.replace('www.', '');
+  const fecha = new Date().toISOString().slice(0, 10);
+  const carpeta = `${fecha}_${dominio}`;
+  const command = `node seo20-completo.js ${url}`;
 
-  exec(comando, { timeout: 180000 }, (error, stdout, stderr) => {
+  exec(command, { cwd: __dirname, timeout: 300000 }, (error, stdout, stderr) => {
     if (error) {
-      console.error('Error al ejecutar análisis:', error);
-      return res.status(500).json({ error: 'Error en el análisis SEO.' });
+      console.error(`❌ Error ejecutando análisis:`, error.message);
+      return res.status(500).json({ error: 'Error ejecutando análisis SEO' });
     }
 
-    const rutaPDF = path.join(__dirname, 'resultados', 'informe-seo.pdf');
-
-    fs.access(rutaPDF, fs.constants.F_OK, (err) => {
-      if (err) {
-        console.error('No se encontró el informe:', rutaPDF);
-        return res.status(404).json({ error: 'Informe no disponible.' });
-      }
-
-      res.download(rutaPDF, 'informe-seo.pdf');
-    });
+    const pdfPath = `/resultados/${carpeta}/informe-seo-final.pdf`;
+    if (fs.existsSync(path.join(__dirname, pdfPath))) {
+      res.json({ success: true, url: pdfPath });
+    } else {
+      res.status(500).json({ error: 'PDF no generado' });
+    }
   });
 });
 
+// Endpoint para descargar PDF
+app.get('/resultados/:carpeta/informe-seo-final.pdf', (req, res) => {
+  const { carpeta } = req.params;
+  const pdfPath = path.join(__dirname, 'resultados', carpeta, 'informe-seo-final.pdf');
+
+  if (fs.existsSync(pdfPath)) {
+    res.sendFile(pdfPath);
+  } else {
+    res.status(404).send('Informe no encontrado.');
+  }
+});
+
 app.listen(PORT, () => {
-  console.log(`🌐 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });
