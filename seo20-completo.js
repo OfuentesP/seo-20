@@ -1,53 +1,56 @@
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
-const { generarBloqueLighthouse } = require('./modulos/lighthouse');
+const { exec } = require('child_process');
+const util = require('util');
+const generarReporteLighthouse = require('./modulos/lighthouse');
 
+const execAsync = util.promisify(exec);
 
-
-const url = process.argv[2];
-
-if (!url || !url.startsWith('http')) {
-  console.error('❌ URL inválida. Usa: node seo20-completo.js https://tusitio.cl');
-  process.exit(1);
+async function generarLighthouseJSON(url, outputPath) {
+  const command = `npx lighthouse ${url} --output=json --output-path=${outputPath} --quiet --chrome-flags="--headless"`;
+  await execAsync(command);
+  console.log(`✅ Lighthouse JSON generado en: ${outputPath}`);
 }
 
-const dominio = new URL(url).hostname.replace(/^www\./, '');
-const fecha = new Date().toISOString().split('T')[0];
-const carpeta = path.join(__dirname, 'resultados', `${fecha}_${dominio}`);
+async function main() {
+  const url = process.argv[2];
+  if (!url) {
+    console.error('❌ Debes ingresar una URL como argumento');
+    process.exit(1);
+  }
 
-// Asegurar carpeta de resultados
-if (!fs.existsSync(carpeta)) {
-  fs.mkdirSync(carpeta, { recursive: true });
+  const dominio = new URL(url).hostname.replace('www.', '');
+  const fecha = new Date().toISOString().slice(0, 10);
+  const carpetaResultado = `./resultados/${fecha}_${dominio}`;
+
+  if (!fs.existsSync(carpetaResultado)) {
+    fs.mkdirSync(carpetaResultado, { recursive: true });
+  }
+
+  console.log('📥 Iniciando análisis SEO para:', url);
+
+  // 🔍 Paso 1: Generar Lighthouse JSON
+  const jsonLighthousePath = path.join(carpetaResultado, 'lighthouse.json');
+  try {
+    console.log('🚦 Ejecutando Lighthouse...');
+    await generarLighthouseJSON(url, jsonLighthousePath);
+  } catch (error) {
+    console.error('❌ Error ejecutando Lighthouse:', error.message);
+    return;
+  }
+
+  // 📊 Paso 2: Generar reporte y PDF
+  try {
+    console.log('📊 Generando reporte Lighthouse...');
+    const { pdf } = await generarReporteLighthouse(jsonLighthousePath);
+    const nuevoPathPDF = path.join(carpetaResultado, 'lighthouse.pdf');
+    fs.renameSync(pdf, nuevoPathPDF);
+    console.log(`✅ Lighthouse PDF guardado en: ${nuevoPathPDF}`);
+  } catch (error) {
+    console.error('❌ Error generando Lighthouse PDF:', error.message);
+  }
+
+  console.log('🎉 Análisis completo.');
 }
 
-// Paso 1: Ejecutar Lighthouse (ejemplo básico, puede cambiar según tu flujo)
-const pathLighthouseJson = path.join(carpeta, 'lighthouse.json');
-console.log('🚀 Ejecutando Lighthouse...');
-execSync(`npx lighthouse ${url} --output=json --output-path="${pathLighthouseJson}" --chrome-flags="--headless"`, {
-  stdio: 'inherit',
-});
-
-console.log('✅ Lighthouse completado.');
-
-// Paso 2: Generar bloque HTML del informe
-console.log('🧩 Generando bloque Lighthouse...');
-const bloqueLighthouse = generarBloqueLighthouse(pathLighthouseJson);
-
-// Paso 3: Guardar HTML temporal (opcional, para debug)
-fs.writeFileSync(path.join(carpeta, 'lighthouse-bloque.html'), bloqueLighthouse, 'utf-8');
-
-// Paso 4: Insertar en flujo de PDF (ejemplo genérico)
-const htmlFinal = `
-<html>
-<head><meta charset="utf-8"><title>Informe SEO</title></head>
-<body>
-  <h1>Informe SEO para ${dominio}</h1>
-  ${bloqueLighthouse}
-</body>
-</html>
-`;
-
-fs.writeFileSync(path.join(carpeta, 'informe.html'), htmlFinal, 'utf-8');
-
-console.log('📄 Informe HTML generado en:', path.join(carpeta, 'informe.html'));
+main();
