@@ -1,81 +1,120 @@
+const { analizarConLighthouse } = require('./modulos/pagespeed');
+const generarReporteSitemap = require('./modulos/sitemap/index');
+const { generarInformeUnificadoCompleto } = require('./generarInformeUnificadoCompleto');
+const generarPDFDesdePlantilla = require('./generarPDFDesdePlantilla');
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
-const util = require('util');
-const generarReporteLighthouse = require('./modulos/lighthouse');
-const generarReporteSitemap = require('./modulos/sitemap');
-const mergePDFs = require('./modulos/merge-pdf');
-
-const execAsync = util.promisify(exec);
-
-async function generarLighthouseJSON(url, outputPath) {
-  const command = `npx lighthouse ${url} --output=json --output-path=${outputPath} --quiet --chrome-flags="--headless"`;
-  await execAsync(command);
-  console.log(`✅ Lighthouse JSON generado en: ${outputPath}`);
-}
+const dayjs = require('dayjs');
 
 async function main() {
-  const url = process.argv[2];
-  if (!url) {
-    console.error('❌ Debes ingresar una URL como argumento');
+  const input = await leerURLDesdeStdin();
+  const url = input.trim();
+
+  if (!url.startsWith('http')) {
+    console.error('❌ URL inválida. Asegúrate de incluir http o https.');
     process.exit(1);
   }
 
-  const dominio = new URL(url).hostname.replace('www.', '');
-  const fecha = new Date().toISOString().slice(0, 10);
-  const carpetaResultado = `./resultados/${fecha}_${dominio}`;
+  const dominio = extraerDominio(url);
+  const fecha = dayjs().format('YYYY-MM-DD');
+  const carpetaDestino = path.join(__dirname, 'resultados', `${fecha}_${dominio}`);
+  fs.mkdirSync(carpetaDestino, { recursive: true });
 
-  if (!fs.existsSync(carpetaResultado)) {
-    fs.mkdirSync(carpetaResultado, { recursive: true });
-  }
+  console.log('🚀 Iniciando análisis con PageSpeed Insights API...');
+  let resultadoLighthouse;
 
-  console.log('📥 Iniciando análisis SEO para:', url);
-
-  // 🚦 Paso 1: Generar Lighthouse JSON
-  const jsonLighthousePath = path.join(carpetaResultado, 'lighthouse.json');
   try {
-    console.log('🚦 Ejecutando Lighthouse...');
-    await generarLighthouseJSON(url, jsonLighthousePath);
+    resultadoLighthouse = await analizarConLighthouse(url);
+    const rutaJson = path.join(carpetaDestino, 'lighthouse.json');
+    fs.writeFileSync(rutaJson, JSON.stringify(resultadoLighthouse.raw, null, 2));
+    console.log(`✅ Resultado guardado en: ${rutaJson}`);
   } catch (error) {
-    console.error('❌ Error ejecutando Lighthouse:', error.message);
-    return;
+    console.error('❌ Error en Lighthouse:', error.message);
+    process.exit(1);
   }
 
-  // 📊 Paso 2: Generar reporte Lighthouse
   try {
-    console.log('📊 Generando reporte Lighthouse...');
-    const { pdf } = await generarReporteLighthouse(jsonLighthousePath);
-    const nuevoPathPDF = path.join(carpetaResultado, 'lighthouse.pdf');
-    fs.renameSync(pdf, nuevoPathPDF);
-    console.log(`✅ Lighthouse PDF guardado en: ${nuevoPathPDF}`);
-  } catch (error) {
-    console.error('❌ Error generando Lighthouse PDF:', error.message);
-  }
+    console.log('📥 Analizando sitemap...');
+    await generarReporteSitemap(url, carpetaDestino);
 
-  // 🗺 Paso 3: Generar análisis de sitemap
-  try {
-    console.log('🗺 Generando análisis de sitemap...');
-    const { pdf } = await generarReporteSitemap(url, carpetaResultado);
-    const nuevoPathPDF = path.join(carpetaResultado, 'sitemap.pdf');
-    fs.renameSync(pdf, nuevoPathPDF);
-    console.log(`✅ Sitemap PDF guardado en: ${nuevoPathPDF}`);
-  } catch (error) {
-    console.error('❌ Error generando reporte de sitemap:', error.message);
-  }
+    console.log('📄 Generando contenido markdown...');
+    const scrapingPath = path.join(carpetaDestino, 'scraping.txt');
+    const textoScraping = fs.existsSync(scrapingPath)
+      ? fs.readFileSync(scrapingPath, 'utf-8')
+      : 'No se encontró contenido del home.';
 
-  // 📄 Paso 4: Unificar los PDF
-  const pdfFinal = path.join(carpetaResultado, 'informe-seo-final.pdf');
-  try {
-    await mergePDFs([
-      path.join(carpetaResultado, 'lighthouse.pdf'),
-      path.join(carpetaResultado, 'sitemap.pdf')
-    ], pdfFinal);
-    console.log(`✅ PDF unificado generado: ${pdfFinal}`);
-  } catch (error) {
-    console.error('❌ Error unificando PDF final:', error.message);
-  }
+    const informeMarkdown = await generarInformeUnificadoCompleto({
+      url,
+      textoScraping,
+      lighthouse: resultadoLighthouse.raw
+    });
 
-  console.log('🎉 Análisis completo.');
+    const sitemapMdPath = path.join(carpetaDestino, 'sitemap-analysis.md');
+    const sitemapMd = fs.existsSync(sitemapMdPath)
+      ? fs.readFileSync(sitemapMdPath, 'utf-8')
+      : '❌ No se pudo generar sitemap-analysis.md';
+
+    const urlsMdPath = path.join(carpetaDestino, 'analisis-por-url.md');
+    const urlsPorPagina = fs.existsSync(urlsMdPath)
+      ? fs.readFileSync(urlsMdPath, 'utf-8')
+      : '❌ No se encontró análisis por URL.';
+
+    const erroresMdPath = path.join(carpetaDestino, 'urls-con-errores.md');
+    const errores404 = fs.existsSync(erroresMdPath)
+      ? fs.readFileSync(erroresMdPath, 'utf-8')
+      : '❌ No se encontraron errores 404 registrados.';
+
+    const resumenMd = resultadoLighthouse.resumenTecnicoSEO || '';
+
+    const webVitals = resultadoLighthouse.webVitals || {};
+    const coreWebVitals = `
+| Métrica | Valor |
+|---------|--------|
+| LCP     | ${webVitals.lcp || 'No disponible'} |
+| CLS     | ${webVitals.cls || 'No disponible'} |
+| TBT     | ${webVitals.fid || 'No disponible'} |
+`;
+
+    const informeDebug = path.join(carpetaDestino, 'informe-debug.md');
+    fs.writeFileSync(informeDebug, informeMarkdown + '\n\n' + sitemapMd + '\n\n' + resumenMd);
+
+    const rutaPDF = path.join(carpetaDestino, 'informe-seo-estilizado.pdf');
+
+    await generarPDFDesdePlantilla({
+      sitio: dominio,
+      fecha,
+      lighthouseScores: informeMarkdown,
+      coreWebVitals,
+      homeResult: textoScraping,
+      recomendaciones: resumenMd,
+      sitemap: sitemapMd,
+      urlsPorPagina,
+      errores404,
+      outputPdfPath: rutaPDF
+    });
+
+    console.log(`✅ PDF final guardado en: ${rutaPDF}`);
+
+  } catch (error) {
+    console.error('❌ Error al generar el informe:', error.message);
+  }
+}
+
+function extraerDominio(url) {
+  return url.replace(/^https?:\/\//, '').split('/')[0];
+}
+
+function leerURLDesdeStdin() {
+  return new Promise((resolve) => {
+    const stdin = process.openStdin();
+    let data = '';
+    stdin.on('data', (chunk) => { data += chunk; });
+    stdin.on('end', () => resolve(data));
+    if (process.stdin.isTTY) {
+      process.stdout.write('🔗 Ingresa la URL: ');
+      process.stdin.once('data', () => process.stdin.end());
+    }
+  });
 }
 
 main();

@@ -1,15 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-async function generarInformeUnificadoCompleto({ url, textoScraping }) {
+async function generarInformeUnificadoCompleto({ url, textoScraping, lighthouse }) {
   const fecha = new Date().toISOString().split('T')[0];
   const dominio = new URL(url).hostname.replace(/^www\./, '');
   const carpeta = path.join(__dirname, 'resultados', `${fecha}_${dominio}`);
 
-  // ---------- HOME RESULT ----------
   const homeResult = [];
 
-  // 🔹 Incluir texto visible del home (scraping)
+  // 🔹 Texto scraping
   if (textoScraping && textoScraping.length > 0) {
     homeResult.push({
       titulo: 'Texto visible del home (scraping)',
@@ -22,17 +21,26 @@ async function generarInformeUnificadoCompleto({ url, textoScraping }) {
     });
   }
 
-  // 🔹 Metadata
-  const metadataPath = path.join(carpeta, 'metadata.json');
-  if (fs.existsSync(metadataPath)) {
-    const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+  // 🔹 Lighthouse puntajes
+  if (lighthouse?.categories) {
+    const categories = lighthouse.categories;
+    const puntajes = [
+      { categoria: 'SEO', valor: categories.seo?.score != null ? `${categories.seo.score * 100} / 100` : 'No disponible' },
+      { categoria: 'Rendimiento', valor: categories.performance?.score != null ? `${categories.performance.score * 100} / 100` : 'No disponible' },
+      { categoria: 'Accesibilidad', valor: categories.accessibility?.score != null ? `${categories.accessibility.score * 100} / 100` : 'No disponible' }
+    ];
+
+    const tabla = `| Categoría      | Puntaje     |
+|----------------|-------------|
+${puntajes.map(p => `| ${p.categoria.padEnd(14)} | ${p.valor} |`).join('\n')}`;
+
     homeResult.push({
-      titulo: 'Metadatos',
-      contenido: JSON.stringify(metadata, null, 2)
+      titulo: 'Puntajes Lighthouse',
+      contenido: tabla
     });
   }
 
-  // 🔹 Secciones extraídas
+  // 🔹 Secciones si están disponibles
   const seccionesPath = path.join(carpeta, 'secciones.json');
   if (fs.existsSync(seccionesPath)) {
     const secciones = JSON.parse(fs.readFileSync(seccionesPath, 'utf-8'));
@@ -42,85 +50,26 @@ async function generarInformeUnificadoCompleto({ url, textoScraping }) {
     });
   }
 
-  // 🔹 Resultado Lighthouse
-  const lighthousePath = path.join(carpeta, 'lighthouse.json');
-  let lighthouseData = null;
-  if (fs.existsSync(lighthousePath)) {
-    lighthouseData = JSON.parse(fs.readFileSync(lighthousePath, 'utf-8'));
-    const seo = lighthouseData.categories?.seo?.score ?? null;
-const performance = lighthouseData.categories?.performance?.score ?? null;
-const accessibility = lighthouseData.categories?.accessibility?.score ?? null;
-
-const puntajes = [
-  { categoria: 'SEO', valor: seo !== null ? `${seo * 100} / 100` : 'No disponible' },
-  { categoria: 'Rendimiento', valor: performance !== null ? `${performance * 100} / 100` : 'No disponible' },
-  { categoria: 'Accesibilidad', valor: accessibility !== null ? `${accessibility * 100} / 100` : 'No disponible' }
-];
-
-const tablaHTML = `
-  <table>
-    <thead><tr><th>Categoría</th><th>Puntaje</th></tr></thead>
-    <tbody>
-      ${puntajes.map(p => `<tr><td>${p.categoria}</td><td>${p.valor}</td></tr>`).join('\n')}
-    </tbody>
-  </table>
-`;
-
-homeResult.push({
-  titulo: 'Puntajes Lighthouse',
-  contenido: tablaHTML
-});
-
+  // 🔹 Metadata si está
+  const metadataPath = path.join(carpeta, 'metadata.json');
+  if (fs.existsSync(metadataPath)) {
+    const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+    homeResult.push({
+      titulo: 'Metadatos',
+      contenido: JSON.stringify(metadata, null, 2)
+    });
   }
 
-  // ---------- CONSTRUCCIÓN DE INFORME MARKDOWN ----------
-  let markdown = `# Informe SEO\n\n`;
-  markdown += `**URL:** ${url}\n`;
-  markdown += `**Fecha:** ${fecha}\n\n`;
+  // 🔹 Render final
+  let markdown = `# 📊 Informe SEO Consolidado – ${dominio}\n\n`;
+  markdown += `_Fecha: ${fecha}_\n\n`;
 
-  markdown += `## Análisis del Home\n`;
-  homeResult.forEach(bloque => {
-    markdown += `### ${bloque.titulo}\n`;
-    markdown += `${bloque.contenido}\n\n`;
-  });
-
-  // 🔹 Análisis Sitemap
-  const sitemapPath = path.join(carpeta, 'sitemap-analysis.md');
-  if (fs.existsSync(sitemapPath)) {
-    markdown += `## Análisis del Sitemap\n`;
-    markdown += fs.readFileSync(sitemapPath, 'utf-8');
-    markdown += '\n\n';
+  markdown += `## 🏠 Análisis del Home\n\n`;
+  for (const bloque of homeResult) {
+    markdown += `### ${bloque.titulo}\n${bloque.contenido}\n\n`;
   }
 
-  // 🔹 Análisis Masivo
-  const urlsPath = path.join(carpeta, 'analisis-por-url.md');
-  if (fs.existsSync(urlsPath)) {
-    markdown += `## Análisis por URL\n`;
-    markdown += fs.readFileSync(urlsPath, 'utf-8');
-    markdown += '\n\n';
-  }
-
-  // 🔹 URLs con error
-  const erroresPath = path.join(carpeta, 'urls-con-errores.md');
-  if (fs.existsSync(erroresPath)) {
-    markdown += `## URLs con error 404 u otros\n`;
-    markdown += fs.readFileSync(erroresPath, 'utf-8');
-    markdown += '\n\n';
-  }
-
-  // 🔹 Recomendaciones SEO
-  const recomendacionesPath = path.join(carpeta, 'recomendaciones.md');
-  if (fs.existsSync(recomendacionesPath)) {
-    markdown += `## Recomendaciones SEO\n`;
-    markdown += fs.readFileSync(recomendacionesPath, 'utf-8');
-    markdown += '\n\n';
-  }
-
-  return {
-    homeResult,
-    // también puedes retornar otros valores más adelante
-  };
-  
+  return markdown;
 }
 
 module.exports = {
