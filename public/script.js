@@ -22,17 +22,16 @@ document.getElementById('form-analisis').addEventListener('submit', async (e) =>
     estado.innerText = '📥 Generando informe...';
     barra.style.width = '60%';
 
-    const blob = await res.blob();
-    const urlBlob = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = urlBlob;
-    link.download = 'informe-seo.pdf'; // Cambiar esto si el nombre es dinámico
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    const data = await res.json();
 
-    estado.innerText = '✅ Análisis completo. Informe descargado.';
-    barra.style.width = '100%';
+    if (data.success) {
+      estado.innerText = '✅ Informe generado. Abriendo informe...';
+      barra.style.width = '100%';
+      window.open(data.url, '_blank'); // Abre el PDF en otra pestaña
+    } else {
+      throw new Error('El informe no fue generado correctamente.');
+    }
+
   } catch (err) {
     console.error('❌ Error:', err);
     estado.innerText = '❌ Error al ejecutar análisis.';
